@@ -25,7 +25,7 @@
     const infoWindow = new google.maps.InfoWindow();
 
     map_points.forEach(function (item, index) {
-       uluru = { lat: item.position_lat, lng: item.position_lng };
+       uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
 
        let marker;
 
