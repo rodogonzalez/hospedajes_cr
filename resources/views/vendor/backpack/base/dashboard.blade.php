@@ -21,7 +21,7 @@ window.initMap = initMap;
     #map{
         display:block;
         width:100%;
-        height:100%;
+        height:300px;
         border:1px solid #000;
     }
 </style>
@@ -29,5 +29,5 @@ window.initMap = initMap;
   
     <div id="map"></div>
   
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8&amp;libraries=places&amp;ver=6.0.2" id="wcfm-store-google-maps-js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
 @endsection
