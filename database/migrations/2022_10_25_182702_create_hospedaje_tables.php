@@ -67,8 +67,8 @@ return new class extends Migration
             $table->string('phone_contact');
             $table->unsignedBigInteger('country_parts_destinations_id'); 
             
-            $table->float('position_lng', 8, 6)->nullable();             
-            $table->float('position_lat', 8, 6)->nullable(); 
+            $table->float('position_lng', 10, 6)->nullable();             
+            $table->float('position_lat', 10, 6)->nullable(); 
                      
             $table->text('description')->nullable();;
             $table->timestamps();

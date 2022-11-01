@@ -45,7 +45,7 @@
             });
 
 
-      console.log(item,uluru, index);
+      //console.log(item,uluru, index);
 
     });  
 
