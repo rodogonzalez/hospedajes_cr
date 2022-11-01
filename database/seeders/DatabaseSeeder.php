@@ -104,9 +104,9 @@ class DatabaseSeeder extends Seeder
 
 
 
-        \App\Models\User::factory(200)->create();
-        \App\Models\CountryPartsDestination::factory(200)->create();
-        \App\Models\HostingProvider::factory(200)->create();
+        //\App\Models\User::factory(200)->create();
+        \App\Models\CountryPartsDestination::factory(10)->create();
+        \App\Models\HostingProvider::factory(20)->create();
 
 
     }
