@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('flag')->nullable();
             $table->string('phone_prefix')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('currency')->nullable();
             $table->enum('language', ['Ingles', 'Español', 'Frances', 'Aleman', 'Idioma Nativo Americano'])->nullable();
             $table->string('main_youtube_video')->nullable();
@@ -62,11 +62,15 @@ return new class extends Migration
         
         Schema::create('hosting_providers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');   
+            $table->string('email');
+            $table->string('phone_contact');
             $table->unsignedBigInteger('country_parts_destinations_id'); 
-            $table->integer('position_lng')->nullable();; 
-            $table->integer('position_lat')->nullable();; 
-            $table->string('name');            
-            $table->string('description')->nullable();;
+            
+            $table->double('position_lng', 8, 2)->nullable();             
+            $table->double('position_lat', 8, 2)->nullable(); 
+                     
+            $table->text('description')->nullable();;
             $table->timestamps();
             $table->foreign('country_parts_destinations_id')->references('id')->on('country_parts_destinations');    
             	
@@ -77,7 +81,7 @@ return new class extends Migration
             $table->unsignedBigInteger('hosting_providers_id'); 
             $table->string('name');
             $table->integer('price')->nullable();;
-            $table->string('description')->nullable();;
+            $table->text('description')->nullable();;
             $table->timestamps();
             $table->foreign('hosting_providers_id')->references('id')->on('hosting_providers');    
             	
@@ -89,7 +93,7 @@ return new class extends Migration
             $table->unsignedBigInteger('country_parts_destinations_id'); 
             $table->string('name');
             $table->integer('price')->nullable();;
-            $table->string('description')->nullable();;
+            $table->text('description')->nullable();;
             $table->timestamps();
             $table->foreign('country_parts_destinations_id')->references('id')->on('country_parts_destinations');    
             	
@@ -97,11 +101,11 @@ return new class extends Migration
 
         Schema::create('airlines', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('countries_id')->nullable();;; 
+            $table->unsignedBigInteger('countries_id')->nullable();
             $table->string('name')->unique();
             $table->string('link')->nullable();
             $table->string('logo')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->foreign('countries_id')->references('id')->on('countries');    
             	
@@ -109,10 +113,10 @@ return new class extends Migration
 
         Schema::create('rent_a_cars', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('countries_id')->nullable();; 
+            $table->unsignedBigInteger('countries_id')->nullable();
             $table->string('name');
-            $table->string('link')->nullable();;
-            $table->string('description')->nullable();;
+            $table->string('link')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->foreign('countries_id')->references('id')->on('countries');
             	

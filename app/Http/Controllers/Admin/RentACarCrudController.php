@@ -28,7 +28,7 @@ class RentACarCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\RentACar::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/rent-a-car');
-        CRUD::setEntityNameStrings('rent a car', 'rent a cars');
+        CRUD::setEntityNameStrings('Rent a car', 'Rent a cars');
     }
 
     /**

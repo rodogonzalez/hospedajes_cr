@@ -28,7 +28,7 @@ class AirlineCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Airline::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/airline');
-        CRUD::setEntityNameStrings('airline', 'airlines');
+        CRUD::setEntityNameStrings('Aerolinea', 'Aerolineas');
     }
 
     /**

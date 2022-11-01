@@ -17,8 +17,8 @@
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('country') }}"><i class="nav-icon la la-question"></i> Paises</a></li>
         
         
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('country-part') }}"><i class="nav-icon la la-question"></i> Country parts</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('country-parts-destination') }}"><i class="nav-icon la la-question"></i> Country parts destinations</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('country-part') }}"><i class="nav-icon la la-question"></i> Provincias/Departamentos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('country-parts-destination') }}"><i class="nav-icon la la-question"></i> Destinos</a></li>
 
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('hosting-feature') }}"><i class="nav-icon la la-question"></i> Caracteristica de Hospedaje</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('tour-activity-type') }}"><i class="nav-icon la la-question"></i> Actividades de Tour</a></li>
@@ -34,10 +34,18 @@
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> Admin</a>
     <ul class="nav-dropdown-items">
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Users</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Usuarios</span></a></li>
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-id-badge"></i> <span>Roles</span></a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-key"></i> <span>Permissions</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-key"></i> <span>Permisos</span></a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon la la-cog'></i> <span>Settings</span></a></li>
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('elfinder') }}"><i class="nav-icon la la-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li>
     </ul>
 </li>
+
+<style>
+.nav-item{
+    font-size:10px;
+
+}
+
+</style>

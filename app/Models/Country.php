@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CountryPart;
 
 class Country extends Model
 {
@@ -28,6 +29,12 @@ class Country extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function sections(){
+        return $this->hasMany(CountryPart::class, 'countries_id');
+    }
+    
+
+
 
     /*
     |--------------------------------------------------------------------------

@@ -28,7 +28,7 @@ class HostingOfferCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\HostingOffer::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/hosting-offer');
-        CRUD::setEntityNameStrings('hosting offer', 'hosting offers');
+        CRUD::setEntityNameStrings('Habitacion', 'Habitaciones');
     }
 
     /**

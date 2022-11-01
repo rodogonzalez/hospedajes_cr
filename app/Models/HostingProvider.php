@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\CountryPartsDestination;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class HostingProvider extends Model
 {
-    use CrudTrait;
+    use CrudTrait, HasFactory;
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +35,10 @@ class HostingProvider extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function country_parts_destinations(){
+
+        return $this->belongsTo(CountryPartsDestination::class,'country_parts_destinations_id');
+    }
 
     /*
     |--------------------------------------------------------------------------

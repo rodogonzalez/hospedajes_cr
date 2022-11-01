@@ -28,7 +28,7 @@ class HostingFeatureCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\HostingFeature::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/hosting-feature');
-        CRUD::setEntityNameStrings('hosting feature', 'hosting features');
+        CRUD::setEntityNameStrings('Caracteristica de Hospedajes', 'Caracteristicas de Hospedajes');
     }
 
     /**

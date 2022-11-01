@@ -28,7 +28,7 @@ class TourActivityTypeCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\TourActivityType::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/tour-activity-type');
-        CRUD::setEntityNameStrings('tour activity type', 'tour activity types');
+        CRUD::setEntityNameStrings('Tipo de Actividad de Toures', 'Tipos de Actividad de Toures');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Country;
 
 class CountryPart extends Model
 {
@@ -34,6 +35,11 @@ class CountryPart extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function country_options(){
+
+        return $this->belongsTo(Country::class,'countries_id');
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -52,4 +58,9 @@ class CountryPart extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function getNameAttribute($val){
+
+        return Country::find($this->countries_id)->name .  '::' .  $val ;
+
+    }
 }

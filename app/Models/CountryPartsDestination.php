@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CountryPart;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CountryPartsDestination extends Model
 {
-    use CrudTrait;
+    use CrudTrait, HasFactory;
 
     /*
     |--------------------------------------------------------------------------
@@ -29,11 +31,16 @@ class CountryPartsDestination extends Model
     |--------------------------------------------------------------------------
     */
 
+     
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function country_section_options(){
+
+        return $this->belongsTo(CountryPart::class, 'country_parts_id');
+    }
 
     /*
     |--------------------------------------------------------------------------
