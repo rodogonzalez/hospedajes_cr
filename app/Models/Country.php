@@ -59,4 +59,22 @@ class Country extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function setFlagAttribute($value)
+    {
+        $attribute_name = "flag";
+        $disk = "public";
+        $destination_path = "/";
+
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+
+    // return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
+    }
+
+    public function getFlagAttribute($value)
+    {
+        return '/storage/' .  $value;
+    }
+    
+    
 }

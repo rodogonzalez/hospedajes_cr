@@ -46,6 +46,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('countries_id');
             $table->timestamps();    
+            $table->text('photos')->nullable();
             $table->foreign('countries_id')->references('id')->on('countries');
             	
 
@@ -55,6 +56,7 @@ return new class extends Migration
             $table->id();           
             $table->string('name');
             $table->unsignedBigInteger('country_parts_id');
+            $table->text('photos')->nullable();
             $table->timestamps();
             $table->foreign('country_parts_id')->references('id')->on('country_parts');    
             	
@@ -71,6 +73,7 @@ return new class extends Migration
             $table->float('position_lat', 10, 6)->nullable(); 
                      
             $table->text('description')->nullable();;
+            $table->text('photos')->nullable();
             $table->timestamps();
             $table->foreign('country_parts_destinations_id')->references('id')->on('country_parts_destinations');    
             	
@@ -92,8 +95,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('country_parts_destinations_id'); 
             $table->string('name');
-            $table->integer('price')->nullable();;
-            $table->text('description')->nullable();;
+            $table->integer('price')->nullable();
+            $table->text('description')->nullable();
+            $table->text('photos')->nullable();
             $table->timestamps();
             $table->foreign('country_parts_destinations_id')->references('id')->on('country_parts_destinations');    
             	
