@@ -69,27 +69,17 @@ class HostingProviderCrudController extends CrudController
         CRUD::field('name');
         
         
-
+/*
         $this->crud->addField([  
             'label'     => 'Descripcion',
             'type'      => 'textarea',
             'name'      => 'description',                    
         ]);
-
+*/
 
         CRUD::field('position_lng');
         CRUD::field('position_lat');
 
-        $this->crud->addField([   // Checklist
-            'label'     => 'Caracteristicas Generales',
-            'type'      => 'checklist',
-            'name'      => 'HostingFeature',            
-            'model'     => "App\Models\HostingFeature",
-            'pivot'     => false,
-            'fake'     => true, // show the field, but don't store it in the database column above
-
-            // 'number_of_columns' => 3,
-        ]);
 
 
         $this->crud->addField([  // Select
@@ -125,6 +115,16 @@ class HostingProviderCrudController extends CrudController
         ]);
         
         
+        $this->crud->addField([   // Checklist
+            'label'     => 'Caracteristicas Generales',
+            'type'      => 'checklist',
+            'name'      => 'description',            
+            'model'     => "App\Models\HostingFeature",
+            'pivot'     => false,
+            //'fake'     => true, // show the field, but don't store it in the database column above
+
+            // 'number_of_columns' => 3,
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -132,6 +132,20 @@ class HostingProviderCrudController extends CrudController
          * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
          */
     }
+
+/*
+    public function store()
+    {
+        //dd($this->crud);
+        return 
+    }
+
+    public function update()
+    {
+      return $this->store();
+    }
+
+*/
 
     /**
      * Define what happens when the Update operation is loaded.

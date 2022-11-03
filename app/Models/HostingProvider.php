@@ -24,6 +24,12 @@ class HostingProvider extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    
+    protected $casts = [
+        'photos'        => 'array',
+        'description'   => 'array',
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

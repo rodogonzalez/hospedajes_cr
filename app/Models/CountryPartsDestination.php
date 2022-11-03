@@ -25,6 +25,10 @@ class CountryPartsDestination extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    protected $casts = [
+        'photos' => 'array'
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

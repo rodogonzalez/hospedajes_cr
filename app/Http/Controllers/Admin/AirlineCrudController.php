@@ -67,8 +67,34 @@ class AirlineCrudController extends CrudController
         CRUD::field('countries_id');
         CRUD::field('name');
         CRUD::field('link');
-        CRUD::field('logo');
+
+        
+        
+        $this->crud->addField([   // Checklist
+            'label'     => 'Paises en los que Vuela',
+            'type'      => 'checklist',
+            'name'      => 'countries',            
+            'model'     => "App\Models\Country",
+            'pivot'     => false,
+            //'fake'     => true, // show the field, but don't store it in the database column above
+
+            // 'number_of_columns' => 3,
+        ]);
+        
         CRUD::field('description');
+
+        
+        $this->crud->addField([   // Upload
+            'name'      => 'logo',
+            'label'     => 'Logo',
+            'type'      => 'upload',
+            'upload'    => true,
+            //'disk'      => 'public', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
+            // optional:
+            //'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
+        ]);
+
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

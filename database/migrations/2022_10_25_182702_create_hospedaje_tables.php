@@ -67,16 +67,13 @@ return new class extends Migration
             $table->string('name');   
             $table->string('email');
             $table->string('phone_contact');
-            $table->unsignedBigInteger('country_parts_destinations_id'); 
-            
+            $table->unsignedBigInteger('country_parts_destinations_id');             
             $table->float('position_lng', 10, 6)->nullable();             
-            $table->float('position_lat', 10, 6)->nullable(); 
-                     
+            $table->float('position_lat', 10, 6)->nullable();                      
             $table->text('description')->nullable();;
             $table->text('photos')->nullable();
             $table->timestamps();
-            $table->foreign('country_parts_destinations_id')->references('id')->on('country_parts_destinations');    
-            	
+            $table->foreign('country_parts_destinations_id')->references('id')->on('country_parts_destinations');                	
         });
 
         Schema::create('hosting_offers', function (Blueprint $table) {
@@ -109,6 +106,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('link')->nullable();
             $table->string('logo')->nullable();
+            $table->text('countries')->nullable();            
             $table->text('description')->nullable();
             $table->timestamps();
             $table->foreign('countries_id')->references('id')->on('countries');    

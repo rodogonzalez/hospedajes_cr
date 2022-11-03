@@ -23,6 +23,11 @@ class Airline extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    
+    protected $casts = [        
+        'countries'   => 'array',
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -52,4 +57,21 @@ class Airline extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    
+    public function setLogoAttribute($value)
+    {
+        $attribute_name = "logo";
+        $disk = "public";
+        $destination_path = "/";
+
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
+
+    // return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
+    }
+
+    public function getLogoAttribute($value)
+    {
+        return '/storage/' .  $value;
+    }
+    
 }
