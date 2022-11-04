@@ -11,7 +11,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class CountryPartsDestinationCrudController extends CrudController
+class CountryPartsDestinationCrudController extends AbstractLocationFields
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -62,7 +62,7 @@ class CountryPartsDestinationCrudController extends CrudController
 
         CRUD::field('name');
 //        CRUD::field('');
-
+        
 
 
         $this->crud->addField([  // Select
@@ -96,14 +96,9 @@ class CountryPartsDestinationCrudController extends CrudController
             //'disk'      => 'public', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
             // optional:
             //'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
-        ]);
-        
+        ]);        
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        $this->setLocationFields();        
     }
 
     /**

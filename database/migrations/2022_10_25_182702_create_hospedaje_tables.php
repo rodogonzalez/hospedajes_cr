@@ -55,8 +55,11 @@ return new class extends Migration
         Schema::create('country_parts_destinations', function (Blueprint $table) {
             $table->id();           
             $table->string('name');
+            $table->float('position_lng', 10, 6)->nullable();             
+            $table->float('position_lat', 10, 6)->nullable();                      
             $table->unsignedBigInteger('country_parts_id');
             $table->text('photos')->nullable();
+
             $table->timestamps();
             $table->foreign('country_parts_id')->references('id')->on('country_parts');    
             	
@@ -93,6 +96,8 @@ return new class extends Migration
             $table->unsignedBigInteger('country_parts_destinations_id'); 
             $table->string('name');
             $table->integer('price')->nullable();
+            $table->float('position_lng', 10, 6)->nullable();             
+            $table->float('position_lat', 10, 6)->nullable();                      
             $table->text('description')->nullable();
             $table->text('photos')->nullable();
             $table->timestamps();
