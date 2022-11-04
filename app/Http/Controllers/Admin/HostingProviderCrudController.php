@@ -64,6 +64,9 @@ class HostingProviderCrudController extends CrudController
     {
         CRUD::setValidation(HostingProviderRequest::class);
 
+        
+        
+
         //CRUD::field('');
         
         CRUD::field('name');
@@ -76,9 +79,6 @@ class HostingProviderCrudController extends CrudController
             'name'      => 'description',                    
         ]);
 */
-
-        CRUD::field('position_lng');
-        CRUD::field('position_lat');
 
 
 
@@ -112,6 +112,116 @@ class HostingProviderCrudController extends CrudController
             //'disk'      => 'public', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
             // optional:
             //'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
+        ]);
+
+
+
+        //CRUD::field('position_lng');
+        $this->crud->addField([   // CustomHTML
+            'name'  => 'position_lng',
+            'type'  => 'text',
+            //'attributes'  => ' id = "position_lng" '
+            'attributes' => [ 'id' => 'position_lng']
+
+
+            ]);
+        $this->crud->addField([   // CustomHTML
+            'name'  => 'position_lat',
+            'type'  => 'text',
+            //'attributes'  => ' id = "" '
+            'attributes' => [ 'id' => 'position_lat']
+
+
+            ]);
+            
+
+        
+
+        $pos_lat = 0;
+        $pos_lng = 0;            
+        
+
+        if ($this->crud->getCurrentEntry() !== false) {
+            $pos_lat = $this->crud->getCurrentEntry()->position_lat;
+            $pos_lng = $this->crud->getCurrentEntry()->position_lng;            
+        }
+        
+ 
+
+        $this->crud->addField([   // CustomHTML
+            'name'  => 'separator',
+            'type'  => 'custom_html',
+            'value' => '<div id="map"></div><hr>
+            
+            <script>
+                
+
+    
+    let uluru;
+
+
+  function initMap() {
+
+
+
+
+
+    uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
+
+
+    const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat:  parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') },
+        zoom: 10,
+      });
+  
+
+
+    let marker;
+
+    // The marker, positioned at Uluru
+    marker = new google.maps.Marker({
+            draggable: true,
+          position: uluru,
+          title: "posicion",
+          //label: item.name,
+          map: map,
+        });
+
+        marker.addListener("dragend", function(event) { 
+            
+            let lat = event.latLng.lat(); 
+            let lng = event.latLng.lng(); 
+
+            document.getElementById("position_lat").value = lat;
+            document.getElementById("position_lng").value = lng;
+
+
+            //console.log(event.latLng);
+
+          }); 
+
+    
+
+  }
+
+  window.onload = initMap;
+
+
+</script>
+
+
+<style>
+
+    #map{
+        display:block;
+        width:100%;
+        height:70vh;
+        border:1px solid #000;
+    }
+</style>
+  
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
+            '
         ]);
         
         
