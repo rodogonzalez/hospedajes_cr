@@ -142,7 +142,7 @@ function initMap() {
      marker.addListener("click", () => {
            infoWindow.close();         
 
-           let link  = "<a href=\''.$contry->name . '\"+ marker.getTitle()  + ">";
+           let link  = "<a href=\''.$contry->name . '\"+ marker.getTitle()  + "\'>";
            
            infoWindow.setContent(link + marker.getTitle()  + "</a>");
 
