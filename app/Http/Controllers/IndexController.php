@@ -136,8 +136,7 @@ function initMap() {
      // The marker, positioned at Uluru
      marker = new google.maps.Marker({
        position: uluru,
-       title: item.slug,       
-       
+       title: item.slug,              
        map: map,
      });
 
@@ -145,7 +144,7 @@ function initMap() {
      marker.addListener("click", () => {
            infoWindow.close();         
 
-           infoWindow.setContent("<a href=\'" + marker.getTitle()  + "\'>" + marker.getTitle()  + "</a>");
+           infoWindow.setContent("<a href=\'\\'. $countr->name .'\" + marker.getTitle()  + "\'>" + marker.getTitle()  + "</a>");
            infoWindow.open(marker.getMap(), marker);
          });
    //console.log(item,uluru, index);
