@@ -5,6 +5,9 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CountryPart;
+use App\Models\HostingProvider;
+use App\Models\Tour;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CountryPartsDestination extends Model
@@ -45,6 +48,17 @@ class CountryPartsDestination extends Model
 
         return $this->belongsTo(CountryPart::class, 'country_parts_id');
     }
+
+    public function hostings(){
+
+        return $this->hasMany(HostingProvider::class, 'country_parts_destinations_id');
+    }
+
+    public function tours(){
+
+        return $this->hasMany(Tour::class, 'country_parts_destinations_id');
+    }
+
 
     /*
     |--------------------------------------------------------------------------

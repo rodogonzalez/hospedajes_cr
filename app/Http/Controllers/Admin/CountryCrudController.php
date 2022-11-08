@@ -11,7 +11,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class CountryCrudController extends CrudController
+class CountryCrudController extends AbstractLocationFields
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -40,7 +40,7 @@ class CountryCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name')->label('Nombre');
-        //CRUD::column('flag')->label('Bandera');
+        CRUD::column('slug')->label('Slug');
         CRUD::column('phone_prefix')->label('Prefijo');;
         //CRUD::column('description');
         CRUD::column('currency')->label('Moneda');;
@@ -68,12 +68,19 @@ class CountryCrudController extends CrudController
 
         
         CRUD::field('name')->label('Nombre');
+        $this->crud->addField([
+            'name' => 'slug',
+            'type' => 'text',
+            'label' => "URL Segment (slug)"
+          ]);
         //CRUD::field('flag')->label('Bandera');
         CRUD::field('phone_prefix')->label('Prefijo de Telefono');
         CRUD::field('description')->label('Descripcion');
         CRUD::field('currency')->label('Moneda');
         CRUD::field('language')->label('Lenguaje');
         CRUD::field('main_youtube_video')->label('Link Youtube');
+
+        $this->setLocationFields();
 
         $this->crud->addField([   // Upload
                                     'name'      => 'flag',

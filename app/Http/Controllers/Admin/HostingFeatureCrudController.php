@@ -40,6 +40,11 @@ class HostingFeatureCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name');
+        $this->crud->addField([
+            'name' => 'slug',
+            'type' => 'text',
+            'label' => "URL Segment (slug)"
+          ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

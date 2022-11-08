@@ -59,7 +59,11 @@ class TourActivityTypeCrudController extends CrudController
         CRUD::setValidation(TourActivityTypeRequest::class);
 
         CRUD::field('name');
-
+        $this->crud->addField([
+            'name' => 'slug',
+            'type' => 'text',
+            'label' => "URL Segment (slug)"
+          ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

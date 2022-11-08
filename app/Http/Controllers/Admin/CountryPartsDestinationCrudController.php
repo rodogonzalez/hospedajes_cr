@@ -63,7 +63,11 @@ class CountryPartsDestinationCrudController extends AbstractLocationFields
         CRUD::field('name');
 //        CRUD::field('');
         
-
+        $this->crud->addField([
+            'name' => 'slug',
+            'type' => 'text',
+            'label' => "URL Segment (slug)"
+        ]);
 
         $this->crud->addField([  // Select
             'label'     => "Provincia",

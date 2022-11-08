@@ -66,6 +66,11 @@ class AirlineCrudController extends CrudController
 
         CRUD::field('countries_id');
         CRUD::field('name');
+        $this->crud->addField([
+            'name' => 'slug',
+            'type' => 'text',
+            'label' => "URL Segment (slug)"
+          ]);
         CRUD::field('link');
 
         

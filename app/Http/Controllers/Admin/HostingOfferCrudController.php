@@ -65,6 +65,11 @@ class HostingOfferCrudController extends CrudController
 
         CRUD::field('hosting_providers_id');
         CRUD::field('name');
+        $this->crud->addField([
+            'name' => 'slug',
+            'type' => 'text',
+            'label' => "URL Segment (slug)"
+          ]);
         CRUD::field('price');
         CRUD::field('description');
 

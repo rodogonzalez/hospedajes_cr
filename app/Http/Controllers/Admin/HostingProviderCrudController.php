@@ -70,6 +70,11 @@ class HostingProviderCrudController extends AbstractLocationFields
         //CRUD::field('');
         
         CRUD::field('name');
+        $this->crud->addField([
+            'name' => 'slug',
+            'type' => 'text',
+            'label' => "URL Segment (slug)"
+          ]);
         
         
 /*

@@ -26,7 +26,7 @@ class  AbstractLocationFields extends CrudController
         //CRUD::field('position_lng');
         $this->crud->addField([   // CustomHTML
             'name'  => 'position_lng',
-            'type'  => 'hidden',
+            'type'  => 'text',
             //'attributes'  => ' id = "position_lng" '
             'attributes' => [ 'id' => 'position_lng']
 
@@ -34,7 +34,7 @@ class  AbstractLocationFields extends CrudController
             ]);
         $this->crud->addField([   // CustomHTML
             'name'  => 'position_lat',
-            'type'  => 'hidden',
+            'type'  => 'text',
             
             //'attributes'  => ' id = "" '
             'attributes' => [ 'id' => 'position_lat']

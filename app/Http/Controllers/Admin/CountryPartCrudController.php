@@ -11,7 +11,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class CountryPartCrudController extends CrudController
+class CountryPartCrudController extends AbstractLocationFields
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -62,8 +62,12 @@ class CountryPartCrudController extends CrudController
         CRUD::setValidation(CountryPartRequest::class);
 
         CRUD::field('name');
-        
-
+        $this->setLocationFields();
+        $this->crud->addField([
+            'name' => 'slug',
+            'type' => 'text',
+            'label' => "URL Segment (slug)"
+          ]);
 
         $this->crud->addField([  // Select
             'label'     => "Pais",

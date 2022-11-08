@@ -9,11 +9,22 @@
     
     let uluru;
 
-    map_points= <?php 
+    let countries;
+
+    countries = <?php 
+    
+    $paises = \App\Models\Country::all();
+    echo $paises->toJson();
+    ?>;
+
+
+    map_points= [];/* 
+    <?php 
     
     $hospedajes = \App\Models\HostingProvider::all();
     echo $hospedajes->toJson();
-    ?>;
+    ?>; 
+    */
   function initMap() {
 
 
@@ -23,6 +34,34 @@
     });
 
     const infoWindow = new google.maps.InfoWindow();
+
+
+    countries.forEach(function (item, index) {
+       uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
+
+       let marker;
+
+        // The marker, positioned at Uluru
+        marker = new google.maps.Marker({
+          position: uluru,
+          title: item.name,
+          //label: item.name,
+          map: map,
+        });
+
+        // Add a click listener for each marker, and set up the info window.
+        marker.addListener("click", () => {
+              infoWindow.close();
+              infoWindow.setContent(marker.getTitle());
+              infoWindow.open(marker.getMap(), marker);
+            });
+
+
+      //console.log(item,uluru, index);
+
+    });  
+
+
 
     map_points.forEach(function (item, index) {
        uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };

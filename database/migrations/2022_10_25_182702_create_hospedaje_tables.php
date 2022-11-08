@@ -17,12 +17,14 @@ return new class extends Migration
         Schema::create('hosting_features', function (Blueprint $table) {
             $table->id();            
             $table->string('name');
+            $table->string('slug');
             	
         });        
        
         Schema::create('tour_activity_types', function (Blueprint $table) {
             $table->id();            
             $table->string('name');
+            $table->string('slug');
             	
         });
         
@@ -31,11 +33,14 @@ return new class extends Migration
             $table->id();            
             $table->string('name')->unique();
             $table->string('flag')->nullable();
+            $table->float('position_lng', 10, 6)->nullable();             
+            $table->float('position_lat', 10, 6)->nullable();                      
             $table->string('phone_prefix')->nullable();
             $table->text('description')->nullable();
             $table->string('currency')->nullable();
             $table->enum('language', ['Ingles', 'Español', 'Frances', 'Aleman', 'Idioma Nativo Americano'])->nullable();
             $table->string('main_youtube_video')->nullable();
+            $table->string('slug');
             $table->timestamps();
             	
 
@@ -44,6 +49,9 @@ return new class extends Migration
         Schema::create('country_parts', function (Blueprint $table) {
             $table->id();           
             $table->string('name');
+            $table->string('slug');
+            $table->float('position_lng', 10, 6)->nullable();             
+            $table->float('position_lat', 10, 6)->nullable();                      
             $table->unsignedBigInteger('countries_id');
             $table->timestamps();    
             $table->text('photos')->nullable();
@@ -55,6 +63,7 @@ return new class extends Migration
         Schema::create('country_parts_destinations', function (Blueprint $table) {
             $table->id();           
             $table->string('name');
+            $table->string('slug');
             $table->float('position_lng', 10, 6)->nullable();             
             $table->float('position_lat', 10, 6)->nullable();                      
             $table->unsignedBigInteger('country_parts_id');
@@ -68,6 +77,7 @@ return new class extends Migration
         Schema::create('hosting_providers', function (Blueprint $table) {
             $table->id();
             $table->string('name');   
+            $table->string('slug');
             $table->string('email');
             $table->string('phone_contact');
             $table->unsignedBigInteger('country_parts_destinations_id');             
@@ -83,6 +93,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('hosting_providers_id'); 
             $table->string('name');
+            $table->string('slug');
             $table->integer('price')->nullable();;
             $table->text('description')->nullable();;
             $table->timestamps();
@@ -95,6 +106,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('country_parts_destinations_id'); 
             $table->string('name');
+            $table->string('slug');
             $table->integer('price')->nullable();
             $table->float('position_lng', 10, 6)->nullable();             
             $table->float('position_lat', 10, 6)->nullable();                      
@@ -109,6 +121,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('countries_id')->nullable();
             $table->string('name')->unique();
+            $table->string('slug');
             $table->string('link')->nullable();
             $table->string('logo')->nullable();
             $table->text('countries')->nullable();            
@@ -122,6 +135,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('countries_id')->nullable();
             $table->string('name');
+            $table->string('slug');
             $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

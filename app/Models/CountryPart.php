@@ -5,6 +5,8 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Country;
+use App\Models\CountryPartsDestination;
+
 
 class CountryPart extends Model
 {
@@ -38,6 +40,11 @@ class CountryPart extends Model
     public function country_options(){
 
         return $this->belongsTo(Country::class,'countries_id');
+    }
+
+    public function destinations(){
+
+        return $this->hasMany(CountryPartsDestination::class,'country_parts_id');
     }
 
 
