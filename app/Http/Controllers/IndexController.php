@@ -193,7 +193,7 @@ window.onload = initMap;
         }
         
         foreach ($country_part->destinations as $destination ){
-            echo "<a href='/$countr/$country_part->slug/$destination->slug'>$destination->name</a><br>";
+            echo "<a href='/{$countr}/{$country_part->slug}/$destination->slug'>$destination->name</a><br>";
         }
  
     }
