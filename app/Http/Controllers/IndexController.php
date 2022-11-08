@@ -49,8 +49,6 @@ function initMap() {
      // Add a click listener for each marker, and set up the info window.
      marker.addListener("click", () => {
            infoWindow.close();
-
-
            
 
            infoWindow.setContent("<a href=\'" + marker.getTitle()  + "\'>" + marker.getTitle()  + "</a>");
@@ -144,7 +142,9 @@ function initMap() {
      marker.addListener("click", () => {
            infoWindow.close();         
 
-           infoWindow.setContent("<a href=\'\\'. $contry->name .'\" + marker.getTitle()  + "\'>" + marker.getTitle()  + " </a> " );
+           infoWindow.setContent("<a href=\''. $contry->name .'\" + marker.getTitle()  + "\'>" + marker.getTitle()  + "</a>");
+
+           
            infoWindow.open(marker.getMap(), marker);
          });
    
