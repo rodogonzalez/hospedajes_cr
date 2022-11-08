@@ -98,7 +98,7 @@ window.onload = initMap;
         echo "<a href='/'>Index</a><br>";
 
         foreach ($contry->sections as $section ){
-            echo "<a href='/$countr/$section->slug'>$section->name :  {$section->destinations()->count()}</a><br>";
+            echo "<a href='/{$countr->name}/$section->slug'>$section->name :  {$section->destinations()->count()}</a><br>";
         } 
 
 
