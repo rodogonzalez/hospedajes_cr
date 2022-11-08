@@ -122,7 +122,7 @@ function initMap() {
 
  const map = new google.maps.Map(document.getElementById("map"), {
    center: { lat: ' . $contry->position_lat . ', lng: ' . $contry->position_lng . ' },
-   zoom: 4,
+   zoom: 8,
  });
 
  const infoWindow = new google.maps.InfoWindow();
@@ -143,20 +143,13 @@ function initMap() {
 
      // Add a click listener for each marker, and set up the info window.
      marker.addListener("click", () => {
-           infoWindow.close();
-
-
-           
+           infoWindow.close();         
 
            infoWindow.setContent("<a href=\'" + marker.getTitle()  + "\'>" + marker.getTitle()  + "</a>");
            infoWindow.open(marker.getMap(), marker);
          });
-
-
    //console.log(item,uluru, index);
-
- });  
-  
+ });    
 
 }
 
@@ -180,8 +173,6 @@ window.onload = initMap;
  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
 
  ';
-
-
 
     }
 
