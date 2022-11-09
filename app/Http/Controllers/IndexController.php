@@ -219,6 +219,7 @@ window.onload = initMap;
         $destination = $country_part->destinations()->where('slug', $destination)->first();
 
         $hospedajes = $destination->hostings();
+        dd($hospedajes);
          
 
         if (is_null ($destination) ) {
