@@ -216,7 +216,10 @@ window.onload = initMap;
             abort(403, 'Invalid Country Part.');
         }
 
+        
+
         $destination = $country_part->destinations()->where('slug', $destination)->first();
+        echo "<h1>$destination->name</h1>";
 
         $hospedajes = $destination->hostings();
         dd($hospedajes);
