@@ -19,13 +19,7 @@ Route::get('/', function () {
 });
 */
 Route::get('/',  [IndexController::class, 'show_index']);
-
 Route::get('/{country_slug}',  [IndexController::class, 'show_country']);
-
 Route::get('/{country_slug}/{country_part}',  [IndexController::class, 'show_country_part']);
-
 Route::get('/{country_slug}/{country_part}/{part_destination}',  [IndexController::class, 'show_country_part']);
- 
-
-
 Route::get('/{country_slug}/{country_part}/{part_destination}', [IndexController::class, 'show_country_part_destination']);
