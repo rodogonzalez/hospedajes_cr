@@ -48,9 +48,62 @@ const map = new google.maps.Map(document.getElementById("map"), {
 function pull_country_parts(country_slug){
   //country_marker
   //alert();
+  
 
   // Solicitud GET (Request).
   fetch('/' + country_slug)
+      // Exito
+      .then(response => response.json())  // convertir a json
+      .then(result => {
+
+        //console.log(result);
+        result.forEach(function (item, index) {
+
+
+
+          uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
+          let point_marker;
+          
+
+          // The marker, positioned at Uluru
+          point_marker = new google.maps.Marker({
+            position: uluru,
+            title: item.slug,
+            map: map,
+          });
+
+          // Add a click listener for each marker, and set up the info window.
+          point_marker.addListener("click", () => {                
+              
+              pull_country_parts_destinations(country_slug ,  item.slug);                
+              });
+
+
+
+
+
+
+        });
+
+
+        
+
+
+      })    //imprimir los datos en la consola
+      .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+
+
+
+}
+
+
+
+function pull_country_parts_destinations(country_slug,section){
+  //country_marker
+  //alert();
+
+  // Solicitud GET (Request).
+  fetch('/' + country_slug + '/' + section)
       // Exito
       .then(response => response.json())  // convertir a json
       .then(result => {
@@ -73,7 +126,7 @@ function pull_country_parts(country_slug){
           // Add a click listener for each marker, and set up the info window.
           point_marker.addListener("click", () => {
                 infoWindow.close();
-                alert(country_slug, point_marker.getTitle());
+                pull_country_parts_destinations_commerces(country_slug , section ,  point_marker.getTitle());
                 //pull_country_parts(country_marker.getTitle());
                 //infoWindow.setContent("<a href=\'" +   + "\'>" + marker.getTitle()  + "</a>");
                 //infoWindow.open(marker.getMap(), marker);
@@ -96,6 +149,60 @@ function pull_country_parts(country_slug){
 
 
 }
+
+
+
+
+function pull_country_parts_destinations_commerces(country_slug,section,destination){
+  //country_marker
+  //alert();
+
+  // Solicitud GET (Request).
+  fetch('/' + country_slug + '/' + section + '/' + destination)
+      // Exito
+      .then(response => response.json())  // convertir a json
+      .then(result => {
+
+        //console.log(result);
+        result.forEach(function (item, index) {
+
+
+
+          uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
+          let point_marker;
+
+          // The marker, positioned at Uluru
+          point_marker = new google.maps.Marker({
+            position: uluru,
+            title: item.slug,
+            map: map,
+          });
+
+          // Add a click listener for each marker, and set up the info window.
+          point_marker.addListener("click", () => {
+                infoWindow.close();
+                alert(point_marker.getTitle());
+                
+              });
+
+
+
+
+
+
+        });
+
+
+        
+
+
+      })    //imprimir los datos en la consola
+      .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+
+
+
+}
+
 
 
 function initMap() {
