@@ -59,6 +59,11 @@ class CountryPartsDestination extends Model
         return $this->hasMany(Tour::class, 'country_parts_destinations_id');
     }
 
+    public function country(){
+
+        return $this->belongsTo(CountryPart::class, 'country_parts_id')->first();
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -101,5 +106,15 @@ class CountryPartsDestination extends Model
         
         return json_encode($response);
     }
+
+
+    public function getNameAttribute($values)
+    {
+        
+        
+        //dd($this->country());        
+        return $this->country()->name .  "- $values -"  ;
+    }
+    
     
 }

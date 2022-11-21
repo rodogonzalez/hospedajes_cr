@@ -40,13 +40,28 @@ class HostingProviderCrudController extends AbstractLocationFields
     protected function setupListOperation()
     {
         CRUD::column('country_parts_destinations_id');
-        CRUD::column('position_lng');
-        CRUD::column('position_lat');
+        //CRUD::column('position_lng');
+        //CRUD::column('position_lat');
         CRUD::column('name');
-        CRUD::column('description');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+        //CRUD::column('description');
+        //CRUD::column('created_at');
+        //CRUD::column('updated_at');
+/*
+        // dropdown filter
+        $this->crud->addFilter([
+            'name'  => 'name',
+            'type'  => 'dropdown',
+            'label' => 'Status'
+        ], [
+            1 => 'In stock',
+            2 => 'In provider stock',
+            3 => 'Available upon ordering',
+            4 => 'Not available',
+        ], function($value) { // if the filter is active
+            // $this->crud->addClause('where', 'status', $value);
+        });
 
+*/
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');

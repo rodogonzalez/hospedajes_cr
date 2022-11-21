@@ -24,7 +24,7 @@ return [
     // ----
 
     // Project name. Shown in the window title.
-    'project_name' => 'Administracion Hospedajes CR',
+    'project_name' => 'Administracion Infoturistica CR',
 
     // When clicking on the admin panel's top-left logo/name,
     // where should the user be redirected?
@@ -85,7 +85,7 @@ return [
     // ------
 
     // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo'   => '<b>Vuela</b>OK',
+    'project_logo'   => '<b>Info</b>Turistica',
 
     // Show / hide breadcrumbs on admin panel pages.
     'breadcrumbs' => true,
@@ -122,7 +122,7 @@ return [
     'developer_name' => 'Rodolfo Gonzalez',
 
     // Developer website. Link in footer. Type false if you want to hide it.
-    'developer_link' => 'http://cryptotaller.com',
+    'developer_link' => false,
 
     // Show powered by Laravel Backpack in the footer? true/false
     'show_powered_by' => false,
