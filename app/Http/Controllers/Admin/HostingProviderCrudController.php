@@ -77,48 +77,22 @@ class HostingProviderCrudController extends AbstractLocationFields
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(HostingProviderRequest::class);
 
-        
-        
-
-        //CRUD::field('');
-        
+        CRUD::setValidation(HostingProviderRequest::class);        
         CRUD::field('name');
-        $this->crud->addField([
-            'name' => 'slug',
-            'type' => 'text',
-            'label' => "URL Segment (slug)"
-          ]);
-        
-        
-/*
-        $this->crud->addField([  
-            'label'     => 'Descripcion',
-            'type'      => 'textarea',
-            'name'      => 'description',                    
-        ]);
-*/
-
-
-
+        $this->crud->addField(['name' => 'slug','type' => 'text','label' => "URL Segment (slug)"]);
+  
         $this->crud->addField([  // Select
-            'label'     => "Ubicacion",
+            'label'     => "Ubicacion OR",
             'type'      => 'select',
-            'name'      => 'country_parts_destinations_id', // the db column for the foreign key
-         
-            // optional
-            // 'entity' should point to the method that defines the relationship in your Model
-            // defining entity will make Backpack guess 'model' and 'attribute'
-            'entity'    => 'country_parts_destinations',
-         
+            'name'      => 'country_parts_destinations_id', 
+            'entity'    => 'country_parts_destinations',         
             // optional - manually specify the related model and attribute
             'model'     => "App\Models\CountryPartsDestination", // related model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-         
+            'attribute' => 'name', // foreign key attribute that is shown to user         
             // optional - force the related options to be a custom query, instead of all();
             'options'   => (function ($query) {
-                 return $query->orderBy('name', 'ASC')->get();
+                 return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->get();
              }), //  you can use this to filter the results show in the select
             ]);
 
@@ -129,9 +103,6 @@ class HostingProviderCrudController extends AbstractLocationFields
             'label'     => 'Fotografias',
             'type'      => 'upload_multiple',
             'upload'    => true,
-            //'disk'      => 'public', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
-            // optional:
-            //'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
         ]);
 
 
@@ -143,31 +114,10 @@ class HostingProviderCrudController extends AbstractLocationFields
             'name'      => 'description',            
             'model'     => "App\Models\HostingFeature",
             'pivot'     => false,
-            //'fake'     => true, // show the field, but don't store it in the database column above
-
-            // 'number_of_columns' => 3,
         ]);
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
     }
 
-/*
-    public function store()
-    {
-        //dd($this->crud);
-        return 
-    }
-
-    public function update()
-    {
-      return $this->store();
-    }
-
-*/
 
     /**
      * Define what happens when the Update operation is loaded.

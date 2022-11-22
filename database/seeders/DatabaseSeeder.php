@@ -9,22 +9,10 @@ use Illuminate\Console\Command;
 
 class DatabaseSeeder extends Seeder
 {
-
-
-
     private function get_position_address($address_value){
-        $end_point_request = "https://maps.google.com/maps/api/geocode/json?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8&address=" . urlencode($address_value) . "&";
-
-        
-        $result = json_decode(file_get_contents($end_point_request), true);
-        
-
-        //echo ("$address_value - >" . json_encode($result['results'][0]['geometry']['location'] )) . "\n";
-
-        
+        $end_point_request = "https://maps.google.com/maps/api/geocode/json?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8&address=" . urlencode($address_value) . "&";        
+        $result = json_decode(file_get_contents($end_point_request), true);        
         return $result['results'][0]['geometry']['location'];
-
-        //dd(__METHOD__, );
 
     }
 
@@ -62,6 +50,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+
+
+
+        \Backpack\PermissionManager\app\Models\Role::create([
+            'name' => 'Admin',            
+        ]);
+
+        \Backpack\PermissionManager\app\Models\Role::create([
+            'name' => 'Visitor',            
+        ]);
+
+        
+
+        \App\Models\User::create([
+             'name' => 'Admin',
+             'email' => 'rodogonzalez@msn.com',             
+             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+         ]);
+
+
+
+
         
         $nuevo_pais = \App\Models\Country::create(['name'=>'Costa Rica', 'slug' => 'costa-rica' ]);
         $this->create_country_sections($nuevo_pais->id,  "San Jose,Alajuela,Cartago,Heredia,Puntarenas,Guanacaste,Limon");        
@@ -150,21 +161,31 @@ class DatabaseSeeder extends Seeder
         \App\Models\RentACar::Create(['name'=>'SixT', 'slug' => 'sixty' ]);
         \App\Models\RentACar::Create(['name'=>'Budget', 'slug' => 'budget' ]);
 
-        
-
-        \App\Models\User::create([
-             'name' => 'Admin',
-             'email' => 'rodogonzalez@msn.com',             
-             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-         ]);
-
 
 
         //\App\Models\User::factory(200)->create();
         echo ("Creating Random Destinations \n");
         \App\Models\CountryPartsDestination::factory(500)->create();
-        echo ("Creating Random Hosting \n");
-        \App\Models\HostingProvider::factory(2000)->create();
+        echo ("Creating Random Hosting 1/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
+        echo ("Creating Random Hosting 2/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
+        echo ("Creating Random Hosting 3/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
+        echo ("Creating Random Hosting 4/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
+        echo ("Creating Random Hosting 5/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
+        echo ("Creating Random Hosting 6/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
+        echo ("Creating Random Hosting 7/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
+        echo ("Creating Random Hosting 8/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
+        echo ("Creating Random Hosting 9/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
+        echo ("Creating Random Hosting 10/10\n");
+        \App\Models\HostingProvider::factory(100)->create();
 
 
     }
