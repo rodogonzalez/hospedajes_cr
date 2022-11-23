@@ -81,18 +81,18 @@ function pull_country_parts(country_slug){
             position: uluru,
             title: item.slug,
             map: map,
-            icon: icons['library'].icon,
+            //icon: icons['library'].icon,
 
           });
 
-          pull_country_parts_destinations(country_slug,item.slug);
-/*
+//          pull_country_parts_destinations(country_slug,item.slug);
+
           // Add a click listener for each marker, and set up the info window.
           point_marker.addListener("click", () => {                              
               pull_country_parts_destinations(country_slug ,  item.slug);                
               });
               
-*/
+
         });
 
       })    //imprimir los datos en la consola
@@ -100,6 +100,8 @@ function pull_country_parts(country_slug){
 }
 
 function pull_country_parts_destinations(country_slug,section){
+  console.log('Loading...');
+  console.log(('/' + country_slug + '/' + section));
   // Solicitud GET (Request).
   fetch('/' + country_slug + '/' + section)
       // Exito
@@ -107,6 +109,7 @@ function pull_country_parts_destinations(country_slug,section){
       .then(result => {
         result.forEach(function (item, index) {
           uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
+  /*
           let point_marker;
           // The marker, positioned at Uluru
           point_marker = new google.maps.Marker({
@@ -114,16 +117,16 @@ function pull_country_parts_destinations(country_slug,section){
             title: item.slug,
             map: map,
           });
-
+*/
           pull_country_parts_destinations_commerces(country_slug , section , item.slug);
-
+/*
           // Add a click listener for each marker, and set up the info window.
           point_marker.addListener("click", () => {
                 infoWindow.close();
                 pull_country_parts_destinations_commerces(country_slug , section ,  point_marker.getTitle());
                 
               });
-
+*/
         });
 
       })    //imprimir los datos en la consola
@@ -132,6 +135,8 @@ function pull_country_parts_destinations(country_slug,section){
 
 
 function pull_country_parts_destinations_commerces(country_slug,section,destination){
+  console.log('Loading...');
+  console.log('/' + country_slug + '/' + section + '/' + destination)
   // Solicitud GET (Request).
   fetch('/' + country_slug + '/' + section + '/' + destination)
       // Exito
@@ -185,7 +190,7 @@ function initMap() {
        icon: icons['info'].icon,
      });
 
-     //pull_country_parts(item.slug);
+     if (index==0) pull_country_parts(item.slug);
 
 
      // Add a click listener for each marker, and set up the info window.
