@@ -156,12 +156,18 @@ function pull_country_parts_destinations_commerces(country_slug,section,destinat
             map: map,
             icon: icons['parking'].icon,
           });
-          let hotel_name = item.name;
+
+          let description =  "<hr><b>Descripcion:</b><div>" + item.description + "</div>" ;
+
+          if (description == null ) description = "";
+
+  
+          let hotel_name = "<a href='/admin/hosting-provider/" + item.id + "/edit'>" + item.name + description ;
 
           // Add a click listener for each marker, and set up the info window.
           host_point_marker.addListener("click", () => {
-                infoWindow.close();
-                //alert(point_marker.getTitle());
+
+                infoWindow.close();                
                 infoWindow.setContent( hotel_name  );
                 infoWindow.open(map, host_point_marker);
                 

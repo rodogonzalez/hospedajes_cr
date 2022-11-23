@@ -95,8 +95,17 @@ class HostingProviderCrudController extends AbstractLocationFields
                  return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->get();
              }), //  you can use this to filter the results show in the select
             ]);
+        
+        
+        $this->crud->addField([   // Checklist
+            'label'     => 'Caracteristicas Generales',
+            'type'      => 'checklist',
+            'name'      => 'description',            
+            'model'     => "App\Models\HostingFeature",
+            'pivot'     => false,
+        ]);
 
-
+        $this->setLocationFields();        
         
         $this->crud->addField([   // Upload
             'name'      => 'photos',
@@ -106,15 +115,6 @@ class HostingProviderCrudController extends AbstractLocationFields
         ]);
 
 
-        $this->setLocationFields();        
-        
-        $this->crud->addField([   // Checklist
-            'label'     => 'Caracteristicas Generales',
-            'type'      => 'checklist',
-            'name'      => 'description',            
-            'model'     => "App\Models\HostingFeature",
-            'pivot'     => false,
-        ]);
 
     }
 
