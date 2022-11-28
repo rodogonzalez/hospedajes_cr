@@ -12,8 +12,15 @@
     <li>¿Quienes Somos?</li>
     <li>Anunciate</li>
     <li><a href='/admin'>Mi Cuenta</a></li>
-    
-  </ul>
+    <li>
+        <select onchange="pull_country_parts(this.value)">
+            @foreach ($paises as $pais)
+              <option value='{{$pais["slug"]}}'>{{$pais["name"]}}</option>
+            @endforeach
+        </select>
+
+    </li>
+  </ul> 
 </div>
   <div class="container">
   <style>
@@ -64,7 +71,34 @@
   };
  map_points= [];
 
+function getCountryLocation(slug){
+
+
+
+  countries.forEach(function (item, index) {
+
+    uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
+
+    if (slug==item.slug ){      
+      map.setCenter( uluru );
+      
+    }
+  
+
+  });
+
+
+
+  
+}
+
+
 function pull_country_parts(country_slug){
+  getCountryLocation(country_slug);
+  
+  
+
+
   // Solicitud GET (Request).
   fetch('/' + country_slug)
       // Exito
@@ -135,8 +169,8 @@ function pull_country_parts_destinations(country_slug,section){
 
 
 function pull_country_parts_destinations_commerces(country_slug,section,destination){
-  console.log('Loading...');
-  console.log('/' + country_slug + '/' + section + '/' + destination)
+  //console.log('Loading...');
+  //console.log('/' + country_slug + '/' + section + '/' + destination)
   // Solicitud GET (Request).
   fetch('/' + country_slug + '/' + section + '/' + destination)
       // Exito
@@ -193,7 +227,7 @@ function initMap() {
        position: uluru,
        title: item.slug,
        map: map,
-       icon: icons['info'].icon,
+     //  icon: icons['info'].icon,
      });
 
      if (index==0) pull_country_parts(item.slug);
