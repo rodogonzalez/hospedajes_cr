@@ -82,6 +82,9 @@ function getCountryPartLocation(slug){
 
     if (slug==item.slug ){      
       map.setCenter( uluru );
+      map.setZoom(20);
+
+
       
     }
 
@@ -101,6 +104,7 @@ function getCountryLocation(slug){
 
     if (slug==item.slug ){      
       map.setCenter( uluru );
+      map.setZoom(17);
       
     }
   
