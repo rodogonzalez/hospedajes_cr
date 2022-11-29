@@ -13,11 +13,13 @@
     <li>Anunciate</li>
     <li><a href='/admin'>Mi Cuenta</a></li>
     <li>
-        <select onchange="pull_country_parts(this.value)">
+        <select id="current_country" onchange="pull_country_parts(this.value)">
             @foreach ($paises as $pais)
               <option value='{{$pais["slug"]}}'>{{$pais["name"]}}</option>
             @endforeach
         </select>
+        <select id="country_part"  onchange="pull_country_parts_destinations (document.getElementById('current_country').selectedOptions[0].value, this.value)" sxxtyle="display:none"></select>
+
 
     </li>
   </ul> 
@@ -39,7 +41,7 @@
 
  let map_points  ; 
  let uluru;
- 
+ let current_country_part ;
   
  let countries = {{ Illuminate\Support\Js::from($paises) }};
 
@@ -71,6 +73,24 @@
   };
  map_points= [];
 
+
+function getCountryPartLocation(slug){
+
+  current_country_part.forEach(function (item, index) {
+
+    uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
+
+    if (slug==item.slug ){      
+      map.setCenter( uluru );
+      
+    }
+
+
+    });
+
+
+} 
+
 function getCountryLocation(slug){
 
 
@@ -96,19 +116,25 @@ function getCountryLocation(slug){
 function pull_country_parts(country_slug){
   getCountryLocation(country_slug);
   
-  
+  let options_content = "";
 
-
+  document.getElementById("country_part").innerHTML = "<option>cargando...</option>";
   // Solicitud GET (Request).
   fetch('/' + country_slug)
       // Exito
       .then(response => response.json())  // convertir a json
       .then(result => {
+
+        current_country_part = result;
     
         result.forEach(function (item, index) {
 
           uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
           let point_marker;          
+
+          
+          options_content= options_content + "<option value='" +  item.slug + "'>" +  item.slug + "</option>";
+          
 
           // The marker, positioned at Uluru
           point_marker = new google.maps.Marker({
@@ -129,13 +155,25 @@ function pull_country_parts(country_slug){
 
         });
 
+        document.getElementById("country_part").options.length = 0;
+        console.log(options_content);
+        document.getElementById("country_part").innerHTML = options_content;
+
       })    //imprimir los datos en la consola
       .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+
+      
+
+
 }
 
 function pull_country_parts_destinations(country_slug,section){
-  console.log('Loading...');
-  console.log(('/' + country_slug + '/' + section));
+  //console.log('Loading...');
+  //console.log(('/' + country_slug + '/' + section));
+
+  getCountryPartLocation(section);
+
+
   // Solicitud GET (Request).
   fetch('/' + country_slug + '/' + section)
       // Exito
