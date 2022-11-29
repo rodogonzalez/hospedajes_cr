@@ -51,7 +51,7 @@
 
  const map = new google.maps.Map(document.getElementById("map"), {
    center: uluru,
-   zoom: 4,
+   zoom: 2,
  });
 
 
@@ -128,7 +128,7 @@ function getCountryLocation(slug){
 
     if (slug==item.slug ){      
       map.setCenter( uluru );
-      map.setZoom(10);
+      map.setZoom(4);
       
     }
   
