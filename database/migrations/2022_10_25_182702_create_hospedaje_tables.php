@@ -39,7 +39,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('currency')->nullable();
             $table->enum('language', ['Ingles', 'Español', 'Frances', 'Aleman', 'Idioma Nativo Americano'])->nullable();
-            $table->string('main_youtube_video')->nullable();
+            $table->string('youtube_video')->nullable();
             $table->string('slug');
             $table->timestamps();
             	
@@ -53,6 +53,7 @@ return new class extends Migration
             $table->float('position_lng', 10, 6)->nullable();             
             $table->float('position_lat', 10, 6)->nullable();                      
             $table->unsignedBigInteger('countries_id');
+            $table->string('youtube_video')->nullable();
             $table->timestamps();    
             $table->text('photos')->nullable();
             $table->foreign('countries_id')->references('id')->on('countries');
@@ -66,6 +67,7 @@ return new class extends Migration
             $table->string('slug');
             $table->float('position_lng', 10, 6)->nullable();             
             $table->float('position_lat', 10, 6)->nullable();                      
+            $table->string('youtube_video')->nullable();
             $table->unsignedBigInteger('country_parts_id');
             $table->text('photos')->nullable();
 
@@ -81,6 +83,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone_contact');
             $table->unsignedBigInteger('country_parts_destinations_id');             
+            $table->string('youtube_video')->nullable();
             $table->float('position_lng', 10, 6)->nullable();             
             $table->float('position_lat', 10, 6)->nullable();                      
             $table->text('description')->nullable();;
@@ -107,6 +110,7 @@ return new class extends Migration
             $table->unsignedBigInteger('country_parts_destinations_id'); 
             $table->string('name');
             $table->string('slug');
+            $table->string('youtube_video')->nullable();
             $table->integer('price')->nullable();
             $table->float('position_lng', 10, 6)->nullable();             
             $table->float('position_lat', 10, 6)->nullable();                      
@@ -124,6 +128,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('link')->nullable();
             $table->string('logo')->nullable();
+            $table->string('youtube_video')->nullable();
             $table->text('countries')->nullable();            
             $table->text('description')->nullable();
             $table->timestamps();
@@ -136,6 +141,7 @@ return new class extends Migration
             $table->unsignedBigInteger('countries_id')->nullable();
             $table->string('name');
             $table->string('slug');
+            $table->string('youtube_video')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
