@@ -89,5 +89,12 @@ class HostingProvider extends Model
         
         return json_encode($response);
     }
+
+
+    public function getDescriptionAttribute($values)
+    {
+        
+        if (is_null($values)) return '';
+    }
     
 }

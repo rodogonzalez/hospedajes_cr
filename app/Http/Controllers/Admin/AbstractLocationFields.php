@@ -21,31 +21,33 @@ class  AbstractLocationFields extends CrudController
 
     public function setLocationFields(){
 
-        
-
         //CRUD::field('position_lng');
         $this->crud->addField([   // CustomHTML
             'name'  => 'position_lng',
             'type'  => 'text',
             //'attributes'  => ' id = "position_lng" '
-            'attributes' => [ 'id' => 'position_lng']
-
-
+            'attributes' => [ 
+                'id' => 'position_lng',
+                'default' => env('DEFAULT_LNG')
+                ]
             ]);
         $this->crud->addField([   // CustomHTML
             'name'  => 'position_lat',
             'type'  => 'text',
             
             //'attributes'  => ' id = "" '
-            'attributes' => [ 'id' => 'position_lat']
+            'attributes' => [ 
+                                'id' => 'position_lat',
+                                'default' => env('DEFAULT_LAT')
+                            ]
 
 
             ]);
             
 
 
-        $pos_lat = 0;
-        $pos_lng = 0;            
+        $pos_lat = env('DEFAULT_LAT') ;
+        $pos_lng = env('DEFAULT_LNG');            
         
         if ($this->crud->getCurrentEntry() !== false) {
             $pos_lat = floatval ($this->crud->getCurrentEntry()->position_lat);
@@ -59,29 +61,19 @@ class  AbstractLocationFields extends CrudController
             'type'  => 'custom_html',
             'label'      => 'Ubicacion',
             'value' => '<div id="map"></div><hr>
-                        
-                        <script>
-                            
-
+         
+            <script>                           
                 
-                let uluru;
-
+            let uluru;
 
             function initMap() {
 
-
-
-
-
                 uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
-
 
                 const map = new google.maps.Map(document.getElementById("map"), {
                     center: { lat:  parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') },
                     zoom: 10,
                 });
-            
-
 
                 let marker;
 
@@ -98,27 +90,15 @@ class  AbstractLocationFields extends CrudController
                         
                         let lat = event.latLng.lat(); 
                         let lng = event.latLng.lng(); 
-
                         document.getElementById("position_lat").value = lat;
                         document.getElementById("position_lng").value = lng;
-
-
-                        //console.log(event.latLng);
-
-                    }); 
-
-                
+                        
+                    });
 
             }
-
             window.onload = initMap;
-
-
             </script>
-
-
             <style>
-
                 #map{
                     display:block;
                     width:100%;

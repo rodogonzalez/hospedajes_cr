@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
         $nuevo_pais = \App\Models\Country::create(['name'=>'Costa Rica', 'slug' => 'costa-rica' ]);
         $this->create_country_sections($nuevo_pais->id,  "San Jose,Alajuela,Cartago,Heredia,Puntarenas,Guanacaste,Limon");        
 
-        
+        /*
         $nuevo_pais =\App\Models\Country::create(['name'=>'Mexico', 'slug' => 'mexico' ]);        
         $this->create_country_sections($nuevo_pais->id,  "Ciudad Mexico,Quintana Roo,Monterey,Guadalajara,Valladolid,Merica,Veracruz,Tabasco,Acapulco,Oaxaca,Chiapas");        
 
@@ -126,7 +126,7 @@ class DatabaseSeeder extends Seeder
 
 
         //$this->create_country_sections($nuevo_pais->id,  "");
-
+*/
 
         \App\Models\Airline::create(['name'=>'Volaris', 'slug' => 'volaris' ]);
         \App\Models\Airline::create(['name'=>'Avianca', 'slug' => 'avianca' ]);

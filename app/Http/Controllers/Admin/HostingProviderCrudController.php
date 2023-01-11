@@ -81,6 +81,9 @@ class HostingProviderCrudController extends AbstractLocationFields
         CRUD::setValidation(HostingProviderRequest::class);        
         CRUD::field('name');
         $this->crud->addField(['name' => 'slug','type' => 'text','label' => "URL Segment (slug)"]);
+        $this->crud->addField(['name' => 'email','type' => 'text','label' => "Email"]);
+        $this->crud->addField(['name' => 'phone_contact','type' => 'text','label' => "Telefono"]);
+        
   
         $this->crud->addField([  // Select
             'label'     => "Ubicacion OR",
