@@ -83,6 +83,13 @@ class HostingProviderCrudController extends AbstractLocationFields
         $this->crud->addField(['name' => 'slug','type' => 'text','label' => "URL Segment (slug)"]);
         $this->crud->addField(['name' => 'email','type' => 'text','label' => "Email"]);
         $this->crud->addField(['name' => 'phone_contact','type' => 'text','label' => "Telefono"]);
+
+        $this->crud->addField([   // Upload
+            'name'      => 'description',
+            'label'     => 'Descripcion',
+            'type'      => 'textarea',
+         ]);
+
         
   
         $this->crud->addField([  // Select
@@ -109,6 +116,7 @@ class HostingProviderCrudController extends AbstractLocationFields
         ]);
 
         $this->setLocationFields();        
+
         
         $this->crud->addField([   // Upload
             'name'      => 'photos',

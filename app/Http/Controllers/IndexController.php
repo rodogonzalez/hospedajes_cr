@@ -13,6 +13,13 @@ class IndexController extends Controller{
       return view('front.main',['paises' => $paises]);
 
     }
+    // show the index page using the blades views 
+    public function show_new_host_front_end(){
+        $paises = \App\Models\Country::all()->toArray();
+
+        return view('front.new_host',['paises' => $paises]);
+  
+      }
 
     public function show_country($countr){
         $contry = Country::where('slug',$countr)->first();
