@@ -110,7 +110,7 @@ class HostingProviderCrudController extends AbstractLocationFields
         $this->crud->addField([   // Checklist
             'label'     => 'Caracteristicas Generales',
             'type'      => 'checklist',
-            'name'      => 'description',            
+            'name'      => 'features',            
             'model'     => "App\Models\HostingFeature",
             'pivot'     => false,
         ]);

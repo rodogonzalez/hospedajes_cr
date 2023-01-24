@@ -4,6 +4,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Country;
 use App\Models\CountryPart;
+use App\Models\CountryPartsDestination;
+
 
 class IndexController extends Controller{
 
@@ -15,7 +17,9 @@ class IndexController extends Controller{
     }
     // show the index page using the blades views 
     public function show_new_host_front_end(){
-        $paises = \App\Models\Country::all()->toArray();
+        $paises = \App\Models\Country::all();
+
+
 
         return view('front.new_host',['paises' => $paises]);
   

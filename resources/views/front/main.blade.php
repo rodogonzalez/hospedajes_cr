@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ config('backpack.base.html_direction') }}">
-<head>
-    @include(backpack_view('inc.head'))
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
-</head>
-<body class="app flex-row align-items-center">
-<div>
-  <h1>Info Turistica</h1>
-  <ul>
-    <li>Inicio</li>
-    <li>¿Quienes Somos?</li>
-    <li>Anunciate</li>
-    <li><a href='/admin'>Mi Cuenta</a></li>
-    <li>
-        <select id="current_country" onchange="pull_country_parts(this.value)">
-            @foreach ($paises as $pais)
-              <option value='{{$pais["slug"]}}'>{{$pais["name"]}}</option>
-            @endforeach
-        </select>
-        <select id="country_part"  onchange="pull_country_parts_destinations (document.getElementById('current_country').selectedOptions[0].value, this.value)" sxxtyle="display:none"></select>
+@extends(backpack_view('blank'))
 
 
-    </li>
-  </ul> 
-</div>
-  <div class="container">
+@section('content')
+
+<div class="container">
   <style>
 
 #map{
@@ -183,8 +162,7 @@ function pull_country_parts(country_slug){
               });              
         });
 
-        document.getElementById("country_part").options.length = 0;
-        console.log(options_content);
+        document.getElementById("country_part").options.length = 0;        
         document.getElementById("country_part").innerHTML = options_content;
       })    
       //imprimir los datos en la consola
@@ -245,6 +223,7 @@ function pull_country_parts_destinations_commerces(country_slug,section,destinat
 
           uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
           let host_point_marker;
+          console.log(item);
 
           // The marker, positioned at Uluru
           host_point_marker = new google.maps.Marker({
@@ -316,18 +295,12 @@ window.onload = initMap;
   @yield('content')
   </div>
 
-  <footer class="app-footer sticky-footer">
-    @include('backpack::inc.footer')
-  </footer>
-
-  @yield('before_scripts')
-  @stack('before_scripts')
-
-  @include(backpack_view('inc.scripts'))
-
-  @yield('after_scripts')
-  @stack('after_scripts')
+  
+@endsection
 
 
-</body>
-</html>
+
+
+
+
+  

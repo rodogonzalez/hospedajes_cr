@@ -80,9 +80,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');   
             $table->string('slug');
-            $table->string('email');
-            $table->string('phone_contact');
-            $table->unsignedBigInteger('country_parts_destinations_id');             
+            $table->string('email')->nullable();;;
+            $table->string('phone_contact')->nullable();;;
+            $table->unsignedBigInteger('country_parts_destinations_id')->nullable();;;             
             $table->string('youtube_video')->nullable();
             $table->float('position_lng', 10, 6)->nullable();             
             $table->float('position_lat', 10, 6)->nullable();                      
@@ -99,6 +99,7 @@ return new class extends Migration
             $table->string('slug');
             $table->integer('price')->nullable();;
             $table->text('description')->nullable();;
+            $table->text('features')->nullable();;
             $table->timestamps();
             $table->foreign('hosting_providers_id')->references('id')->on('hosting_providers');    
             	

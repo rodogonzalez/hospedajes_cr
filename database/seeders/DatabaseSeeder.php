@@ -51,7 +51,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-
+        $this->call([
+            'netdjw\LoremIpsum\Database\Seeds\LoremIpsumLaSeeder'
+        ]);
 
 
         \Backpack\PermissionManager\app\Models\Role::create([
@@ -60,9 +62,7 @@ class DatabaseSeeder extends Seeder
 
         \Backpack\PermissionManager\app\Models\Role::create([
             'name' => 'Visitor',            
-        ]);
-
-        
+        ]);        
 
         \App\Models\User::create([
              'name' => 'Admin',
@@ -70,14 +70,13 @@ class DatabaseSeeder extends Seeder
              'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
          ]);
 
-
-
+         
 
         
         $nuevo_pais = \App\Models\Country::create(['name'=>'Costa Rica', 'slug' => 'costa-rica' ]);
         $this->create_country_sections($nuevo_pais->id,  "San Jose,Alajuela,Cartago,Heredia,Puntarenas,Guanacaste,Limon");        
 
-        /*
+        
         $nuevo_pais =\App\Models\Country::create(['name'=>'Mexico', 'slug' => 'mexico' ]);        
         $this->create_country_sections($nuevo_pais->id,  "Ciudad Mexico,Quintana Roo,Monterey,Guadalajara,Valladolid,Merica,Veracruz,Tabasco,Acapulco,Oaxaca,Chiapas");        
 
@@ -98,7 +97,7 @@ class DatabaseSeeder extends Seeder
         $this->create_country_sections($nuevo_pais->id,  "Bocas del Toro,Coclé,Colón,Chiriquí,Darién,Herrera,Los Santos,Panamá,Veraguas,Panamá Oeste");
                 
 
-        $nuevo_pais =\App\Models\Country::create(['name'=>'Chile', 'slug' => 'chile' ]);
+        //$nuevo_pais =\App\Models\Country::create(['name'=>'Chile', 'slug' => 'chile' ]);
         //$this->create_country_sections($nuevo_pais->id,  "");
 
         $nuevo_pais =\App\Models\Country::create(['name'=>'Argentina', 'slug' => 'argentina' ]);
@@ -126,7 +125,7 @@ class DatabaseSeeder extends Seeder
 
 
         //$this->create_country_sections($nuevo_pais->id,  "");
-*/
+
 
         \App\Models\Airline::create(['name'=>'Volaris', 'slug' => 'volaris' ]);
         \App\Models\Airline::create(['name'=>'Avianca', 'slug' => 'avianca' ]);
@@ -165,28 +164,11 @@ class DatabaseSeeder extends Seeder
 
         //\App\Models\User::factory(200)->create();
         echo ("Creating Random Destinations \n");
-        \App\Models\CountryPartsDestination::factory(500)->create();
-        echo ("Creating Random Hosting 1/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-        echo ("Creating Random Hosting 2/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-        echo ("Creating Random Hosting 3/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-        echo ("Creating Random Hosting 4/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-        echo ("Creating Random Hosting 5/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-        echo ("Creating Random Hosting 6/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-        echo ("Creating Random Hosting 7/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-        echo ("Creating Random Hosting 8/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-        echo ("Creating Random Hosting 9/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-        echo ("Creating Random Hosting 10/10\n");
-        \App\Models\HostingProvider::factory(100)->create();
-
+        \App\Models\CountryPartsDestination::factory(50)->create();
+        //echo ("Creating Random Hosting 1/10\n");
+        //\App\Models\HostingProvider::factory(10)->create();
+        
+        
 
     }
 }

@@ -14,7 +14,9 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "tal7aouy/faker": "^1.0"
+        "netdjw/lorem-ipsum": "dev-master",
+        "tal7aouy/faker": "^1.0",
+        "victorybiz/laravel-crypto-payment-gateway": "^1.2"
     },
     "require-dev": {
         "backpack/generators": "^3.3",
