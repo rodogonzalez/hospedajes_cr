@@ -64,6 +64,9 @@ final class CompletionInput extends ArgvInput
         return $input;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function bind(InputDefinition $definition): void
     {
         parent::bind($definition);

@@ -29,14 +29,13 @@ class TraceableArgumentResolver implements ArgumentResolverInterface
     }
 
     /**
-     * @param \ReflectionFunctionAbstract|null $reflector
+     * {@inheritdoc}
      */
-    public function getArguments(Request $request, callable $controller/* , \ReflectionFunctionAbstract $reflector = null */): array
+    public function getArguments(Request $request, callable $controller): array
     {
-        $reflector = 2 < \func_num_args() ? func_get_arg(2) : null;
         $e = $this->stopwatch->start('controller.get_arguments');
 
-        $ret = $this->resolver->getArguments($request, $controller, $reflector);
+        $ret = $this->resolver->getArguments($request, $controller);
 
         $e->stop();
 

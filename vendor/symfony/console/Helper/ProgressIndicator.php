@@ -54,8 +54,14 @@ class ProgressIndicator
     {
         $this->output = $output;
 
-        $format ??= $this->determineBestFormat();
-        $indicatorValues ??= ['-', '\\', '|', '/'];
+        if (null === $format) {
+            $format = $this->determineBestFormat();
+        }
+
+        if (null === $indicatorValues) {
+            $indicatorValues = ['-', '\\', '|', '/'];
+        }
+
         $indicatorValues = array_values($indicatorValues);
 
         if (2 > \count($indicatorValues)) {

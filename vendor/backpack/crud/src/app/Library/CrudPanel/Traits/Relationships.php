@@ -209,6 +209,7 @@ trait Relationships
             case 'MorphOneOrMany':
             case 'MorphToMany':
                 return true;
+
             default:
                 return false;
         }
@@ -227,6 +228,7 @@ trait Relationships
             case 'HasManyThrough':
             case 'MorphToMany':
                 return true;
+                break;
             default:
                 return false;
         }
@@ -361,20 +363,18 @@ trait Relationships
      * Check if it's possible that attribute is in the relation string when
      * the last part of the string is not a method on the chained relations.
      *
-     * @param  array  $field
+     * @param  string  $relationString
      * @return bool
      */
-    private function isAttributeInRelationString($field)
+    private function isAttributeInRelationString($relationString)
     {
-        if (! str_contains($field['entity'], '.')) {
+        if (! str_contains($relationString, '.')) {
             return false;
         }
 
-        $parts = explode('.', $field['entity']);
+        $parts = explode('.', $relationString);
 
-        $model = $field['baseModel'] ?? $this->model;
-
-        $model = new $model;
+        $model = $this->model;
 
         // here we are going to iterate through all relation parts to check
         // if the attribute is present in the relation string.

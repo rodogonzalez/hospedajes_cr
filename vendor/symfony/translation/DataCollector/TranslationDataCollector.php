@@ -32,6 +32,9 @@ class TranslationDataCollector extends DataCollector implements LateDataCollecto
         $this->translator = $translator;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function lateCollect()
     {
         $messages = $this->sanitizeCollectedMessages($this->translator->getCollectedMessages());
@@ -42,12 +45,18 @@ class TranslationDataCollector extends DataCollector implements LateDataCollecto
         $this->data = $this->cloneVar($this->data);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
         $this->data['locale'] = $this->translator->getLocale();
         $this->data['fallback_locales'] = $this->translator->getFallbackLocales();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reset()
     {
         $this->data = [];
@@ -86,6 +95,9 @@ class TranslationDataCollector extends DataCollector implements LateDataCollecto
         return (isset($this->data['fallback_locales']) && \count($this->data['fallback_locales']) > 0) ? $this->data['fallback_locales'] : [];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName(): string
     {
         return 'translation';

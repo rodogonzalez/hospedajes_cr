@@ -4,9 +4,6 @@ namespace Illuminate\Session;
 
 use Illuminate\Support\Manager;
 
-/**
- * @mixin \Illuminate\Session\Store
- */
 class SessionManager extends Manager
 {
     /**

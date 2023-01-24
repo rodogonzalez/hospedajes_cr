@@ -1,11 +1,9 @@
 {{-- enum --}}
 @php
-    $entity_model = $field['model'] ?? $field['baseModel'] ?? $crud->model;
-
+    $entity_model = $field['model'] ?? $crud->model;
     $field['value'] = old_empty_or_null($field['name'], '') ??  $field['value'] ?? $field['default'] ?? '';
 
     $possible_values = (function() use ($entity_model, $field) {
-        $fieldName = $field['baseFieldName'] ?? $field['name'];
         // if developer provided the options, use them, no ned to guess.
         if(isset($field['options'])) {
             return $field['options'];
@@ -13,38 +11,36 @@
 
         // if we are in a PHP version where PHP enums are not available, it can only be a database enum
         if(! function_exists('enum_exists')) {
-            $options = $entity_model::getPossibleEnumValues($fieldName);
+            $options = $entity_model::getPossibleEnumValues($field['name']);
             return array_combine($options, $options);
         }
 
         // developer can provide the enum class so that we extract the available options from it
-        $enumClassReflection = isset($field['enum_class']) ? new \ReflectionEnum($field['enum_class']) : false;              
-
-        if(! $enumClassReflection) {
-            // check for model casting
-            $possibleEnumCast = (new $entity_model)->getCasts()[$fieldName] ?? false;
-            if($possibleEnumCast && class_exists($possibleEnumCast)) {
-                $enumClassReflection = new \ReflectionEnum($possibleEnumCast);
+        if(isset($field['enum_class'])) {
+            if($field['enum_class'] instanceof \BackedEnum) {
+                $options = array_column($field['enum_class']::cases(), 'value', 'name');
             }
-        }
-        
-        if($enumClassReflection) {
-            $options = array_map(function($item) use ($enumClassReflection) {
-                return $enumClassReflection->isBacked() ? [$item->getBackingValue() => $item->name] : $item->name;
-            },$enumClassReflection->getCases());
-            $options = is_multidimensional_array($options) ? array_merge(...$options) : array_combine($options, $options);
+            $options = array_column($field['enum_class']::cases(), 'name');
+            $options = array_combine($options, $options);
         }
 
-        if(isset($field['enum_function']) && isset($options)) {
-            $options = array_map(function($item) use ($field, $enumClassReflection) {
-                if ($enumClassReflection->hasConstant($item)) {
-                    return $enumClassReflection->getConstant($item)->{$field['enum_function']}();
-                }
-                return $item;
-            }, $options);
-            return $options;
+        // check for model casting, in this case it must be a BakedEnum to work with Laravel casting
+        $possibleEnumCast = (new $entity_model)->getCasts()[$field['name']] ?? false;
+        if(!isset($options) && $possibleEnumCast && class_exists($possibleEnumCast)) {
+            $field['enum_class'] = $possibleEnumCast;
+            $options = array_column($possibleEnumCast::cases(), 'name', 'value');
         }
 
+        if(function_exists('enum_exists') && isset($field['enum_function']) && $field['enum_class']) {
+           
+            $options = array_map(function($item) use ($field) {
+                    $enumClassReflection = new \ReflectionEnum($field['enum_class']);
+                    if ($enumClassReflection->hasConstant($item)) {
+                        $enumClass = $enumClassReflection->getConstant($item);
+                    }
+                    return $enumClass->{$field['enum_function']}();
+                }, $options);
+        }
         // if we have the enum options return them
         if(isset($options)) {
             return $options;

@@ -541,7 +541,7 @@ trait HasAttributes
         }
 
         return method_exists($this, $key) ||
-               $this->relationResolver(static::class, $key);
+            (static::$relationResolvers[get_class($this)][$key] ?? null);
     }
 
     /**
@@ -1119,7 +1119,7 @@ trait HasAttributes
     {
         $caster = $this->resolveCasterClass($key);
 
-        $this->attributes = array_replace(
+        $this->attributes = array_merge(
             $this->attributes,
             $this->normalizeCastClassResponse($key, $caster->set(
                 $this, $key, $value, $this->attributes

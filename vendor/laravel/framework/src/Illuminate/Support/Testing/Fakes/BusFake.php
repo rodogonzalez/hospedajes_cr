@@ -3,7 +3,6 @@
 namespace Illuminate\Support\Testing\Fakes;
 
 use Closure;
-use Illuminate\Bus\BatchRepository;
 use Illuminate\Bus\PendingBatch;
 use Illuminate\Contracts\Bus\QueueingDispatcher;
 use Illuminate\Support\Arr;
@@ -76,14 +75,13 @@ class BusFake implements QueueingDispatcher
      *
      * @param  \Illuminate\Contracts\Bus\QueueingDispatcher  $dispatcher
      * @param  array|string  $jobsToFake
-     * @param  \Illuminate\Bus\BatchRepository|null  $batchRepository
      * @return void
      */
-    public function __construct(QueueingDispatcher $dispatcher, $jobsToFake = [], BatchRepository $batchRepository = null)
+    public function __construct(QueueingDispatcher $dispatcher, $jobsToFake = [])
     {
         $this->dispatcher = $dispatcher;
         $this->jobsToFake = Arr::wrap($jobsToFake);
-        $this->batchRepository = $batchRepository ?: new BatchRepositoryFake;
+        $this->batchRepository = new BatchRepositoryFake;
     }
 
     /**

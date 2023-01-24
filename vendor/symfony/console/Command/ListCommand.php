@@ -25,6 +25,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ListCommand extends Command
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this
@@ -61,6 +64,9 @@ EOF
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $helper = new DescriptorHelper();

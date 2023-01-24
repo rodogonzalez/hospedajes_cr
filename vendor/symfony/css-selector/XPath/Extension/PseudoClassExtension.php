@@ -26,6 +26,9 @@ use Symfony\Component\CssSelector\XPath\XPathExpr;
  */
 class PseudoClassExtension extends AbstractExtension
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getPseudoClassTranslators(): array
     {
         return [
@@ -109,6 +112,9 @@ class PseudoClassExtension extends AbstractExtension
         return $xpath->addCondition('not(*) and not(string-length())');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName(): string
     {
         return 'pseudo-class';

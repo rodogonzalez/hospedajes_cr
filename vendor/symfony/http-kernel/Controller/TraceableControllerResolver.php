@@ -28,6 +28,9 @@ class TraceableControllerResolver implements ControllerResolverInterface
         $this->stopwatch = $stopwatch;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getController(Request $request): callable|false
     {
         $e = $this->stopwatch->start('controller.get_callable');

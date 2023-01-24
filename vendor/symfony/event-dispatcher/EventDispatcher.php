@@ -42,9 +42,12 @@ class EventDispatcher implements EventDispatcherInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function dispatch(object $event, string $eventName = null): object
     {
-        $eventName ??= $event::class;
+        $eventName ??= \get_class($event);
 
         if (isset($this->optimized)) {
             $listeners = $this->optimized[$eventName] ?? (empty($this->listeners[$eventName]) ? [] : $this->optimizeListeners($eventName));
@@ -59,6 +62,9 @@ class EventDispatcher implements EventDispatcherInterface
         return $event;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getListeners(string $eventName = null): array
     {
         if (null !== $eventName) {
@@ -82,6 +88,9 @@ class EventDispatcher implements EventDispatcherInterface
         return array_filter($this->sorted);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getListenerPriority(string $eventName, callable|array $listener): ?int
     {
         if (empty($this->listeners[$eventName])) {
@@ -108,6 +117,9 @@ class EventDispatcher implements EventDispatcherInterface
         return null;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function hasListeners(string $eventName = null): bool
     {
         if (null !== $eventName) {
@@ -123,12 +135,18 @@ class EventDispatcher implements EventDispatcherInterface
         return false;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addListener(string $eventName, callable|array $listener, int $priority = 0)
     {
         $this->listeners[$eventName][$priority][] = $listener;
         unset($this->sorted[$eventName], $this->optimized[$eventName]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function removeListener(string $eventName, callable|array $listener)
     {
         if (empty($this->listeners[$eventName])) {
@@ -157,6 +175,9 @@ class EventDispatcher implements EventDispatcherInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addSubscriber(EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
@@ -172,6 +193,9 @@ class EventDispatcher implements EventDispatcherInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function removeSubscriber(EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {

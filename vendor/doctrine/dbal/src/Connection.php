@@ -163,6 +163,7 @@ class Connection
      * @param Configuration|null  $config       The configuration, optional.
      * @param EventManager|null   $eventManager The event manager, optional.
      * @psalm-param Params $params
+     * @phpstan-param array<string,mixed> $params
      *
      * @throws Exception
      */

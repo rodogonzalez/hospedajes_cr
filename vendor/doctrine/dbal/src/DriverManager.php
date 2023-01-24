@@ -13,7 +13,6 @@ use Doctrine\Deprecations\Deprecation;
 
 use function array_keys;
 use function array_merge;
-use function assert;
 use function class_implements;
 use function in_array;
 use function is_string;
@@ -68,7 +67,6 @@ use function substr;
  *     serverVersion?: string,
  *     sharding?: array<string,mixed>,
  *     slaves?: array<OverrideParams>,
- *     url?: string,
  *     user?: string,
  *     wrapperClass?: class-string<Connection>,
  *     unix_socket?: string,
@@ -238,6 +236,7 @@ final class DriverManager
     /**
      * @param array<string,mixed> $params
      * @psalm-param Params $params
+     * @phpstan-param array<string,mixed> $params
      *
      * @throws Exception
      */
@@ -283,10 +282,12 @@ final class DriverManager
      *
      * @param mixed[] $params The list of parameters.
      * @psalm-param Params $params
+     * @phpstan-param array<string,mixed> $params
      *
      * @return mixed[] A modified list of parameters with info from a database
      *                 URL extracted into indidivual parameter parts.
      * @psalm-return Params
+     * @phpstan-return array<string,mixed>
      *
      * @throws Exception
      */
@@ -298,8 +299,6 @@ final class DriverManager
 
         // (pdo_)?sqlite3?:///... => (pdo_)?sqlite3?://localhost/... or else the URL will be invalid
         $url = preg_replace('#^((?:pdo_)?sqlite3?):///#', '$1://localhost/', $params['url']);
-        assert($url !== null);
-
         $url = parse_url($url);
 
         if ($url === false) {

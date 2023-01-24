@@ -59,11 +59,10 @@ class PageBackpackCommand extends GeneratorCommand
             ->trim('/');
 
         $name = $input->afterLast('/');
-        $nameTitle = $name->snake()->replace('-', ' ')->replace('_', ' ')->title();
-        $nameSnake = $nameTitle->snake();
-
+        $nameSnake = $name->snake();
+        $nameTitle = $nameSnake->replace('_', ' ')->replace('-', ' ')->title();
         $path = $input->beforeLast($name)->trim('/\\');
-        $filePath = Str::of("$path/$nameSnake")->trim('/\\');
+        $filePath = Str::of("$path/$name")->trim('/\\');
         $fullPath = $this->getPath($filePath);
         $layout = Str::of($this->option('layout'))->replace('\\', '/')->replace('/', '.');
         $route = Str::of($this->option('route') ?? $nameSnake)->replace('\\', '/')->trim('/');

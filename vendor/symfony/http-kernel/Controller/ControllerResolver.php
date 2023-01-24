@@ -30,6 +30,9 @@ class ControllerResolver implements ControllerResolverInterface
         $this->logger = $logger;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getController(Request $request): callable|false
     {
         if (!$controller = $request->attributes->get('_controller')) {

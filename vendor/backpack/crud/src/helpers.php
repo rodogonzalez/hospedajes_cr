@@ -61,7 +61,6 @@ if (! function_exists('backpack_form_input')) {
             // regular fields don't need any aditional parsing
             if (strpos($row['name'], '[') === false) {
                 $result[$row['name']] = $row['value'];
-
                 continue;
             }
 
@@ -88,7 +87,6 @@ if (! function_exists('backpack_form_input')) {
 
             if (isset($repeatableRowKey)) {
                 $result[$parentInputName][$repeatableRowKey][$inputName] = $row['value'];
-
                 continue;
             }
 
@@ -308,9 +306,6 @@ if (! function_exists('backpack_pro')) {
      */
     function backpack_pro()
     {
-        if (app()->runningUnitTests()) {
-            return true;
-        }
         if (! \Composer\InstalledVersions::isInstalled('backpack/pro')) {
             return false;
         }

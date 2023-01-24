@@ -10,7 +10,6 @@ class User extends Model
     use CrudTrait;
 
     protected $table = 'users';
-
     protected $fillable = ['name', 'email', 'password', 'extras'];
 
     /**
@@ -100,15 +99,5 @@ class User extends Model
     public function expenses()
     {
         return $this->hasMany('Backpack\CRUD\Tests\Unit\Models\Transaction')->ofType('expense');
-    }
-
-    protected function isNotRelation()
-    {
-        return false;
-    }
-
-    public function isNotRelationPublic($arg)
-    {
-        return false;
     }
 }

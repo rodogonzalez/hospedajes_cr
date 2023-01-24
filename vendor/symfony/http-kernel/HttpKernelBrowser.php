@@ -54,6 +54,8 @@ class HttpKernelBrowser extends AbstractBrowser
     }
 
     /**
+     * {@inheritdoc}
+     *
      * @param Request $request
      *
      * @return Response
@@ -70,6 +72,8 @@ class HttpKernelBrowser extends AbstractBrowser
     }
 
     /**
+     * {@inheritdoc}
+     *
      * @param Request $request
      *
      * @return string
@@ -123,6 +127,9 @@ echo serialize($response);
 EOF;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function filterRequest(DomRequest $request): Request
     {
         $httpRequest = Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $server = $request->getServer(), $request->getContent());
@@ -179,6 +186,8 @@ EOF;
     }
 
     /**
+     * {@inheritdoc}
+     *
      * @param Response $response
      */
     protected function filterResponse(object $response): DomResponse

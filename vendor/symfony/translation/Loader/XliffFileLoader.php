@@ -28,6 +28,9 @@ use Symfony\Component\Translation\Util\XliffUtils;
  */
 class XliffFileLoader implements LoaderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue
     {
         if (!class_exists(XmlUtils::class)) {

@@ -113,7 +113,7 @@ class QueryCacheProfile
      * @param array<int, Type|int|string|null>|array<string, Type|int|string|null> $types
      * @param array<string, mixed>                                                 $connectionParams
      *
-     * @return array{string, string}
+     * @return string[]
      */
     public function generateCacheKeys($sql, $params, $types, array $connectionParams = [])
     {
@@ -127,7 +127,11 @@ class QueryCacheProfile
             '&connectionParams=' . hash('sha256', serialize($connectionParams));
 
         // should the key be automatically generated using the inputs or is the cache key set?
-        $cacheKey = $this->cacheKey ?? sha1($realCacheKey);
+        if ($this->cacheKey === null) {
+            $cacheKey = sha1($realCacheKey);
+        } else {
+            $cacheKey = $this->cacheKey;
+        }
 
         return [$cacheKey, $realCacheKey];
     }

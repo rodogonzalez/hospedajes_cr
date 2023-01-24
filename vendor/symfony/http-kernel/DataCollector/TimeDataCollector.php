@@ -33,6 +33,9 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
         $this->stopwatch = $stopwatch;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
         if (null !== $this->kernel) {
@@ -49,6 +52,9 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reset()
     {
         $this->data = [];
@@ -56,6 +62,9 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
         $this->stopwatch?->reset();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function lateCollect()
     {
         if (null !== $this->stopwatch && isset($this->data['token'])) {
@@ -122,6 +131,9 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
         return $this->data['stopwatch_installed'];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName(): string
     {
         return 'time';

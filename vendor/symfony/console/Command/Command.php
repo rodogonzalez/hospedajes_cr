@@ -19,7 +19,6 @@ use Symfony\Component\Console\Completion\Suggestion;
 use Symfony\Component\Console\Exception\ExceptionInterface;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\LogicException;
-use Symfony\Component\Console\Helper\HelperInterface;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -149,9 +148,6 @@ class Command
 
     public function setApplication(Application $application = null)
     {
-        if (1 > \func_num_args()) {
-            trigger_deprecation('symfony/console', '6.2', 'Calling "%s()" without any arguments is deprecated, pass null explicitly instead.', __METHOD__);
-        }
         $this->application = $application;
         if ($application) {
             $this->setHelperSet($application->getHelperSet());
@@ -442,9 +438,9 @@ class Command
      * @param $default The default value (for InputArgument::OPTIONAL mode only)
      * @param array|\Closure(CompletionInput,CompletionSuggestions):list<string|Suggestion> $suggestedValues The values used for input completion
      *
-     * @return $this
-     *
      * @throws InvalidArgumentException When argument mode is not valid
+     *
+     * @return $this
      */
     public function addArgument(string $name, int $mode = null, string $description = '', mixed $default = null /* array|\Closure $suggestedValues = null */): static
     {
@@ -466,9 +462,9 @@ class Command
      * @param $default  The default value (must be null for InputOption::VALUE_NONE)
      * @param array|\Closure(CompletionInput,CompletionSuggestions):list<string|Suggestion> $suggestedValues The values used for input completion
      *
-     * @return $this
-     *
      * @throws InvalidArgumentException If option mode is invalid or incompatible
+     *
+     * @return $this
      */
     public function addOption(string $name, string|array $shortcut = null, int $mode = null, string $description = '', mixed $default = null /* array|\Closure $suggestedValues = [] */): static
     {
@@ -680,8 +676,6 @@ class Command
 
     /**
      * Gets a helper instance by name.
-     *
-     * @return HelperInterface
      *
      * @throws LogicException           if no HelperSet is defined
      * @throws InvalidArgumentException if the helper is not defined

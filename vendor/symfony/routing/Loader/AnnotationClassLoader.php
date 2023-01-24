@@ -225,15 +225,24 @@ abstract class AnnotationClassLoader implements LoaderInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function supports(mixed $resource, string $type = null): bool
     {
         return \is_string($resource) && preg_match('/^(?:\\\\?[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)+$/', $resource) && (!$type || \in_array($type, ['annotation', 'attribute'], true));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setResolver(LoaderResolverInterface $resolver)
     {
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getResolver(): LoaderResolverInterface
     {
     }
@@ -359,11 +368,11 @@ abstract class AnnotationClassLoader implements LoaderInterface
             return;
         }
 
-        $annotations = $reflection instanceof \ReflectionClass
+        $anntotations = $reflection instanceof \ReflectionClass
             ? $this->reader->getClassAnnotations($reflection)
             : $this->reader->getMethodAnnotations($reflection);
 
-        foreach ($annotations as $annotation) {
+        foreach ($anntotations as $annotation) {
             if ($annotation instanceof $this->routeAnnotationClass) {
                 yield $annotation;
             }
