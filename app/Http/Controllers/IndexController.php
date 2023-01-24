@@ -3,8 +3,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\Models\Country;
-use App\Models\CountryPart;
-use App\Models\CountryPartsDestination;
+use Illuminate\Http\Request;
+//use App\Models\CountryPart;
+//use App\Models\CountryPartsDestination;
 
 
 class IndexController extends Controller{
@@ -15,12 +16,15 @@ class IndexController extends Controller{
       return view('front.main',['paises' => $paises]);
 
     }
+
     // show the index page using the blades views 
-    public function show_new_host_front_end(){
+    public function show_new_host_front_end(Request $request){
+  
+        if ($request->has('_token')){
+            dd($request->all());
+        }
+
         $paises = \App\Models\Country::all();
-
-
-
         return view('front.new_host',['paises' => $paises]);
   
       }

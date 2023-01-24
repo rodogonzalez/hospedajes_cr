@@ -30,13 +30,247 @@ class DatabaseSeeder extends Seeder
 
             $location = $this->get_position_address($country->name . ", $provincia");
 
-            \App\Models\CountryPart::create([
+            $new_country_part = \App\Models\CountryPart::create([
                                                 'name'=>$provincia,
                                                 'countries_id'=> $country_id,
                                                 'slug'=> Str::slug($provincia, '-') ,
                                                 'position_lat' => $location['lat'],
                                                 'position_lng' => $location['lng']
                                             ]);
+
+            
+            switch(strtolower($provincia)){
+                //                                            
+                case "san jose":
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'San Jose Centro',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('san jose centro', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'San Pedro',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('san pedro', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Escazu',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug("escazu", '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Sabana',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('sabana', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Coronado',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('coronado', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    break;
+                case "alajuela":
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Alajuela Centro',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('alajuela', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Atenas',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('atenas', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Grecia',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('grecia', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'San Ramon',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('san ramon', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'San Carlos',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('san carlos', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    break;
+                case "cartago":
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Paraiso',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Paraiso', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Irazu',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Irazu', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Turrialba',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Turrialba', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    break;
+                case "puntarenas":
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Puntarenas Centro',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Puntarenas Centro', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Herradura',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Herradura', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Jaco',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Jaco', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Esterillos',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Esterillos', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Manuel Antonio Quepos',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('quepos', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    break;
+                case "limon":
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Tortuguero',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('tortuguero', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Cahuita',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('cahuita', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Puerto Viejo',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Puerto Viejo', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Guacimo',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Guacimo', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    break;
+                case "guanacaste":
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Liberia',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('liberia', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'El Coco',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('el coco', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Tamarindo',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Tamarindo', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Golfo de Papagayo',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('Golfo de Papagayo', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    break;
+                case "heredia":
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Heredia Centro',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('heredia', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Sarapiqui',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('sarapiqui', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    \App\Models\CountryPartsDestination::create([
+                        'name'=>'Barba',
+                        'country_parts_id'=> $new_country_part->id,
+                        'slug'=> Str::slug('barba', '-') ,
+                        'position_lat' => $location['lat'],
+                        'position_lng' => $location['lng']
+                    ]);
+                    break;
+
+                case "san jose":
+                    break;                    
+                case "san jose":
+                    break;
+                case "san jose":
+                    break;
+                case "san jose":
+                    break;
+                case "san jose":
+                    break;
+            }
+
 
         }
 
@@ -76,6 +310,8 @@ class DatabaseSeeder extends Seeder
         $nuevo_pais = \App\Models\Country::create(['name'=>'Costa Rica', 'slug' => 'costa-rica' ]);
         $this->create_country_sections($nuevo_pais->id,  "San Jose,Alajuela,Cartago,Heredia,Puntarenas,Guanacaste,Limon");        
 
+        
+/*
         
         $nuevo_pais =\App\Models\Country::create(['name'=>'Mexico', 'slug' => 'mexico' ]);        
         $this->create_country_sections($nuevo_pais->id,  "Ciudad Mexico,Quintana Roo,Monterey,Guadalajara,Valladolid,Merica,Veracruz,Tabasco,Acapulco,Oaxaca,Chiapas");        
@@ -126,7 +362,7 @@ class DatabaseSeeder extends Seeder
 
         //$this->create_country_sections($nuevo_pais->id,  "");
 
-
+*/
         \App\Models\Airline::create(['name'=>'Volaris', 'slug' => 'volaris' ]);
         \App\Models\Airline::create(['name'=>'Avianca', 'slug' => 'avianca' ]);
         \App\Models\Airline::create(['name'=>'Latam', 'slug' => 'latam' ]);
@@ -163,8 +399,8 @@ class DatabaseSeeder extends Seeder
 
 
         //\App\Models\User::factory(200)->create();
-        echo ("Creating Random Destinations \n");
-        \App\Models\CountryPartsDestination::factory(50)->create();
+        //echo ("Creating Random Destinations \n");
+        //\App\Models\CountryPartsDestination::factory(50)->create();
         //echo ("Creating Random Hosting 1/10\n");
         //\App\Models\HostingProvider::factory(10)->create();
         
