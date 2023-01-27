@@ -1,9 +1,9 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ config('backpack.base.html_direction') }}">
 <head>
     @include(backpack_view('inc.head'))
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
+    
 </head>
-@extends(backpack_view('layouts.top_left'))
+@extends(backpack_view('layouts.plain'))
 
 @php
 	// Merge widgets that were fluently declared with widgets declared without the fluent syntax: 
@@ -26,9 +26,7 @@
 	@include(backpack_view('inc.widgets'), [ 'widgets' => app('widgets')->where('section', 'after_breadcrumbs')->toArray() ])
 @endsection
 
-@section('before_content_widgets')
-	@include(backpack_view('inc.widgets'), [ 'widgets' => app('widgets')->where('section', 'before_content')->toArray() ])
-@endsection
+ 
 
 @section('content')
 @endsection

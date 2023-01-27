@@ -22,6 +22,13 @@
 }
 
 
+
+.pics_upload{
+  display:flex;
+  
+
+}
+
 </style>
 
     <h2>Bienvenido!</h2>
@@ -53,7 +60,7 @@
     <input type="text" name="position_lat" id="position_lat" value="" />
     <input type="text" name="position_lng" id="position_lng" value="" />
     <div id="map"></div><hr>
-    <span><label>Imagenes</label>
+    <span class="pics_upload"><label>Imagenes</label>
       <input type="file">
       <input type="file">
       <input type="file">
