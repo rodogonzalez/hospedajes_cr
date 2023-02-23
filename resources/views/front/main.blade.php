@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
 <div class="container">
   <style>
 
@@ -294,7 +294,7 @@ window.onload = initMap;
 </script>
   @yield('content')
   </div>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
+  
   
 @endsection
 
