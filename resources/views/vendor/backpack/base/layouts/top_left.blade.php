@@ -41,7 +41,6 @@
 
   <footer class="{{ config('backpack.base.footer_class') }}">
 
-     <!-- 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3258144106657369"
      crossorigin="anonymous"></script>
 
@@ -55,7 +54,7 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
--->
+
     @include(backpack_view('inc.footer'))
   </footer>
 
