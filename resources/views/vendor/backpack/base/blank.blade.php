@@ -3,7 +3,10 @@
     @include(backpack_view('inc.head'))
     
 </head>
-@extends(backpack_view('layouts.plain'))
+
+
+
+@extends(backpack_view('layouts.top_left'))
 
 @php
 	// Merge widgets that were fluently declared with widgets declared without the fluent syntax: 
