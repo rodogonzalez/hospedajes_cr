@@ -1,10 +1,14 @@
-@if (config('backpack.base.show_powered_by') || config('backpack.base.developer_link'))
-    <div class="text-muted ml-auto mr-auto">
-      @if (config('backpack.base.developer_link') && config('backpack.base.developer_name'))
-      {{ trans('backpack::base.handcrafted_by') }} <a target="_blank" rel="noopener" href="{{ config('backpack.base.developer_link') }}">{{ config('backpack.base.developer_name') }}</a>.
-      @endif
-      @if (config('backpack.base.show_powered_by'))
-      {{ trans('backpack::base.powered_by') }} <a target="_blank" rel="noopener" href="http://backpackforlaravel.com?ref=panel_footer_link">Backpack for Laravel</a>.
-      @endif
-    </div>
-@endif
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3258144106657369"
+     crossorigin="anonymous"></script>
+
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3258144106657369"
+     data-ad-slot="8812111908"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
