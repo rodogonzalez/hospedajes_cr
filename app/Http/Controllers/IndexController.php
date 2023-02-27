@@ -21,7 +21,23 @@ class IndexController extends Controller{
     public function show_new_host_front_end(Request $request){
   
         if ($request->has('_token')){
-            dd($request->all());
+            
+            $new_host = \App\Models\HostingProvoder([
+                'name' => 'Hotel ' . $request->input(""),
+                'slug'=> Str::slug($name, '-'),
+                'country_parts_destinations_id'=>  $random_country_part_destination->id, 
+                'email' => fake()->unique()->safeEmail(),
+                'phone_contact' =>  fake()->phoneNumber() ,
+                'position_lng' => $point[1] ,
+                'position_lat' => $point[0],
+                'description' => $text,
+    
+                
+                
+                
+            ]);
+            dd($new_host);
+
         }
 
         $paises = \App\Models\Country::all();

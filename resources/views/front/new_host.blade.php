@@ -41,6 +41,7 @@
         @foreach ($paises as $pais)
           <option value="{{$pais->slug}}">{{$pais->name}}</option>
         @endforeach
+        
       </select>
     </span>
     <span>
@@ -48,24 +49,24 @@
     </span>
     <span><label>Zona</label><select name="country_part_destinations" id="country_part_destinations"></select>
     </span>
-    <span><label>Nombre</label><input name="" id="" value="" placeholder="">
+    <span><label>Nombre</label><input name="name" id="name" value="" placeholder="">
     </span>
-    <span><label>Correo del Establecimiento</label><input name="" id="" value="" placeholder="">
+    <span><label>Correo del Establecimiento</label><input name="email" id="email" value="" placeholder="">
     </span>
-    <span><label>Telefono</label><input name="" id="" value="" placeholder="">
+    <span><label>Telefono</label><input name="phone" id="phone" value="" placeholder="">
     </span>
-    <span><label>Descripcion</label><input name="" id="" value="" placeholder="">
+    <span><label>Descripcion</label><input name="desc" id="desc" value="" placeholder="">
     </span>
     <input type="text" name="position_lat" id="position_lat" value="" />
     <input type="text" name="position_lng" id="position_lng" value="" />
     <div id="map"></div><hr>
     <span class="pics_upload"><label>Imagenes</label>
-      <input type="file">
-      <input type="file">
-      <input type="file">
-      <input type="file">
-      <input type="file">
-      <input type="file">
+      <input name="pic[]" type="file">
+      <input name="pic[]" type="file">
+      <input name="pic[]" type="file">
+      <input name="pic[]" type="file">
+      <input name="pic[]" type="file">
+      <input name="pic[]" type="file">
     </span>
     
          
@@ -74,6 +75,10 @@
     let uluru;
 
     function initMap() {
+
+
+        pull_country_parts('{{$paises[0]->slug}}');
+
 
         uluru = { lat: parseFloat(  {{$pos_lat}} ), lng: parseFloat( {{$pos_lng}} ) };
 
@@ -144,6 +149,10 @@ fetch('/' + country_slug)
          
 
         options_content= options_content + "<option value='" +  item.slug + "'>" +  item.slug + "</option>";
+
+        if (index==0){
+          pull_country_parts_destinations(item.slug);
+        }
  
       });
 
@@ -170,6 +179,7 @@ function pull_country_parts_destinations(country_slug,section){
       .then(result => {
         result.forEach(function (item, index) {                      
           options_content= options_content + "<option value='" +  item.slug + "'>" +  item.slug + "</option>";
+          
 
         });
 
