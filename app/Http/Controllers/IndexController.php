@@ -22,15 +22,15 @@ class IndexController extends Controller{
   
         if ($request->has('_token')){
             
-            $new_host = \App\Models\HostingProvoder([
-                'name' => 'Hotel ' . $request->input(""),
-                'slug'=> Str::slug($name, '-'),
-                'country_parts_destinations_id'=>  $random_country_part_destination->id, 
-                'email' => fake()->unique()->safeEmail(),
-                'phone_contact' =>  fake()->phoneNumber() ,
-                'position_lng' => $point[1] ,
-                'position_lat' => $point[0],
-                'description' => $text,
+            $new_host = new \App\Models\HostingProvider([
+                'name' =>  $request->input("name"),
+                'slug'=> Str::slug($request->input("name"), '-'),
+                'country_parts_destinations_id'=>  $request->input("country_part_destinations"), 
+                'email' => $request->input("email"),
+                'phone_contact' =>  $request->input("phone") ,
+                'position_lng' => $request->input("position_lng") ,
+                'position_lat' => $request->input("position_lat"),
+                'description' => $request->input("desc"),
     
                 
                 
