@@ -1,4 +1,8 @@
-<li class="nav-item class_menu"><a  class="nav-link" href="/new-host">Anunciate</a></li>
+<li class="nav-item class_menu"><a  class="nav-link" href="/new-host"><i class="la la-plus-circle nav-icon"></i>Anunciate</a></li>
+
+
+@if (backpack_user()->hasRole('Admin'))
+
 
 {{-- This file is used to store sidebar items, inside the Backpack admin panel --}}
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
@@ -43,6 +47,12 @@
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('elfinder') }}"><i class="nav-icon la la-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li>
     </ul>
 </li>
+
+
+
+
+@endif
+
 
 <style>
 .nav-item{

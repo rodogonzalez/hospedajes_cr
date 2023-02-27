@@ -3,12 +3,11 @@
 
 @section('content')
 <?php 
-
   $pos_lat = env('DEFAULT_LAT') ;
-  $pos_lng = env('DEFAULT_LNG');   
+  $pos_lng = env('DEFAULT_LNG');     
 
-?>
-
+    ?>
+@if (backpack_auth()->user() != null)
   <div class="container">
 <style>
 .frm_suscribir {
@@ -185,6 +184,10 @@ function pull_country_parts_destinations(country_slug,section){
 
 
 </script>
+@else
+  <h1>Requiere crear una cuenta</h1>
+@endif
+
 
 @yield('content')
 
