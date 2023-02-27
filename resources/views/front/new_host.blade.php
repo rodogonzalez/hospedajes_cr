@@ -37,7 +37,7 @@
      
 
       <span><label>Pais</label><select name="country" id="current_country"  onchange="pull_country_parts(this.value)">
-        <option value="">--select country--</option>
+        
         @foreach ($paises as $pais)
           <option value="{{$pais->slug}}">{{$pais->name}}</option>
         @endforeach
@@ -144,6 +144,7 @@ fetch('/' + country_slug)
     .then(result => {
 
       current_country_part = result;
+      default_item = null;
   
       result.forEach(function (item, index) {
          
@@ -151,13 +152,17 @@ fetch('/' + country_slug)
         options_content= options_content + "<option value='" +  item.slug + "'>" +  item.slug + "</option>";
 
         if (index==0){
-          pull_country_parts_destinations(item.slug);
+          
+          default_item = item;
+          
         }
  
       });
 
       document.getElementById("country_part").options.length = 0;        
       document.getElementById("country_part").innerHTML = options_content;
+      console.log(default_item);
+      pull_country_parts_destinations( country_slug, default_item.slug);
     })    
     //imprimir los datos en la consola
     .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
