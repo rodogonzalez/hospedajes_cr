@@ -65,9 +65,11 @@ class CountryPart extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    /*
     public function getNameAttribute($val){
 
         return Country::find($this->countries_id)->name .  '::' .  $val ;
 
-    }
+    }*/
 }

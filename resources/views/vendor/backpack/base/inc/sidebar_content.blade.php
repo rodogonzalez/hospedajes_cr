@@ -1,7 +1,7 @@
 <li class="nav-item class_menu"><a  class="nav-link" href="/new-host"><i class="la la-plus-circle nav-icon"></i>Anunciate</a></li>
 
 
-@if (backpack_user()->hasRole('Admin'))
+
 
 
 {{-- This file is used to store sidebar items, inside the Backpack admin panel --}}
@@ -9,12 +9,12 @@
 
 
 
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('hosting-provider') }}"><i class="nav-icon la la-question"></i> Hospedajes</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('hosting-provider') }}"><i class="nav-icon la la-question"></i> Comercios</a></li>
 <!-- <li class="nav-item"><a class="nav-link" href="{{ backpack_url('hosting-offer') }}"><i class="nav-icon la la-question"></i> Hosting offers</a></li> !-->
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('tour') }}"><i class="nav-icon la la-question"></i> Tours</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('airline') }}"><i class="nav-icon la la-question"></i> Aerolineas</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('rent-a-car') }}"><i class="nav-icon la la-question"></i> Rent a Cars</a></li>
-
+@if (backpack_user()->hasRole('Admin'))
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('airline') }}"><i class="nav-icon la la-question"></i> Aerolineas</a></li>
 
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> Parametros</a>
@@ -61,17 +61,17 @@
 }
 
 </style>
+@if (env('ADSENSE_ENABLED')==true)
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-3258144106657369"
+        data-ad-slot="8812111908"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> 
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3258144106657369"
-     data-ad-slot="8812111908"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-	</script> 
-
-     
+@endif

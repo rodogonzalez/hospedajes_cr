@@ -107,7 +107,7 @@ class CountryPartsDestination extends Model
         return json_encode($response);
     }
 
-
+/*
     public function getNameAttribute($values)
     {
         
@@ -115,6 +115,6 @@ class CountryPartsDestination extends Model
         //dd($this->country());        
         return $this->country()->name .  "- $values -"  ;
     }
-    
+  */  
     
 }

@@ -78,22 +78,41 @@ class HostingProviderCrudController extends AbstractLocationFields
     protected function setupCreateOperation()
     {
 
-        CRUD::setValidation(HostingProviderRequest::class);        
-        CRUD::field('name');
-        $this->crud->addField(['name' => 'slug','type' => 'text','label' => "URL Segment (slug)"]);
-        $this->crud->addField(['name' => 'email','type' => 'text','label' => "Email"]);
-        $this->crud->addField(['name' => 'phone_contact','type' => 'text','label' => "Telefono"]);
-
-        $this->crud->addField([   // Upload
-            'name'      => 'description',
-            'label'     => 'Descripcion',
-            'type'      => 'textarea',
-         ]);
-
+        CRUD::setValidation(HostingProviderRequest::class);       
+        
         
   
         $this->crud->addField([  // Select
-            'label'     => "Ubicacion OR",
+            'label'     => "Pais",
+            'type'      => 'select',
+            'name'      => 'country_id', 
+//            'entity'    => 'country',         
+            // optional - manually specify the related model and attribute
+            'model'     => "App\Models\Country", // related model
+            'attribute' => 'name', // foreign key attribute that is shown to user         
+            // optional - force the related options to be a custom query, instead of all();
+            'options'   => (function ($query) {
+                 return $query->orderBy('id', 'ASC')->orderBy('name', 'ASC')->get();
+             }), //  you can use this to filter the results show in the select
+            ]);
+        
+        $this->crud->addField([  // Select
+            'label'     => "Provincia",
+            'type'      => 'select',
+            'name'      => 'country_part_id', 
+            //'entity'    => 'country_parts_destinations',         
+            // optional - manually specify the related model and attribute
+            'model'     => "App\Models\CountryPart", // related model
+            'attribute' => 'name', // foreign key attribute that is shown to user         
+            // optional - force the related options to be a custom query, instead of all();
+            'options'   => (function ($query) {
+                    return $query->orderBy('id', 'ASC')->orderBy('name', 'ASC')->get();
+                }), //  you can use this to filter the results show in the select
+            ]);        
+    
+  
+        $this->crud->addField([  // Select
+            'label'     => "Ubicacion",
             'type'      => 'select',
             'name'      => 'country_parts_destinations_id', 
             'entity'    => 'country_parts_destinations',         
@@ -106,6 +125,19 @@ class HostingProviderCrudController extends AbstractLocationFields
              }), //  you can use this to filter the results show in the select
             ]);
         
+
+        CRUD::field('name');
+        $this->crud->addField(['name' => 'slug','type' => 'text','label' => "URL Segment (slug)"]);
+        $this->crud->addField(['name' => 'email','type' => 'text','label' => "Email"]);
+        $this->crud->addField(['name' => 'phone_contact','type' => 'text','label' => "Telefono"]);
+        $this->crud->addField([   // Upload
+            'name'      => 'description',
+            'label'     => 'Descripcion',
+            'type'      => 'textarea',
+         ]);
+
+
+
         
         $this->crud->addField([   // Checklist
             'label'     => 'Caracteristicas Generales',

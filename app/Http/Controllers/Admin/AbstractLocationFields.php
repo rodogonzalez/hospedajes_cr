@@ -21,10 +21,24 @@ class  AbstractLocationFields extends CrudController
 
     public function setLocationFields(){
 
+
+
+        $pos_lat = env('DEFAULT_LAT') ;
+        $pos_lng = env('DEFAULT_LNG');   
+
+          
+        
+        if ($this->crud->getCurrentEntry() !== false) {
+            $pos_lat = floatval ($this->crud->getCurrentEntry()->position_lat);
+            $pos_lng = floatval ($this->crud->getCurrentEntry()->position_lng);            
+        }
+        
+
         //CRUD::field('position_lng');
         $this->crud->addField([   // CustomHTML
             'name'  => 'position_lng',
             'type'  => 'text',
+            'value'  => $pos_lng ,
             //'attributes'  => ' id = "position_lng" '
             'attributes' => [ 
                 'id' => 'position_lng',
@@ -34,7 +48,8 @@ class  AbstractLocationFields extends CrudController
         $this->crud->addField([   // CustomHTML
             'name'  => 'position_lat',
             'type'  => 'text',
-            
+            'value'  => $pos_lat ,
+
             //'attributes'  => ' id = "" '
             'attributes' => [ 
                                 'id' => 'position_lat',
@@ -45,15 +60,7 @@ class  AbstractLocationFields extends CrudController
             ]);
             
 
-
-        $pos_lat = env('DEFAULT_LAT') ;
-        $pos_lng = env('DEFAULT_LNG');            
-        
-        if ($this->crud->getCurrentEntry() !== false) {
-            $pos_lat = floatval ($this->crud->getCurrentEntry()->position_lat);
-            $pos_lng = floatval ($this->crud->getCurrentEntry()->position_lng);            
-        }
-        
+       
  
 
         $this->crud->addField([   // CustomHTML
