@@ -24,6 +24,8 @@ class Country extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -66,16 +68,20 @@ class Country extends Model
         $attribute_name = "flag";
         $disk = "public";
         $destination_path = "/";
-
         $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
 
-    // return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
+    
     }
 
     public function getFlagAttribute($value)
     {
         return '/storage/' .  $value;
-    }
-    
+    }    
+
+
+    public function getIdAtxxxxxxxxxxtribute($value)
+    {
+        return $this->id;
+    }    
     
 }

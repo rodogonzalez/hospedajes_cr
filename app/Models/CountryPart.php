@@ -72,4 +72,7 @@ class CountryPart extends Model
         return Country::find($this->countries_id)->name .  '::' .  $val ;
 
     }*/
+
+ 
+    
 }

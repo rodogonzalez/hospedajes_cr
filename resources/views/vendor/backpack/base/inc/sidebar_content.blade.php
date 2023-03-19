@@ -1,4 +1,4 @@
-<li class="nav-item class_menu"><a  class="nav-link" href="/new-host"><i class="la la-plus-circle nav-icon"></i>Anunciate</a></li>
+<li class="nav-item class_menu"><a  class="nav-link" href="/admin/hosting-provider/create"><i class="la la-plus-circle nav-icon"></i>Anunciate</a></li>
 
 
 
@@ -19,22 +19,13 @@
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> Parametros</a>
     <ul class="nav-dropdown-items">
-
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('country') }}"><i class="nav-icon la la-question"></i> Paises</a></li>
-        
-        
+        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('country') }}"><i class="nav-icon la la-question"></i> Paises</a></li>               
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('country-part') }}"><i class="nav-icon la la-question"></i> Provincias/Departamentos</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('country-parts-destination') }}"><i class="nav-icon la la-question"></i> Destinos</a></li>
-
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('hosting-feature') }}"><i class="nav-icon la la-question"></i> Caracteristica de Hospedaje</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('tour-activity-type') }}"><i class="nav-icon la la-question"></i> Actividades de Tour</a></li>
-        
-
-
+        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('tour-activity-type') }}"><i class="nav-icon la la-question"></i> Actividades de Tour</a></li>       
     </ul>
 </li>
-
-
 
 <!-- Users, Roles, Permissions -->
 <li class="nav-item nav-dropdown">

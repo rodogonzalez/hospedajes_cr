@@ -16,8 +16,7 @@
     </style>
         <ul>
 
-            <li class="class_menu">¿Quienes Somos?</li>
-            <li class="class_menu"><a href="/new-host">Anunciate</a></li>
+            <li class="class_menu">¿Quienes Somos?</li>            
             <li class="class_menu"><a href='/admin'>Mi Cuenta</a></li>
             <li class="class_menu">
                 <select id="current_country" onchange="pull_country_parts(this.value)">

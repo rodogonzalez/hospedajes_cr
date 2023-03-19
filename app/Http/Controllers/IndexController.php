@@ -49,7 +49,7 @@ class IndexController extends Controller{
       }
 
     public function show_country($countr){
-        $contry = Country::where('slug',$countr)->first();
+        $contry = Country::where('slug',$countr)->orWhere('id', $countr)->first();
         if (is_null ($contry) ) {
             abort(403, 'Invalid Country.');
 
@@ -62,13 +62,13 @@ class IndexController extends Controller{
 
     public function show_country_part($countr, $country_part){
 
-        $country = Country::where('slug',$countr)->first();
+        $country = Country::where('slug',$countr)->orWhere('id', $countr)->first();
         
         if (is_null ($country) ) {
             abort(403, 'Invalid Country.');
         }
 
-        $country_part = $country->sections()->where('slug', $country_part)->first();
+        $country_part = $country->sections()->where('slug', $country_part)->orWhere('id', $country_part)->first();
 
         if (is_null ($country_part) ) {
             abort(403, 'Invalid Country Part.');
@@ -79,14 +79,14 @@ class IndexController extends Controller{
 
     public function show_country_part_destination($country, $country_part, $destination){
 
-        $country = Country::where('slug',$country)->first();
+        $country = Country::where('slug',$country)->orWhere('id', $country)->first();
         
         if (is_null ($country) ) {
             abort(403, 'Invalid Country.');
         }
 
         //echo "<a href='/{$country->slug}'>$country->name</a><br>";
-        $country_part = $country->sections()->where('slug', $country_part)->first();
+        $country_part = $country->sections()->where('slug', $country_part)->orWhere('id', $country_part)->first();
         if (is_null ($country_part) ) {
             abort(403, 'Invalid Country Part.');
         }

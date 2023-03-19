@@ -59,17 +59,18 @@ class PageBackpackCommand extends GeneratorCommand
             ->trim('/');
 
         $name = $input->afterLast('/');
-        $nameSnake = $name->snake();
-        $nameTitle = $nameSnake->replace('_', ' ')->replace('-', ' ')->title();
+        $nameTitle = $name->snake()->replace('-', ' ')->replace('_', ' ')->title();
+        $nameSnake = $nameTitle->snake();
+
         $path = $input->beforeLast($name)->trim('/\\');
-        $filePath = Str::of("$path/$name")->trim('/\\');
+        $filePath = Str::of("$path/$nameSnake")->trim('/\\');
         $fullPath = $this->getPath($filePath);
         $layout = Str::of($this->option('layout'))->replace('\\', '/')->replace('/', '.');
         $route = Str::of($this->option('route') ?? $nameSnake)->replace('\\', '/')->trim('/');
 
         $this->infoBlock("Creating {$nameTitle} page");
 
-        $this->progressBlock("Creating view <fg=blue>resources/views/${filePath}.blade.php</>");
+        $this->progressBlock("Creating view <fg=blue>resources/views/{$filePath}.blade.php</>");
 
         // check if the file already exists
         if ((! $this->hasOption('force') || ! $this->option('force')) && $this->alreadyExists($filePath)) {

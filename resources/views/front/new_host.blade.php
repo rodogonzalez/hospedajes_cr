@@ -76,11 +76,9 @@
 
     function initMap() {
 
-
-        pull_country_parts('{{$paises[0]->slug}}');
-
-
         uluru = { lat: parseFloat(  {{$pos_lat}} ), lng: parseFloat( {{$pos_lng}} ) };
+        pull_country_parts('{{$paises[0]->slug}}');
+        
 
         const map = new google.maps.Map(document.getElementById("map"), {
             center: { lat:  parseFloat( {{$pos_lat}} ), lng: parseFloat( {{$pos_lng}} ) },

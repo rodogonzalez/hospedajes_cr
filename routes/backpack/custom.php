@@ -25,5 +25,5 @@ Route::group([
     Route::crud('hosting-offer', 'HostingOfferCrudController');
     Route::crud('tour', 'TourCrudController');
     Route::crud('airline', 'AirlineCrudController');
-    Route::crud('rent-a-car', 'RentACarCrudController');
+    Route::crud('rent-a-car', 'RentACarCrudController');    
 }); // this should be the absolute last line of this file

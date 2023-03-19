@@ -19,6 +19,75 @@ class HostingProviderCrudController extends AbstractLocationFields
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    /**this function builds the js code necesary for drop down and other custumization */
+    private function build_js_code(){
+        return '
+<script>
+
+function pull_country_parts_destinations(section){  
+
+    let country_slug = document.getElementById("country_id").value;
+    let options_content = "";
+    document.getElementById("country_part_destinations").innerHTML = "<option>cargando...</option>";
+  
+    // Solicitud GET (Request).
+    fetch("/" + country_slug + "/" + section)
+        // Exito
+        .then(response => response.json())  // convertir a json
+        .then(result => {
+          result.forEach(function (item, index) {                      
+            options_content= options_content + "<option value=\'" +  item.id + "\'>" +  item.slug + "</option>";            
+            
+  
+          });
+  
+          
+          document.getElementById("country_part_destinations").options.length = 0;        
+          document.getElementById("country_part_destinations").innerHTML = options_content;
+  
+        })    //imprimir los datos en la consola
+        .catch(err => console.log("Solicitud fallida", err)); // Capturar errores
+  }
+  
+
+
+
+function pull_country_parts(country_slug){
+
+        
+    let options_content = "";
+  
+    document.getElementById("country_part").innerHTML = "<option>cargando...</option>";
+  
+    // Solicitud GET (Request).
+    fetch("/" + country_slug)
+        // Exito
+        .then(response => response.json())  // convertir a json
+        .then(result => {
+  
+          current_country_part = result;
+      
+          result.forEach(function (item, index) {              
+  
+            options_content= options_content + "<option value=\'" +  item.id + "\'>" +  item.slug + "</option>";
+            if (index==0) pull_country_parts_destinations ( item.id ) 
+  
+  
+          });
+  
+          document.getElementById("country_part").options.length = 0;        
+          document.getElementById("country_part").innerHTML = options_content;
+        })    
+        //imprimir los datos en la consola
+        .catch(err => console.log("Solicitud fallida", err)); // Capturar errores
+        
+  }
+  </script>  
+        ';
+
+    }
+
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -29,6 +98,8 @@ class HostingProviderCrudController extends AbstractLocationFields
         CRUD::setModel(\App\Models\HostingProvider::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/hosting-provider');
         CRUD::setEntityNameStrings('Hospedaje', 'Hospedajes');
+
+        //author_users_id
     }
 
     /**
@@ -38,35 +109,13 @@ class HostingProviderCrudController extends AbstractLocationFields
      * @return void
      */
     protected function setupListOperation()
-    {
-        CRUD::column('country_parts_destinations_id');
-        //CRUD::column('position_lng');
-        //CRUD::column('position_lat');
-        CRUD::column('name');
-        //CRUD::column('description');
-        //CRUD::column('created_at');
-        //CRUD::column('updated_at');
-/*
-        // dropdown filter
-        $this->crud->addFilter([
-            'name'  => 'name',
-            'type'  => 'dropdown',
-            'label' => 'Status'
-        ], [
-            1 => 'In stock',
-            2 => 'In provider stock',
-            3 => 'Available upon ordering',
-            4 => 'Not available',
-        ], function($value) { // if the filter is active
-            // $this->crud->addClause('where', 'status', $value);
-        });
+    {        
+        if (!backpack_user()->hasRole('Admin')){
+            $this->crud->addClause('where', 'author_users_id', backpack_user()->id); 
+        }       
 
-*/
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        CRUD::column('country_parts_destinations_id');
+        CRUD::column('name');
     }
 
     /**
@@ -79,6 +128,22 @@ class HostingProviderCrudController extends AbstractLocationFields
     {
 
         CRUD::setValidation(HostingProviderRequest::class);       
+
+        
+        
+
+        $this->crud->addField([  // Select            
+            'name'      => 'author_users_id', 
+            'type'  => 'hidden',
+            'value' => backpack_user()->id,            
+        ]);
+
+        $this->crud->addField([  // Select
+            'label'     => "js_script",
+            'name'      => 'js_code', 
+            'type'  => 'custom_html',
+            'value' => $this->build_js_code(),            
+        ]);
         
         
   
@@ -86,28 +151,47 @@ class HostingProviderCrudController extends AbstractLocationFields
             'label'     => "Pais",
             'type'      => 'select',
             'name'      => 'country_id', 
+            'fake' => true, 
+
 //            'entity'    => 'country',         
             // optional - manually specify the related model and attribute
             'model'     => "App\Models\Country", // related model
-            'attribute' => 'name', // foreign key attribute that is shown to user         
+            'attribute' => 'name', // foreign key attribute that is shown to user        
+
             // optional - force the related options to be a custom query, instead of all();
             'options'   => (function ($query) {
-                 return $query->orderBy('id', 'ASC')->orderBy('name', 'ASC')->get();
+                 return $query->orderBy('name', 'ASC')->get();
              }), //  you can use this to filter the results show in the select
+
+             'attributes' => [
+                'id' => 'country_id',
+                'onchange' => 'pull_country_parts(this.value)',                
+                ], // 
+
+
             ]);
         
         $this->crud->addField([  // Select
             'label'     => "Provincia",
             'type'      => 'select',
             'name'      => 'country_part_id', 
+            'fake' => true, 
             //'entity'    => 'country_parts_destinations',         
             // optional - manually specify the related model and attribute
             'model'     => "App\Models\CountryPart", // related model
-            'attribute' => 'name', // foreign key attribute that is shown to user         
+            'attribute' => 'slug', // foreign key attribute that is shown to user         
             // optional - force the related options to be a custom query, instead of all();
             'options'   => (function ($query) {
-                    return $query->orderBy('id', 'ASC')->orderBy('name', 'ASC')->get();
+                   return $query->orderBy('id', 'ASC')->orderBy('name', 'ASC')->take(0)->get();
                 }), //  you can use this to filter the results show in the select
+
+
+            'attributes' => [
+                'id' => 'country_part',
+                'onchange' => 'pull_country_parts_destinations(this.value)',                
+                ], // 
+
+
             ]);        
     
   
@@ -121,8 +205,26 @@ class HostingProviderCrudController extends AbstractLocationFields
             'attribute' => 'name', // foreign key attribute that is shown to user         
             // optional - force the related options to be a custom query, instead of all();
             'options'   => (function ($query) {
-                 return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->get();
+                //dd($this->crud->getCurrentEntry());
+
+                if  ($this->crud->getCurrentEntry() !== false ){
+                    return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->where('id', $this->crud->getCurrentEntry()->country_parts_destinations_id )->get();
+                }else{
+                    return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->take(0)->get();
+                }
+                
+
+                 
              }), //  you can use this to filter the results show in the select
+
+
+
+             'attributes' => [
+                'id' => 'country_part_destinations',
+                'onchange' => 'a',                
+                ], // 
+
+
             ]);
         
 

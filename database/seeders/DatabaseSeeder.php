@@ -284,11 +284,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
+/*
         $this->call([
             'netdjw\LoremIpsum\Database\Seeds\LoremIpsumLaSeeder'
         ]);
-
+*/
 
         \Backpack\PermissionManager\app\Models\Role::create([
             'name' => 'Admin',            
