@@ -20,6 +20,17 @@ class IndexController extends Controller{
 
     }
 
+    public function all_commerces(){
+
+        
+        $all = \App\Models\HostingProvider::all();
+        
+
+        return json_encode($all);
+
+
+    }
+
     // show the index page using the blades views 
     public function show_new_host_front_end(Request $request){
   

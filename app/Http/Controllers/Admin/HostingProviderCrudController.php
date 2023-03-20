@@ -98,6 +98,7 @@ class HostingProviderCrudController extends AbstractLocationFields
              'attributes' => [
                 'id' => 'country_id',
                 'onchange' => 'pull_country_parts(this.value)',                
+                'required' => 'required',                
                 ], // 
 
 
@@ -120,7 +121,9 @@ class HostingProviderCrudController extends AbstractLocationFields
 
             'attributes' => [
                 'id' => 'country_part',
-                'onchange' => 'pull_country_parts_destinations(this.value)',                
+                'onchange' => 'pull_country_parts_destinations(this.value)',                                
+                'required' => 'required',                
+                
                 ], // 
 
 
@@ -160,10 +163,11 @@ class HostingProviderCrudController extends AbstractLocationFields
             ]);
         
 
-        CRUD::field('name');
-        $this->crud->addField(['name' => 'slug','type' => 'text','label' => "URL Segment (slug)"]);
-        $this->crud->addField(['name' => 'email','type' => 'text','label' => "Email"]);
-        $this->crud->addField(['name' => 'phone_contact','type' => 'text','label' => "Telefono"]);
+    //CRUD::field('name');
+        $this->crud->addField(['name' => 'name','type' => 'text','label' => "Nombre", 'attributes' => ['required' => 'required' ]]);        
+        $this->crud->addField(['name' => 'slug','type' => 'text','label' => "URL Segment (slug)", 'attributes' => ['required' => 'required' ]]);
+        $this->crud->addField(['name' => 'email','type' => 'text','label' => "Email", 'attributes' => ['required' => 'required' ]]);
+        $this->crud->addField(['name' => 'phone_contact','type' => 'text','label' => "Telefono", 'attributes' => ['required' => 'required' ]]);
         $this->crud->addField([   // Upload
             'name'      => 'description',
             'label'     => 'Descripcion',

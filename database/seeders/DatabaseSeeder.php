@@ -5,7 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-use Illuminate\Console\Command;
+//use Illuminate\Console\Command;
+//use Symfony\Component\Console\Output\ConsoleOutput;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -298,13 +300,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Visitor',            
         ]);        
 
-        \App\Models\User::create([
+        $user = \App\Models\User::create([
              'name' => 'Admin',
              'email' => 'rodogonzalez@msn.com',             
              'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
          ]);
 
-         
+         $user->assignRole('Admin');
+
 
         
         $nuevo_pais = \App\Models\Country::create(['name'=>'Costa Rica', 'slug' => 'costa-rica' ]);
@@ -400,11 +403,16 @@ class DatabaseSeeder extends Seeder
 
         //\App\Models\User::factory(200)->create();
         //echo ("Creating Random Destinations \n");
-        //\App\Models\CountryPartsDestination::factory(50)->create();
+        \App\Models\CountryPartsDestination::factory(50)->create();
         //echo ("Creating Random Hosting 1/10\n");
-        //\App\Models\HostingProvider::factory(10)->create();
-        
-        
 
+        $total=100;
+        
+        
+        for ($x=0; $x<=$total; $x++) {
+            \App\Models\HostingProvider::factory(1)->create();
+            echo ("Creating Random Hosting $x  / $total\n");                    
+        }
+        
     }
 }

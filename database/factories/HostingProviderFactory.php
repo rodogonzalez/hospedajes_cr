@@ -40,6 +40,7 @@ class HostingProviderFactory extends Factory
         $name =  fake()->name();
         return [
             'name' => 'Hotel ' . $name,
+            'author_users_id' => 0,
             'slug'=> Str::slug($name, '-'),
             'country_parts_destinations_id'=>  $random_country_part_destination->id, 
             'email' => fake()->unique()->safeEmail(),

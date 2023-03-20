@@ -170,6 +170,55 @@ function pull_country_parts(country_slug){
       
 }
 
+
+
+function pull_all_destinations_commerces(){
+
+fetch('/all-commerces')
+    // Exito
+    .then(response => response.json())  // convertir a json
+    .then(result => {
+
+      //console.log(result);
+      result.forEach(function (item, index) {
+
+        uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
+        let host_point_marker;
+        console.log(item);
+
+        // The marker, positioned at Uluru
+        host_point_marker = new google.maps.Marker({
+          position: uluru,
+          title: item.name,
+          map: map,
+          icon: icons['parking'].icon,
+          //icon:svgMarkerHosting
+        });
+
+        let description =  "<hr><b>Descripcion:</b><div>" + item.description + "</div>" ;
+
+        if (description == null ) description = "";
+
+
+        let hotel_name = "<a href='/admin/hosting-provider/" + item.id + "/edit'>" + item.name + description ;
+
+        // Add a click listener for each marker, and set up the info window.
+        host_point_marker.addListener("click", () => {
+
+              infoWindow.close();                
+              infoWindow.setContent( hotel_name  );
+              infoWindow.open(map, host_point_marker);
+              
+            });
+
+      });
+
+    })    //imprimir los datos en la consola
+    .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+
+}
+
+
 function pull_country_parts_destinations(country_slug,section){
   //console.log('Loading...');
   //console.log(('/' + country_slug + '/' + section));
@@ -259,34 +308,9 @@ function pull_country_parts_destinations_commerces(country_slug,section,destinat
 
 
 function initMap() {
- 
- countries.forEach(function (item, index) {
+  
 
-    uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
-
-    let country_marker;
-
-     // The marker, positioned at Uluru
-     country_marker = new google.maps.Marker({
-       position: uluru,
-       title: item.slug,
-       map: map,
-       //icon: svgMarker
-     //  icon: icons['info'].icon,
-     });
-
-     if (index==0) pull_country_parts(item.slug);
-
-
-     // Add a click listener for each marker, and set up the info window.
-     country_marker.addListener("click", () => {
-           infoWindow.close();
-           pull_country_parts(country_marker.getTitle());
-           //infoWindow.setContent("<a href=\'" +   + "\'>" + marker.getTitle()  + "</a>");
-           //infoWindow.open(marker.getMap(), marker);
-         });
-
- });
+  pull_all_destinations_commerces();
 }
 
 window.onload = initMap;
