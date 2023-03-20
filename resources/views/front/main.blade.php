@@ -200,7 +200,7 @@ fetch('/all-commerces')
         if (description == null ) description = "";
 
 
-        let hotel_name = "<a href='/admin/hosting-provider/" + item.id + "/edit'>" + item.name + description ;
+        let hotel_name = "<a href='/admin/hosting-provider/" + item.id + "/edit'>" + item.name + "</a><span>" +  description  + "</span>";
 
         // Add a click listener for each marker, and set up the info window.
         host_point_marker.addListener("click", () => {
