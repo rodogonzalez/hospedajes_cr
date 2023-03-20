@@ -87,6 +87,10 @@ return new class extends Migration {
             $table->string('slug');
             $table->string('email')->nullable();
             $table->string('phone_contact')->nullable();
+
+            $table->unsignedBigInteger('countries_id');
+            $table->unsignedBigInteger('country_parts_id');
+
             $table->unsignedBigInteger('country_parts_destinations_id')->nullable();
             $table->string('youtube_video')->nullable();
             $table->float('position_lng', 10, 6)->nullable();

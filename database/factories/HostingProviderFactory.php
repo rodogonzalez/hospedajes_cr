@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\CountryPartsDestination;
+use App\Models\CountryPart;
 
 use Illuminate\Support\Str;
 use netdjw\LoremIpsum\Http\Controllers\LoremIpsumController as LoremIpsum;
@@ -25,6 +26,12 @@ class HostingProviderFactory extends Factory
         $area_distance = 0.01;       
         $random_country_part_destination = CountryPartsDestination::all()->random(1)->first();
 
+        $country_part_id =  $random_country_part_destination->country_parts_id;
+        $country_part = CountryPart::where('id',$country_part_id)->first();
+
+        $country_id= $country_part->countries_id;
+
+
         $start_begin_x = $random_country_part_destination->position_lat - $area_distance;
         $start_begin_y = $random_country_part_destination->position_lng - $area_distance;
 
@@ -41,17 +48,15 @@ class HostingProviderFactory extends Factory
         return [
             'name' => 'Hotel ' . $name,
             'author_users_id' => 0,
+            'countries_id' => $country_id,
+            'country_parts_id' => $country_part_id,
             'slug'=> Str::slug($name, '-'),
             'country_parts_destinations_id'=>  $random_country_part_destination->id, 
             'email' => fake()->unique()->safeEmail(),
             'phone_contact' =>  fake()->phoneNumber() ,
             'position_lng' => $point[1] ,
             'position_lat' => $point[0],
-            'description' => $text,
-
-            
-            
-            
+            'description' => $text,        
         ];
     }
 }

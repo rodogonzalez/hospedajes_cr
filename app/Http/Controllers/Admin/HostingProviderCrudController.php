@@ -82,8 +82,8 @@ class HostingProviderCrudController extends AbstractLocationFields
         $this->crud->addField([  // Select
             'label'     => "Pais",
             'type'      => 'select',
-            'name'      => 'country_id', 
-            'fake' => true, 
+            'name'      => 'countries_id', 
+            //'fake' => true, 
 
 //            'entity'    => 'country',         
             // optional - manually specify the related model and attribute
@@ -107,15 +107,15 @@ class HostingProviderCrudController extends AbstractLocationFields
         $this->crud->addField([  // Select
             'label'     => "Provincia",
             'type'      => 'select',
-            'name'      => 'country_part_id', 
-            'fake' => true, 
+            'name'      => 'country_parts_id', 
+            //'fake' => true, 
             //'entity'    => 'country_parts_destinations',         
             // optional - manually specify the related model and attribute
             'model'     => "App\Models\CountryPart", // related model
             'attribute' => 'slug', // foreign key attribute that is shown to user         
             // optional - force the related options to be a custom query, instead of all();
             'options'   => (function ($query) {
-                   return $query->orderBy('id', 'ASC')->orderBy('name', 'ASC')->take(0)->get();
+                   return $query->orderBy('id', 'ASC')->orderBy('name', 'ASC')->get();
                 }), //  you can use this to filter the results show in the select
 
 
@@ -125,10 +125,7 @@ class HostingProviderCrudController extends AbstractLocationFields
                 'required' => 'required',                
                 
                 ], // 
-
-
-            ]);        
-    
+            ]);    
   
         $this->crud->addField([  // Select
             'label'     => "Ubicacion",
@@ -139,27 +136,19 @@ class HostingProviderCrudController extends AbstractLocationFields
             'model'     => "App\Models\CountryPartsDestination", // related model
             'attribute' => 'name', // foreign key attribute that is shown to user         
             // optional - force the related options to be a custom query, instead of all();
-            'options'   => (function ($query) {
-                //dd($this->crud->getCurrentEntry());
+            'options'   => (function ($query) {               
 
                 if  ($this->crud->getCurrentEntry() !== false ){
                     return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->where('id', $this->crud->getCurrentEntry()->country_parts_destinations_id )->get();
                 }else{
-                    return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->take(0)->get();
+                    return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->get();
                 }
-                
-
                  
              }), //  you can use this to filter the results show in the select
-
-
-
              'attributes' => [
                 'id' => 'country_part_destinations',
                 'onchange' => 'a',                
                 ], // 
-
-
             ]);
         
 

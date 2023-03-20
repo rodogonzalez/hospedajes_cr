@@ -37,6 +37,8 @@ function pull_all_destinations_commerces(){
           zoom: 10,
         });
 
+        const infoWindow = new google.maps.InfoWindow();
+
         //console.log(result);
         result.forEach(function (item, index) {
 
@@ -58,7 +60,7 @@ function pull_all_destinations_commerces(){
           if (description == null ) description = "";
 
   
-          let hotel_name = "<a href='/admin/hosting-provider/" + item.id + "/edit'>" + item.name + description ;
+          let hotel_name = "<a href='/admin/hosting-provider/" + item.id + "/edit'>" + item.name + description + "</a>";
 
           // Add a click listener for each marker, and set up the info window.
           host_point_marker.addListener("click", () => {
@@ -85,7 +87,8 @@ function pull_all_destinations_commerces(){
     map_points= [];/* 
      */
   function initMap() {
-   
+    
+
     pull_all_destinations_commerces();
   }
 
