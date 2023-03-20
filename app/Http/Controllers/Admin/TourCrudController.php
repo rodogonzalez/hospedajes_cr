@@ -65,25 +65,97 @@ class TourCrudController extends AbstractLocationFields
 
         
 
+        
         $this->crud->addField([  // Select
-            'label'     => "Ubicacion",
+            'label'     => "js_script",
+            'name'      => 'js_code', 
+            'type'  => 'custom_html',
+            'value' => $this->build_js_code(),            
+        ]);
+        
+        
+  
+        $this->crud->addField([  // Select
+            'label'     => "Pais",
             'type'      => 'select',
-            'name'      => 'country_parts_destinations_id', // the db column for the foreign key
-         
-            // optional
-            // 'entity' should point to the method that defines the relationship in your Model
-            // defining entity will make Backpack guess 'model' and 'attribute'
-            'entity'    => 'country_parts_destinations',
-         
+            'name'      => 'country_id', 
+            'fake' => true, 
+
+//            'entity'    => 'country',         
             // optional - manually specify the related model and attribute
-            'model'     => "App\Models\CountryPartsDestination", // related model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-         
+            'model'     => "App\Models\Country", // related model
+            'attribute' => 'name', // foreign key attribute that is shown to user        
+
             // optional - force the related options to be a custom query, instead of all();
             'options'   => (function ($query) {
                  return $query->orderBy('name', 'ASC')->get();
              }), //  you can use this to filter the results show in the select
+
+             'attributes' => [
+                'id' => 'country_id',
+                'onchange' => 'pull_country_parts(this.value)',                
+                ], // 
+
+
             ]);
+        
+        $this->crud->addField([  // Select
+            'label'     => "Provincia",
+            'type'      => 'select',
+            'name'      => 'country_part_id', 
+            'fake' => true, 
+            //'entity'    => 'country_parts_destinations',         
+            // optional - manually specify the related model and attribute
+            'model'     => "App\Models\CountryPart", // related model
+            'attribute' => 'slug', // foreign key attribute that is shown to user         
+            // optional - force the related options to be a custom query, instead of all();
+            'options'   => (function ($query) {
+                   return $query->orderBy('id', 'ASC')->orderBy('name', 'ASC')->take(0)->get();
+                }), //  you can use this to filter the results show in the select
+
+
+            'attributes' => [
+                'id' => 'country_part',
+                'onchange' => 'pull_country_parts_destinations(this.value)',                
+                ], // 
+
+
+            ]);        
+    
+  
+        $this->crud->addField([  // Select
+            'label'     => "Ubicacion",
+            'type'      => 'select',
+            'name'      => 'country_parts_destinations_id', 
+            'entity'    => 'country_parts_destinations',         
+            // optional - manually specify the related model and attribute
+            'model'     => "App\Models\CountryPartsDestination", // related model
+            'attribute' => 'name', // foreign key attribute that is shown to user         
+            // optional - force the related options to be a custom query, instead of all();
+            'options'   => (function ($query) {
+                //dd($this->crud->getCurrentEntry());
+
+                if  ($this->crud->getCurrentEntry() !== false ){
+                    return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->where('id', $this->crud->getCurrentEntry()->country_parts_destinations_id )->get();
+                }else{
+                    return $query->orderBy('country_parts_id', 'ASC')->orderBy('name', 'ASC')->take(0)->get();
+                }
+                
+
+                 
+             }), //  you can use this to filter the results show in the select
+
+
+
+             'attributes' => [
+                'id' => 'country_part_destinations',
+                'onchange' => 'a',                
+                ], // 
+
+
+            ]);
+        
+
 
 
         CRUD::field('name');
