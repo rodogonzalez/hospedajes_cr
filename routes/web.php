@@ -22,6 +22,8 @@ Route::get('/', function () {
 Route::get('/',  [IndexController::class, 'show_index_front_end']);
 
 Route::get('/new-host',  [IndexController::class, 'show_new_host_front_end'])->name("new-host");
+Route::post('/relocate',  [IndexController::class, 'relocateitem'])->name("relocate-item");
+
 Route::get('/all-commerces',  [IndexController::class, 'all_commerces'])->name("all-host");
 Route::get('/all-destinations',  [IndexController::class, 'all_destinations'])->name("all-destinations");
 Route::get('/{country_slug}',  [IndexController::class, 'show_country']);

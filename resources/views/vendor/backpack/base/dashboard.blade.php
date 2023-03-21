@@ -46,9 +46,12 @@ function pull_all_destinations_commerces(){
           // The marker, positioned at Uluru
           host_point_marker = new google.maps.Marker({
             position: uluru,
+            id:item.id,
             title: item.name,
             map: map,
+            animation: google.maps.Animation.DROP,
             icon: iconBase,
+            draggable: true //que el marcador se pueda arrastrar
             //icon:svgMarkerHosting
           });
 
@@ -67,6 +70,24 @@ function pull_all_destinations_commerces(){
                 infoWindow.open(map, host_point_marker);
                 
               });
+          host_point_marker.addListener("dragend", (data) => {
+            
+
+            fetch('/relocate/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': '{{csrf_token()}}'
+
+                },
+                body: JSON.stringify({ "id": item.id , "lat":data.latLng.lat(),"lng": data.latLng.lng() })
+            })
+              .then(response => response.json())
+              .then(response => console.log(JSON.stringify(response)))
+
+
+            });
 
         });
 
@@ -83,7 +104,7 @@ function pull_all_destinations(){
       // Exito
       .then(response => response.json())  // convertir a json
       .then(result => {
-        
+
         const infoWindow = new google.maps.InfoWindow();
 
         result.forEach(function (item, index) {
@@ -94,6 +115,8 @@ function pull_all_destinations(){
               position: uluru,
               title: item.name,
               map: map,
+            
+
               //icon: iconBase,
               //icon:svgMarkerHosting
             });
@@ -104,6 +127,7 @@ function pull_all_destinations(){
               infoWindow.setContent( item.name  );
               infoWindow.open(map, host_point_marker);
             });
+ 
 
         });
       })   
@@ -127,7 +151,7 @@ function pull_all_destinations(){
     
 
     pull_all_destinations_commerces();
-    pull_all_destinations();
+    //pull_all_destinations();
   }
 
   window.onload = initMap;

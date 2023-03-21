@@ -70,6 +70,17 @@ class IndexController extends Controller{
 
     }
 
+    public function relocateitem(Request $request){
+
+        $record = \App\Models\HostingProvider::where('id', $request->input('id'))->first();       
+        $record->position_lat = $request->input('lat');
+        $record->position_lng = $request->input('lng');
+        $record->save();
+        return json_encode($record);       
+
+    }
+
+
     public function show_country_part($countr, $country_part){
 
         $country = Country::where('slug',$countr)->orWhere('id', $countr)->first();
