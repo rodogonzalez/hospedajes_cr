@@ -73,7 +73,7 @@ function pull_all_destinations_commerces(){
           host_point_marker.addListener("dragend", (data) => {
             
 
-            fetch('/relocate/', {
+            fetch('{{route("relocate-item") }}', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
