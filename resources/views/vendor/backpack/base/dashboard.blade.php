@@ -83,8 +83,8 @@ function pull_all_destinations_commerces(){
                 },
                 body: JSON.stringify({ "id": item.id , "lat":data.latLng.lat(),"lng": data.latLng.lng() })
             })
-              .then(response => response.json())
-              .then(response => console.log(JSON.stringify(response)))
+              //.then(response => response.json())
+              //.then(response => console.log(JSON.stringify(response)))
 
 
             });
