@@ -115,6 +115,8 @@ class DatabaseSeeder extends Seeder
                     $this->create_point_location("Santo Domingo", "{$provincia}, {$country->name}" , $new_country_part->id );
                     break;
 
+                // mexico
+
                 case "ciudad mexico":
                     $this->create_point_location("Zocalo", "{$provincia}, {$country->name}" , $new_country_part->id );
                     $this->create_point_location("Reforma", "{$provincia}, {$country->name}" , $new_country_part->id );
@@ -137,13 +139,61 @@ class DatabaseSeeder extends Seeder
                     break;                    
                 case "oaxaca":
                     $this->create_point_location("Oaxaca de Juarez", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("Huatulco", "{$provincia}, {$country->name}" , $new_country_part->id );
                     break;                    
                 case "chiapas":
                     $this->create_point_location("San Cristobal de las Casas", "{$provincia}, {$country->name}" , $new_country_part->id );
                     $this->create_point_location("Tuxla Gutierrez", "{$provincia}, {$country->name}" , $new_country_part->id );
                     break;                    
                     
+                // guatemala 
+                //,Baja Verapaz,Chimaltenago,Chiquimula,Guatemala,El Progreso,Escuintla,Huehuetenango,Izabal,Jalapa,Jutiapa,Petén,Quetzaltenango,Quiché,Retalhuleu,Sacatepequez,San Marcos,Santa Rosa,Sololá,Suchitepequez,Totonicapán,Zacapa
+                case "verapaz":
+                    $this->create_point_location("Coban", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("Semuc Champey", "{$provincia}, {$country->name}" , $new_country_part->id );
 
+                    break;
+                case "guatemala":
+                    $this->create_point_location("Antigua", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("Aeropuerto Aurora", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    break;
+                case "petén":
+                    $this->create_point_location("Flores", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("Tikal", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    break;
+                case "sololá":
+                    $this->create_point_location("Panajachel", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("San Juan", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    break;
+                case "sacatepequez":
+                    break;
+                case "izabal":
+                    $this->create_point_location("Rio Dulce", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    break;
+                case "quetzaltenango":
+                    
+                //peru
+                case "cusco":
+                    $this->create_point_location("cusco", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("aguas calientes", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("ollantaytambo", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("hidroelectrica", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    break;
+
+                case "lima":
+                    $this->create_point_location("miraflores", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("san isidro", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("san borja", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    break;
+                case "ica":
+                    $this->create_point_location("paracas", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    $this->create_point_location("Huacachina", "{$provincia}, {$country->name}" , $new_country_part->id );
+                    break;
+                case "san jose":
+                case "san jose":
+                case "san jose":
+                case "san jose":
+                case "san jose":
 
                 case "san jose":
                     break;
@@ -199,19 +249,20 @@ class DatabaseSeeder extends Seeder
 
         $nuevo_pais =\App\Models\Country::create(['name'=>'Mexico', 'slug' => 'mexico' ]);        
         $this->create_country_sections($nuevo_pais->id,  "Ciudad Mexico,Quintana Roo,Monterey,Guadalajara,Valladolid,Merica,Veracruz,Acapulco,Oaxaca,Chiapas");        
-/*
+
         $nuevo_pais =\App\Models\Country::create(['name'=>'Guatemala', 'slug' => 'guatemala' ]);
+        $this->create_country_sections($nuevo_pais->id,  "Verapaz,Chimaltenago,Chiquimula,Guatemala,El Progreso,Escuintla,Huehuetenango,Izabal,Jalapa,Jutiapa,Petén,Quetzaltenango,Quiché,Retalhuleu,Sacatepequez,San Marcos,Santa Rosa,Sololá,Suchitepequez,Totonicapán,Zacapa");             
 
-        $this->create_country_sections($nuevo_pais->id,  "Alta Verapaz,Baja Verapaz,Chimaltenago,Chiquimula,Guatemala,El Progreso,Escuintla,Huehuetenango,Izabal,Jalapa,Jutiapa,Petén,Quetzaltenango,Quiché,Retalhuleu,Sacatepequez,San Marcos,Santa Rosa,Sololá,Suchitepequez,Totonicapán,Zacapa");             
+        $nuevo_pais =\App\Models\Country::create(['name'=>'Peru', 'slug' => 'peru' ]);
+        $this->create_country_sections($nuevo_pais->id,  "Amazonas,Ancash,Apurimac,Arequipa,Ayacucho,Cajamarca,Callao,Cusco,Huancavelica,Huanuco,Ica,Junín,La Libertad,Lambayeque,Lima,Loreto,Madre de Dios,Moquegua,Pasco,Piura,Puno,San Martín,Tacna,Tumbes,Ucayali");        
 
-        
+/*        
         $nuevo_pais =\App\Models\Country::create(['name'=>'Colombia', 'slug' => 'colombia' ]);
         $this->create_country_sections($nuevo_pais->id,  "Amazonas,Antioquia,Arauca,Atlántico,Bogotá,Bolívar,Boyacá,Caldas,Caquetá,Casanare,Cauca,Cesar,Chocó,Córdoba,Cundinamarca,Guainía,Guaviare,Huila,La Guajira,Magdalena,Meta,Nariño,Norte de Santander,Putumayo,Quindío,Risaralda,San Andrés y Providencia,Santander,Sucre,Tolima,Valle del Cauca,Vaupés,Vichada");             
    
 
 
-        $nuevo_pais =\App\Models\Country::create(['name'=>'Peru', 'slug' => 'peru' ]);
-        $this->create_country_sections($nuevo_pais->id,  "Amazonas,Ancash,Apurimac,Arequipa,Ayacucho,Cajamarca,Callao,Cusco,Huancavelica,Huanuco,Ica,Junín,La Libertad,Lambayeque,Lima,Loreto,Madre de Dios,Moquegua,Pasco,Piura,Puno,San Martín,Tacna,Tumbes,Ucayali");        
+        
 
         $nuevo_pais =\App\Models\Country::create(['name'=>'Panama', 'slug' => 'panama' ]);
         $this->create_country_sections($nuevo_pais->id,  "Bocas del Toro,Coclé,Colón,Chiriquí,Darién,Herrera,Los Santos,Panamá,Veraguas,Panamá Oeste");

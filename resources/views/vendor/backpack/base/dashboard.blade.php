@@ -79,24 +79,35 @@ function pull_all_destinations_commerces(){
  
 function pull_all_destinations(){
 
-fetch('/all-destinations')
-    // Exito
-    .then(response => response.json())  // convertir a json
-    .then(result => {           
-      result.forEach(function (item, index) {
-        uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };        
-        let host_point_marker;
+  fetch('/all-destinations')
+      // Exito
+      .then(response => response.json())  // convertir a json
+      .then(result => {
+        
+        const infoWindow = new google.maps.InfoWindow();
 
-        host_point_marker = new google.maps.Marker({
-            position: uluru,
-            title: item.name,
-            map: map,
-            //icon: iconBase,
-            //icon:svgMarkerHosting
-          });
-      });
-    })   
-    .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+        result.forEach(function (item, index) {
+          uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };        
+          let host_point_marker;
+
+          host_point_marker = new google.maps.Marker({
+              position: uluru,
+              title: item.name,
+              map: map,
+              //icon: iconBase,
+              //icon:svgMarkerHosting
+            });
+
+          // Add a click listener for each marker, and set up the info window.
+          host_point_marker.addListener("click", () => {
+              infoWindow.close();                
+              infoWindow.setContent( item.name  );
+              infoWindow.open(map, host_point_marker);
+            });
+
+        });
+      })   
+      .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
 
 }
 
