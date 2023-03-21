@@ -92,7 +92,7 @@ class HostingProviderCrudController extends AbstractLocationFields
 
             // optional - force the related options to be a custom query, instead of all();
             'options'   => (function ($query) {
-                 return $query->orderBy('name', 'ASC')->get();
+                 return $query->orderBy('id', 'ASC')->get();
              }), //  you can use this to filter the results show in the select
 
              'attributes' => [
