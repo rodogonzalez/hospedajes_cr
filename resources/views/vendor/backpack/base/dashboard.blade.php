@@ -8,19 +8,19 @@
     let map_points  ;
     
  
-
+    let map;
     
  const iconBase =
-    "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+    "/assets/room-icon.svg";
   const icons = {
     parking: {
-      icon: iconBase + "beachflag.png",
+      icon: iconBase ,// + "beachflag.png",
     },
     library: {
-      icon: iconBase + "library_maps.png",
+      icon: iconBase ,// + "library_maps.png",
     },
     info: {
-      icon: iconBase + "info-i_maps.png",
+      icon: iconBase ,//+ "info-i_maps.png",
     },
 
   };
@@ -32,10 +32,7 @@ function pull_all_destinations_commerces(){
       .then(response => response.json())  // convertir a json
       .then(result => {
 
-        const  map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: 9.9356876, lng: -84.2486378 },
-          zoom: 10,
-        });
+        
 
         const infoWindow = new google.maps.InfoWindow();
 
@@ -44,14 +41,14 @@ function pull_all_destinations_commerces(){
 
           uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
           let host_point_marker;
-          console.log(item);
+          //console.log(item);
 
           // The marker, positioned at Uluru
           host_point_marker = new google.maps.Marker({
             position: uluru,
             title: item.name,
             map: map,
-            icon: icons['parking'].icon,
+            icon: iconBase,
             //icon:svgMarkerHosting
           });
 
@@ -79,17 +76,47 @@ function pull_all_destinations_commerces(){
 }
 
 
-    
+ 
+function pull_all_destinations(){
+
+fetch('/all-destinations')
+    // Exito
+    .then(response => response.json())  // convertir a json
+    .then(result => {           
+      result.forEach(function (item, index) {
+        uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };        
+        let host_point_marker;
+
+        host_point_marker = new google.maps.Marker({
+            position: uluru,
+            title: item.name,
+            map: map,
+            //icon: iconBase,
+            //icon:svgMarkerHosting
+          });
+      });
+    })   
+    .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+
+}
+
 
     
 
 
     map_points= [];/* 
+
      */
   function initMap() {
+
+    map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 9.9356876, lng: -84.2486378 },
+          zoom: 10,
+        });
     
 
     pull_all_destinations_commerces();
+    pull_all_destinations();
   }
 
   window.onload = initMap;
