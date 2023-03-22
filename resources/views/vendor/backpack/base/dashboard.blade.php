@@ -11,7 +11,7 @@
     let map;
     
  const iconBase =
-    "/assets/room-icon.svg";
+    "/assets/location.png";
   const icons = {
     parking: {
       icon: iconBase ,// + "beachflag.png",
@@ -27,12 +27,10 @@
 
 function pull_all_destinations_commerces(){
 
-  fetch('/all-commerces')
+  fetch('/data/all-commerces')
       // Exito
       .then(response => response.json())  // convertir a json
-      .then(result => {
-
-        
+      .then(result => {        
 
         const infoWindow = new google.maps.InfoWindow();
 
@@ -100,7 +98,7 @@ function pull_all_destinations_commerces(){
  
 function pull_all_destinations(){
 
-  fetch('/all-destinations')
+  fetch('/data/all-destinations')
       // Exito
       .then(response => response.json())  // convertir a json
       .then(result => {

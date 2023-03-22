@@ -77,24 +77,7 @@
 
   };
 
-
- const svgMarker = {
-            path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
-            fillColor: "black",
-            fillOpacity: 0.6,
-            strokeWeight: 0,
-            rotation: 0,
-            scale: 1,            
-          };
-
-  const svgMarkerHosting = {
-    path: "M17.592,8.936l-6.531-6.534c-0.593-0.631-0.751-0.245-0.751,0.056l0.002,2.999L5.427,9.075H2.491c-0.839,0-0.162,0.901-0.311,0.752l3.683,3.678l-3.081,3.108c-0.17,0.171-0.17,0.449,0,0.62c0.169,0.17,0.448,0.17,0.618,0l3.098-3.093l3.675,3.685c-0.099-0.099,0.773,0.474,0.773-0.296v-2.965l3.601-4.872l2.734-0.005C17.73,9.688,18.326,9.669,17.592,8.936 M3.534,9.904h1.906l4.659,4.66v1.906L3.534,9.904z M10.522,13.717L6.287,9.48l4.325-3.124l3.088,3.124L10.522,13.717z M14.335,8.845l-3.177-3.177V3.762l5.083,5.083H14.335z",
-    fillColor: "black",
-    fillOpacity: 0.9,
-    strokeWeight: 0,
-    rotation: 0,
-    scale: 1,    
-  };
+ 
 
  map_points= [];
 
@@ -134,7 +117,7 @@ function pull_country_parts(country_slug){
   document.getElementById("country_part").innerHTML = "<option>cargando...</option>";
 
   // Solicitud GET (Request).
-  fetch('/' + country_slug)
+  fetch('/data/' + country_slug)
       // Exito
       .then(response => response.json())  // convertir a json
       .then(result => {
@@ -176,7 +159,7 @@ function pull_country_parts(country_slug){
 
 function pull_all_destinations_commerces(){
 
-fetch('/all-commerces')
+fetch('/data/all-commerces')
     // Exito
     .then(response => response.json())  // convertir a json
     .then(result => {
@@ -229,30 +212,15 @@ function pull_country_parts_destinations(country_slug,section){
 
 
   // Solicitud GET (Request).
-  fetch('/' + country_slug + '/' + section)
+  fetch('/data/' + country_slug + '/' + section)
       // Exito
       .then(response => response.json())  // convertir a json
       .then(result => {
         result.forEach(function (item, index) {
           uluru = { lat: parseFloat(item.position_lat), lng: parseFloat(item.position_lng) };
-  /*
-          let point_marker;
-          // The marker, positioned at Uluru
-          point_marker = new google.maps.Marker({
-            position: uluru,
-            title: item.slug,
-            map: map,
-          });
-*/
+
           pull_country_parts_destinations_commerces(country_slug , section , item.slug);
-/*
-          // Add a click listener for each marker, and set up the info window.
-          point_marker.addListener("click", () => {
-                infoWindow.close();
-                pull_country_parts_destinations_commerces(country_slug , section ,  point_marker.getTitle());
-                
-              });
-*/
+
         });
 
       })    //imprimir los datos en la consola
@@ -261,10 +229,8 @@ function pull_country_parts_destinations(country_slug,section){
 
 
 function pull_country_parts_destinations_commerces(country_slug,section,destination){
-  //console.log('Loading...');
-  //console.log('/' + country_slug + '/' + section + '/' + destination)
-  // Solicitud GET (Request).
-  fetch('/' + country_slug + '/' + section + '/' + destination)
+
+  fetch('/data/' + country_slug + '/' + section + '/' + destination)
       // Exito
       .then(response => response.json())  // convertir a json
       .then(result => {
@@ -319,9 +285,6 @@ window.onload = initMap;
 
 </script>
   @yield('content')
-
-
-
 
   </div>
   

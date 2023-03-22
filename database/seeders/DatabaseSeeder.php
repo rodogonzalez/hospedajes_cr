@@ -267,7 +267,7 @@ class DatabaseSeeder extends Seeder
         
         $nuevo_pais = \App\Models\Country::create(['name'=>'Costa Rica', 'slug' => 'costa-rica' ]);
         $this->create_country_sections($nuevo_pais->id,  "San Jose,Alajuela,Cartago,Heredia,Puntarenas,Guanacaste,Limon");        
-
+/*
         
 
         $nuevo_pais =\App\Models\Country::create(['name'=>'Mexico', 'slug' => 'mexico' ]);        
@@ -287,13 +287,7 @@ class DatabaseSeeder extends Seeder
 
 
 /*        
-        
-   
-
-
-        
-
-                
+                      
 
         //$nuevo_pais =\App\Models\Country::create(['name'=>'Chile', 'slug' => 'chile' ]);
         //$this->create_country_sections($nuevo_pais->id,  "");
@@ -334,6 +328,20 @@ class DatabaseSeeder extends Seeder
         \App\Models\Airline::create(['name'=>'Arajet', 'slug' => 'ara-jet' ]);
         \App\Models\Airline::create(['name'=>'American Airlines', 'slug' => 'american-airlines' ]);
         \App\Models\Airline::create(['name'=>'Aerolineas Argentinas', 'slug' => 'aerolineas-argentinas' ]);
+        \App\Models\Airline::create(['name'=>'AirPanama', 'slug' => 'airpanama' ]);
+        
+        \App\Models\Airline::create(['name'=>'VivaAir', 'slug' => 'vivaair' ]);
+        \App\Models\Airline::create(['name'=>'InterJet', 'slug' => 'interjet' ]);
+        \App\Models\Airline::create(['name'=>'VivaAerobus', 'slug' => 'vivaaerobus' ]);
+        \App\Models\Airline::create(['name'=>'TAG', 'slug' => 'tag-airlines' ]);
+        \App\Models\Airline::create(['name'=>'BOA', 'slug' => 'bolivian-airlines' ]);
+        \App\Models\Airline::create(['name'=>'AZUL', 'slug' => 'azul-airlines' ]);
+        \App\Models\Airline::create(['name'=>'GOL', 'slug' => 'gol-airlines' ]);
+        \App\Models\Airline::create(['name'=>'SKY', 'slug' => 'sky-airlines' ]);
+
+
+
+
         echo ("Airlines done \n");
 
 
@@ -365,7 +373,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\CountryPartsDestination::factory(50)->create();
         //echo ("Creating Random Hosting 1/10\n");
 
-        $total=500;
+        $total=100;
         
         
         for ($x=0; $x<=$total; $x++) {

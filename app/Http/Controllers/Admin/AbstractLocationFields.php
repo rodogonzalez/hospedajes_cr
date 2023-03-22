@@ -33,7 +33,7 @@ function pull_country_parts_destinations(section){
     document.getElementById("country_part_destinations").innerHTML = "<option>cargando...</option>";
   
     // Solicitud GET (Request).
-    fetch("/" + country_slug + "/" + section)
+    fetch("/data/" + country_slug + "/" + section)
         // Exito
         .then(response => response.json())  // convertir a json
         .then(result => {
@@ -62,7 +62,7 @@ function pull_country_parts(country_slug){
     document.getElementById("country_part").innerHTML = "<option>cargando...</option>";
   
     // Solicitud GET (Request).
-    fetch("/" + country_slug)
+    fetch("/data/" + country_slug)
         // Exito
         .then(response => response.json())  // convertir a json
         .then(result => {
