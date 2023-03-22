@@ -49,7 +49,9 @@ function pull_all_destinations_commerces(){
             map: map,
             animation: google.maps.Animation.DROP,
             icon: iconBase,
+          @if (backpack_user()->hasRole('Admin'))
             draggable: true //que el marcador se pueda arrastrar
+          @endif
             //icon:svgMarkerHosting
           });
 
@@ -68,8 +70,10 @@ function pull_all_destinations_commerces(){
                 infoWindow.open(map, host_point_marker);
                 
               });
-          host_point_marker.addListener("dragend", (data) => {
-            
+
+      @if (backpack_user()->hasRole('Admin'))
+               
+          host_point_marker.addListener("dragend", (data) => {            
 
             fetch('{{route("relocate-item") }}', {
                 method: 'POST',
@@ -80,12 +84,13 @@ function pull_all_destinations_commerces(){
 
                 },
                 body: JSON.stringify({ "id": item.id , "lat":data.latLng.lat(),"lng": data.latLng.lng() })
-            })
-              //.then(response => response.json())
-              //.then(response => console.log(JSON.stringify(response)))
+            })             
 
 
             });
+
+        @endif
+           
 
         });
 
