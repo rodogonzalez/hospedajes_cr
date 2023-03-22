@@ -63,7 +63,7 @@
 
     
  const iconBase =
-    "/assets/room-icon.svg";
+    "/assets/location.png";
   const icons = {
     parking: {
       icon: iconBase ,// + "beachflag.png",
