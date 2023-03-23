@@ -136,7 +136,7 @@ function pull_country_parts(country_slug){
             if ($this->crud->getCurrentEntry() === false ) {
     
                 $script_locate_me = '
-
+ 
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                       (position) => {
@@ -144,18 +144,18 @@ function pull_country_parts(country_slug){
                             lat: parseFloat(position.coords.latitude),
                             lng: parseFloat(position.coords.longitude)
                         };                      
-                        document.getElementById("position_lat").value = uluru.lat;
-                        document.getElementById("position_lng").value = uluru.lng;
-                        console.log("Detection found ");
+                        document.getElementById("position_lat").value = _mylocation.lat;
+                        document.getElementById("position_lng").value = _mylocation.lng;
+                        console.log("Detection found ");                        
                         console.log(uluru);
+                        showMap();
                                  
                       },
                     );
-                  } else {
-                    console.log("Not Detection found ");
-                    // default location 
-                    uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
-                  }
+                else 
+                    showMap();
+
+                } 
                 
                 ';
     
@@ -166,6 +166,7 @@ function pull_country_parts(country_slug){
                     console.log("Not Detection found ");
                     // default location 
                     let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
+                    showMap();
                 ';
 
 
@@ -186,11 +187,9 @@ function pull_country_parts(country_slug){
                 
                 
             let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };   
-            
-            function initMap() {                
 
+            function showMap(){
 
-                ' . $script_locate_me . '
 
                 const map = new google.maps.Map(document.getElementById("map"), {
                     center: uluru,
@@ -216,6 +215,15 @@ function pull_country_parts(country_slug){
                         document.getElementById("position_lng").value = lng;
                         
                     });
+
+            }
+            
+            function initMap() {                
+
+
+                ' . $script_locate_me . '
+
+                
 
             }
             //window.onload = initMap;
