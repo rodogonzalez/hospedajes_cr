@@ -215,7 +215,7 @@ function pull_country_parts(country_slug){
                     });
 
             }
-            window.onload = initMap;
+            //window.onload = initMap;
             </script>
             <style>
                 #map{
@@ -226,7 +226,7 @@ function pull_country_parts(country_slug){
                 }
             </style>
             
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8&callback=initMap" ></script>
                         '
                     ]);
 
