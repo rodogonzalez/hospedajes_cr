@@ -25,9 +25,7 @@ class  AbstractLocationFields extends CrudController
     public function build_js_code(){
         
         return '
-<script>
-
-    ' . $script_locate_me . '
+<script>    
 
 function pull_country_parts_destinations(section){  
 
