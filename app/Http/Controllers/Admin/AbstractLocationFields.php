@@ -144,12 +144,14 @@ function pull_country_parts(country_slug){
                             lat: parseFloat(position.coords.latitude),
                             lng: parseFloat(position.coords.longitude)
                         };                      
-                        document.getElementById("position_lat").value = _mylocation.lat;
-                        document.getElementById("position_lng").value = _mylocation.lng;
+                        document.getElementById("position_lat").value = uluru.lat;
+                        document.getElementById("position_lng").value = uluru.lng;
                         console.log("Detection found ");                        
                         console.log(uluru);
                         showMap();
                                  
+                      }else{
+                        showMap();
                       },
                     );
                 else 
