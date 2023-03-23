@@ -136,6 +136,8 @@ function pull_country_parts(country_slug){
             if ($this->crud->getCurrentEntry() === false ) {
     
                 $script_locate_me = '
+                let uluru;
+
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                       (position) => {
@@ -145,13 +147,28 @@ function pull_country_parts(country_slug){
                         };                      
                         document.getElementById("position_lat").value = uluru.lat;
                         document.getElementById("position_lng").value = uluru.lng;
+                        console.log("Detection found ");
                         console.log(uluru);
                       },
                     );
-                  } 
+                  } else {
+                    console.log("Not Detection found ");
+                    // default location 
+                    uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
+                  }
                 
                 ';
     
+            }
+            else{
+
+                $script_locate_me = '
+                    console.log("Not Detection found ");
+                    // default location 
+                    let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
+                ';
+
+
             }
             
 
@@ -167,11 +184,7 @@ function pull_country_parts(country_slug){
             <script>                           
                 
             
-            function initMap() {
-
-                let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
-
-                console.log(uluru);
+            function initMap() {                
 
 
                 ' . $script_locate_me . '
