@@ -133,7 +133,7 @@ function pull_country_parts(country_slug){
             ]);
 
             $script_locate_me = "";
-            if (is_null($this->crud->getCurrentEntry())) {
+            if ($this->crud->getCurrentEntry() === false ) {
     
                 $script_locate_me = '
                 if (navigator.geolocation) {
