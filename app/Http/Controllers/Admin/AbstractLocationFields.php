@@ -187,16 +187,18 @@ function pull_country_parts(country_slug){
                 
                 
             let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };   
+            let marker;
+            let map;
 
             function showMap(){
 
 
-                const map = new google.maps.Map(document.getElementById("map"), {
+                map = new google.maps.Map(document.getElementById("map"), {
                     center: uluru,
                     zoom: 10,
                 });
 
-                let marker;
+
 
                 // The marker, positioned at Uluru
                 marker = new google.maps.Marker({
