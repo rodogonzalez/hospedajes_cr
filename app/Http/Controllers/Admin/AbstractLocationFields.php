@@ -166,13 +166,13 @@ function pull_country_parts(country_slug){
          
             <script>                           
                 
-            let uluru;
-
-            uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
-
-            console.log(uluru);
-
+            
             function initMap() {
+
+                let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
+
+                console.log(uluru);
+
 
                 ' . $script_locate_me . '
 
