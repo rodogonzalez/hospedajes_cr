@@ -142,8 +142,8 @@ function pull_country_parts(country_slug){
                     navigator.geolocation.getCurrentPosition(
                       (position) => {
                         uluru = { 
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude,
+                            lat: parseFloat(position.coords.latitude),
+                            lng: parseFloat(position.coords.longitude)
                         };                      
                         document.getElementById("position_lat").value = uluru.lat;
                         document.getElementById("position_lng").value = uluru.lng;
