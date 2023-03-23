@@ -142,7 +142,8 @@ function pull_country_parts(country_slug){
                         uluru = { 
                             lat: position.coords.latitude,
                             lng: position.coords.longitude,
-                        };                      
+                        }                        ;                      
+                        console.log(uluru);
                       },
                     );
                   } 
@@ -166,6 +167,8 @@ function pull_country_parts(country_slug){
             let uluru;
 
             uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
+
+            console.log(uluru);
 
             function initMap() {
 
