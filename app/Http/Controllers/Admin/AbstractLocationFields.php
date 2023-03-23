@@ -142,7 +142,9 @@ function pull_country_parts(country_slug){
                         uluru = { 
                             lat: position.coords.latitude,
                             lng: position.coords.longitude,
-                        }                        ;                      
+                        };                      
+                        document.getElementById("position_lat").value = uluru.lat;
+                        document.getElementById("position_lng").value = uluru.lng;
                         console.log(uluru);
                       },
                     );
