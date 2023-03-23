@@ -190,7 +190,7 @@ function pull_country_parts(country_slug){
                 ' . $script_locate_me . '
 
                 const map = new google.maps.Map(document.getElementById("map"), {
-                    center: uluru,
+                    //center: uluru,
                     zoom: 10,
                 });
 
@@ -200,7 +200,7 @@ function pull_country_parts(country_slug){
                 marker = new google.maps.Marker({
                         draggable: true,
                     position: uluru,
-                    title: "posicion",
+                    title: "Aqui",
                     //label: item.name,
                     map: map,
                     });
