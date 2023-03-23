@@ -201,10 +201,10 @@ function pull_country_parts(country_slug){
                 // The marker, positioned at Uluru
                 marker = new google.maps.Marker({
                         draggable: true,
-                        position: {lat:  parseFloat(document.getElementById("position_lat").value) ,lng:  parseFloat (document.getElementById("position_lng").value)},
+                        position: {lat:  parseFloat(document.getElementById("position_lat").value) ,lng:  parseFloat (document.getElementById("position_lng").value) },
                         title: "Aqui",
-                    //label: item.name,
-                    map: map,
+                        //label: item.name,
+                        map: map,
                     });
 
                     marker.addListener("dragend", function(event) { 
