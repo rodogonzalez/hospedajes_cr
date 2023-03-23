@@ -149,6 +149,7 @@ function pull_country_parts(country_slug){
                         document.getElementById("position_lng").value = uluru.lng;
                         console.log("Detection found ");
                         console.log(uluru);
+                        uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
                       },
                     );
                   } else {
@@ -190,7 +191,7 @@ function pull_country_parts(country_slug){
                 ' . $script_locate_me . '
 
                 const map = new google.maps.Map(document.getElementById("map"), {
-                    //center: uluru,
+                    center: uluru,
                     zoom: 10,
                 });
 
