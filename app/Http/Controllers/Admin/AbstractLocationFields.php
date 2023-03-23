@@ -23,8 +23,11 @@ class  AbstractLocationFields extends CrudController
 
     /**this function builds the js code necesary for drop down and other custumization */
     public function build_js_code(){
+        
         return '
 <script>
+
+    ' . $script_locate_me . '
 
 function pull_country_parts_destinations(section){  
 
@@ -130,6 +133,25 @@ function pull_country_parts(country_slug){
 
 
             ]);
+
+            $script_locate_me = "";
+            if (is_null($this->crud->getCurrentEntry())) {
+    
+                $script_locate_me = '
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                      (position) => {
+                        uluru = { 
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };                      
+                      },
+                    );
+                  } 
+                
+                ';
+    
+            }
             
 
        
@@ -145,12 +167,14 @@ function pull_country_parts(country_slug){
                 
             let uluru;
 
+            uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
+
             function initMap() {
 
-                uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
+                ' . $script_locate_me . '
 
                 const map = new google.maps.Map(document.getElementById("map"), {
-                    center: { lat:  parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') },
+                    center: uluru,
                     zoom: 10,
                 });
 

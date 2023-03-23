@@ -107,10 +107,14 @@ return new class extends Migration {
             $table->string('name');
             $table->string('slug');
             $table->integer('price')->nullable();
-
+            $table->text('price_description')->nullable();
             $table->text('description')->nullable();
-
             $table->text('features')->nullable();
+
+            $table->string('email')->nullable();
+            $table->string('phone_contact')->nullable();
+            
+            $table->string('youtube_video')->nullable();
 
             $table->timestamps();
             $table->foreign('hosting_providers_id')->references('id')->on('hosting_providers');
