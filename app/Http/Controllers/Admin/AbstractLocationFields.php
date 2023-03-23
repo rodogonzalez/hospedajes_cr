@@ -200,7 +200,7 @@ function pull_country_parts(country_slug){
                 });
 
 
-
+/*
                 // The marker, positioned at Uluru
                 marker = new google.maps.Marker({
                         draggable: true,
@@ -218,7 +218,7 @@ function pull_country_parts(country_slug){
                         document.getElementById("position_lng").value = lng;
                         
                     });
-
+*/
             }
             
             function initMap() {
