@@ -136,7 +136,6 @@ function pull_country_parts(country_slug){
             if ($this->crud->getCurrentEntry() === false ) {
     
                 $script_locate_me = '
-                let uluru;
 
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
@@ -184,6 +183,9 @@ function pull_country_parts(country_slug){
          
             <script>                           
                 
+                
+                
+            let uluru;
             
             function initMap() {                
 
