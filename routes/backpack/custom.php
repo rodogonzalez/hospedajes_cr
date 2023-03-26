@@ -28,7 +28,7 @@ Route::group([
     Route::crud('rent-a-car', 'RentACarCrudController');    
 }); // this should be the absolute last line of this file
 
-
+/*
 
 Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
@@ -40,3 +40,5 @@ Route::group([
     Route::crud('hosting-offer', 'HostingOfferCrudController');
     Route::crud('tour', 'TourCrudController');    
 }); // this should be the absolute last line of this file
+
+*/

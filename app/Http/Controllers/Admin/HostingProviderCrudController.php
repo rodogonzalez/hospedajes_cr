@@ -59,10 +59,8 @@ class HostingProviderCrudController extends AbstractLocationFields
     protected function setupCreateOperation()
     {
 
-        CRUD::setValidation(HostingProviderRequest::class);       
-
-        
-        
+        CRUD::setValidation(HostingProviderRequest::class);               
+        //if ($this->crud->getCurrentEntry() === false ) {}      
 
         $this->crud->addField([  // Select            
             'name'      => 'author_users_id', 
