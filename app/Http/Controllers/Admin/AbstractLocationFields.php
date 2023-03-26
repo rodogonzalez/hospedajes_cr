@@ -165,10 +165,12 @@ function pull_country_parts(country_slug){
                             uluru.lng= parseFloat(position.coords.longitude);
                             document.getElementById("position_lat").value = uluru.lat;
                             document.getElementById("position_lng").value = uluru.lng;
-                            console.log("Detection found ");                        
-                            console.log(uluru);
-
-                            //marker.setMap(null);
+                            
+                            
+                            
+                            console.log(marker);
+                            marker.setMap(null);
+                            marker=null;
 
                             // The marker, positioned at Uluru
                             marker  = new google.maps.Marker({
