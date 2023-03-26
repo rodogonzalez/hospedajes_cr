@@ -155,7 +155,7 @@ function pull_country_parts(country_slug){
             <script>                                          
             let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
             // The marker, positioned at Uluru
-            let marker  ;
+            let map, marker  ;
 
             function detect_location(){
                 if (navigator.geolocation) {
@@ -168,7 +168,7 @@ function pull_country_parts(country_slug){
                             console.log("Detection found ");                        
                             console.log(uluru);
 
-                            marker.setMap(null);
+                            //marker.setMap(null);
 
                             // The marker, positioned at Uluru
                             marker  = new google.maps.Marker({
@@ -194,7 +194,7 @@ function pull_country_parts(country_slug){
 
             function showMap(){                
 
-                const map = new google.maps.Map(document.getElementById("map"), {
+                map = new google.maps.Map(document.getElementById("map"), {
                     center: uluru,
                     zoom: 10,
                 });
