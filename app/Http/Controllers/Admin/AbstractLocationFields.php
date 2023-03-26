@@ -132,11 +132,32 @@ function pull_country_parts(country_slug){
 
             ]);
 
-            $script_locate_me = "";
-            if ($this->crud->getCurrentEntry() === false ) {
-    
-                $script_locate_me = '
+        
+            
+        $script_locate_me = '
+            console.log("Not Detection found ");
+            // default location 
+            let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
+            showMap();
+        ';
+
+
+       
  
+
+        $this->crud->addField([   // CustomHTML
+            'name'  => 'separator',
+            'type'  => 'custom_html',
+            'label'      => 'Ubicacion',
+            'value' => '<button onclick="detect_location();return false;">Detectar</button>
+            <div id="map"></div>
+            <hr>         
+            <script>                                          
+            let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
+            // The marker, positioned at Uluru
+            let marker  ;
+
+            function detect_location(){
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                       (position) => {                        
@@ -146,55 +167,30 @@ function pull_country_parts(country_slug){
                             document.getElementById("position_lng").value = uluru.lng;
                             console.log("Detection found ");                        
                             console.log(uluru);
-                            showMap();
+
+                            marker.setMap(null);
+
+                            // The marker, positioned at Uluru
+                            marker  = new google.maps.Marker({
+                                    draggable: true,
+                                    position: uluru,                   
+                                    map: map,
+                                });
+
+                            marker.addListener("dragend", function(event) { 
+                                
+                                let lat = event.latLng.lat(); 
+                                let lng = event.latLng.lng(); 
+                                document.getElementById("position_lat").value = lat;
+                                document.getElementById("position_lng").value = lng;
+                                
+                            });
+                            
 
 
-                        };                                             
-                                 
-                      }else{
-                        showMap();
-                      },
-                    );
-                else 
-                    showMap();
-
-                } 
-                
-                ';
-
-                $script_locate_me = '
-                    console.log("Not Detection found ");
-                    // default location 
-                    let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
-                    showMap();
-                ';
-    
+                        });
+                }
             }
-            else{
-
-                $script_locate_me = '
-                    console.log("Not Detection found ");
-                    // default location 
-                    let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
-                    showMap();
-                ';
-
-
-            }
-            
-
-       
- 
-
-        $this->crud->addField([   // CustomHTML
-            'name'  => 'separator',
-            'type'  => 'custom_html',
-            'label'      => 'Ubicacion',
-            'value' => '
-            <div id="map"></div>
-            <hr>         
-            <script>                                          
-            let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
 
             function showMap(){                
 
@@ -203,25 +199,21 @@ function pull_country_parts(country_slug){
                     zoom: 10,
                 });
 
-
-
                 // The marker, positioned at Uluru
-                let marker  = new google.maps.Marker({
+                marker  = new google.maps.Marker({
                         draggable: true,
-                        position: uluru,
-                        //title: "Aqui",
-                        //label: item.name,
+                        position: uluru,                   
                         map: map,
                     });
 
-                    marker.addListener("dragend", function(event) { 
-                        
-                        let lat = event.latLng.lat(); 
-                        let lng = event.latLng.lng(); 
-                        document.getElementById("position_lat").value = lat;
-                        document.getElementById("position_lng").value = lng;
-                        
-                    });
+                marker.addListener("dragend", function(event) { 
+                    
+                    let lat = event.latLng.lat(); 
+                    let lng = event.latLng.lng(); 
+                    document.getElementById("position_lat").value = lat;
+                    document.getElementById("position_lng").value = lng;
+                    
+                });
 
             }
             
@@ -229,6 +221,7 @@ function pull_country_parts(country_slug){
                 ' . $script_locate_me . '               
             }
             window.onload = initMap;
+
             </script>
             <style>
                 #map{
