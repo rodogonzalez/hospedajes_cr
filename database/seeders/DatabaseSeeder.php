@@ -375,11 +375,11 @@ class DatabaseSeeder extends Seeder
 
         $total=100;
         
-        
+        /*
         for ($x=0; $x<=$total; $x++) {
             \App\Models\HostingProvider::factory(1)->create();
             echo ("Creating Random Hosting $x  / $total\n");                    
         }
-        
+        */
     }
 }
