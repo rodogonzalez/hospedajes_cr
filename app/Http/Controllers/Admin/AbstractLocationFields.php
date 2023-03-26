@@ -162,7 +162,12 @@ function pull_country_parts(country_slug){
                 
                 ';
 
-                $script_locate_me = '';
+                $script_locate_me = '
+                    console.log("Not Detection found ");
+                    // default location 
+                    let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
+                    showMap();
+                ';
     
             }
             else{
@@ -185,17 +190,13 @@ function pull_country_parts(country_slug){
             'name'  => 'separator',
             'type'  => 'custom_html',
             'label'      => 'Ubicacion',
-            'value' => '<div id="map"></div><hr>
-         
+            'value' => '
+            <div id="map"></div>
+            <hr>         
             <script>                                          
-                                
-            let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };   
-            
-            
+            let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
 
-            function showMap(){
-
-                
+            function showMap(){                
 
                 const map = new google.maps.Map(document.getElementById("map"), {
                     center: uluru,
@@ -227,7 +228,7 @@ function pull_country_parts(country_slug){
             function initMap() {
                 ' . $script_locate_me . '               
             }
-            //window.onload = initMap;
+            window.onload = initMap;
             </script>
             <style>
                 #map{
@@ -238,7 +239,7 @@ function pull_country_parts(country_slug){
                 }
             </style>
             
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8&callback=initMap&t" ></script>
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
                         '
                     ]);
 
