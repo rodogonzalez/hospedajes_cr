@@ -149,7 +149,7 @@ function pull_country_parts(country_slug){
             'name'  => 'separator',
             'type'  => 'custom_html',
             'label'      => 'Ubicacion',
-            'value' => '<button onclick="detect_location();return false;">Detectar</button>
+            'value' => '<span onclick="detect_location();return false;">Detectar</span>
             <div id="map"></div>
             <hr>         
             <script>                                          
