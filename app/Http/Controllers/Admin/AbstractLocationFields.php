@@ -161,6 +161,8 @@ function pull_country_parts(country_slug){
                 } 
                 
                 ';
+
+                $script_locate_me = '';
     
             }
             else{
