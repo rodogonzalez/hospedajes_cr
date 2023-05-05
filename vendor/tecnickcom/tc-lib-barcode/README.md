@@ -2,10 +2,14 @@
 *PHP barcode library*
 
 [![Latest Stable Version](https://poser.pugx.org/tecnickcom/tc-lib-barcode/version)](https://packagist.org/packages/tecnickcom/tc-lib-barcode)
-[![Master Build Status](https://secure.travis-ci.org/tecnickcom/tc-lib-barcode.png?branch=main)](https://travis-ci.org/tecnickcom/tc-lib-barcode?branch=main)
-[![Master Coverage Status](https://coveralls.io/repos/tecnickcom/tc-lib-barcode/badge.svg?branch=main&service=github)](https://coveralls.io/github/tecnickcom/tc-lib-barcode?branch=main)
+[![Master Build Status](https://secure.travis-ci.org/tecnickcom/tc-lib-barcode.png?branch=master)](https://travis-ci.org/tecnickcom/tc-lib-barcode?branch=master)
+[![Master Coverage Status](https://coveralls.io/repos/tecnickcom/tc-lib-barcode/badge.svg?branch=master&service=github)](https://coveralls.io/github/tecnickcom/tc-lib-barcode?branch=master)
 [![License](https://poser.pugx.org/tecnickcom/tc-lib-barcode/license)](https://packagist.org/packages/tecnickcom/tc-lib-barcode)
 [![Total Downloads](https://poser.pugx.org/tecnickcom/tc-lib-barcode/downloads)](https://packagist.org/packages/tecnickcom/tc-lib-barcode)
+
+[![Develop Branch](https://img.shields.io/badge/-develop:-gray.svg)](https://github.com/tecnickcom/tc-lib-barcode/tree/develop)
+[![Develop Build Status](https://secure.travis-ci.org/tecnickcom/tc-lib-barcode.png?branch=develop)](https://travis-ci.org/tecnickcom/tc-lib-barcode?branch=develop)
+[![Develop Coverage Status](https://coveralls.io/repos/tecnickcom/tc-lib-barcode/badge.svg?branch=develop&service=github)](https://coveralls.io/github/tecnickcom/tc-lib-barcode?branch=develop)
 
 [![Donate via PayPal](https://img.shields.io/badge/donate-paypal-87ceeb.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tc-lib-barcode%20project)
 *Please consider supporting this project by making a donation via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tc-lib-barcode%20project)*
@@ -13,10 +17,12 @@
 * **category**    Library
 * **package**     \Com\Tecnick\Barcode
 * **author**      Nicola Asuni <info@tecnick.com>
-* **copyright**   2001-2022 Nicola Asuni - Tecnick.com LTD
+* **copyright**   2001-2016 Nicola Asuni - Tecnick.com LTD
 * **license**     http://www.gnu.org/copyleft/lesser.html GNU-LGPL v3 (see LICENSE.TXT)
 * **link**        https://github.com/tecnickcom/tc-lib-barcode
 * **SRC DOC**     https://tcpdf.org/docs/srcdoc/tc-lib-barcode
+* **RPM**         https://bintray.com/tecnickcom/rpm/tc-lib-barcode
+* **DEB**         https://bintray.com/tecnickcom/deb/tc-lib-barcode
 
 ## Description
 
@@ -89,7 +95,7 @@ make help
 To install all the development dependencies:
 
 ```bash
-make deps
+make build_dev
 ```
 
 ## Running all tests
@@ -97,10 +103,25 @@ make deps
 Before committing the code, please check if it passes all tests using
 
 ```bash
-make qa
+make qa_all
+```
+this generates the phpunit coverage report in target/coverage.
+Please check if the tests are covering all code.
+
+Generate the documentation:
+
+```bash
+make docs
 ```
 
-All artifacts are generated in the target directory.
+Generate static analysis reports in target/report:
+
+```bash
+make reports
+```
+
+Other make options allows you to install this library globally and build an RPM package.
+Please check all the available options using `make help`.
 
 
 ## Examples
@@ -118,8 +139,6 @@ and point your browser to <http://localhost:8000/index.php>
 
 ### Simple Code Example
 
-Please check example/index.php for a full example.
-
 ```
 // instantiate the barcode class
 $barcode = new \Com\Tecnick\Barcode\Barcode();
@@ -128,14 +147,14 @@ $barcode = new \Com\Tecnick\Barcode\Barcode();
 $bobj = $barcode->getBarcodeObj(
     'QRCODE,H',                     // barcode type and additional comma-separated parameters
     'https://tecnick.com',          // data string to encode
-    -4,                             // bar width (use absolute or negative value as multiplication factor)
     -4,                             // bar height (use absolute or negative value as multiplication factor)
+    -4,                             // bar width (use absolute or negative value as multiplication factor)
     'black',                        // foreground color
     array(-2, -2, -2, -2)           // padding (use absolute or negative values as multiplication factors)
     )->setBackgroundColor('white'); // background color
 
 // output the barcode as HTML div (see other output formats in the documentation and examples)
-echo $bobj->getHtmlDiv();
+$bobj->getHtmlDiv();
 ```
 
 
@@ -146,16 +165,17 @@ Create a composer.json in your projects root-directory:
 ```json
 {
     "require": {
-        "tecnickcom/tc-lib-barcode": "^1.17"
-    }
+        "tecnickcom/tc-lib-barcode": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:tecnickcom/tc-lib-barcode.git"
+        }
+    ]
 }
 ```
 
-Or add to an existing project with: 
-
-```bash
-composer require tecnickcom/tc-lib-barcode ^1.17
-```
 
 ## Packaging
 
@@ -169,6 +189,7 @@ When this library is installed using an RPM or DEB package, you can use it your 
 require_once ('/usr/share/php/Com/Tecnick/Barcode/autoload.php');
 ```
 
+**NOTE:** Updated RPM and Debian packages of this library can be downloaded from: https://bintray.com/tecnickcom
 
 ## Developer(s) Contact
 

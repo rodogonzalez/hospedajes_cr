@@ -15,9 +15,6 @@
 
 namespace Test\Square;
 
-use PHPUnit\Framework\TestCase;
-use \Test\TestUtil;
-
 /**
  * Barcode class test
  *
@@ -29,26 +26,27 @@ use \Test\TestUtil;
  * @license     http://www.gnu.org/copyleft/lesser.html GNU-LGPL v3 (see LICENSE.TXT)
  * @link        https://github.com/tecnickcom/tc-lib-barcode
  */
-class PdfFourOneSevenTest extends TestUtil
+class PdfFourOneSevenTest extends \PHPUnit_Framework_TestCase
 {
-    protected function getTestObject()
+    protected $obj = null;
+
+    public function setUp()
     {
-        return new \Com\Tecnick\Barcode\Barcode;
+        //$this->markTestSkipped(); // skip this test
+        $this->obj = new \Com\Tecnick\Barcode\Barcode;
     }
 
     public function testInvalidInput()
     {
-        $this->bcExpectException('\Com\Tecnick\Barcode\Exception');
-        $testObj = $this->getTestObject();
-        $testObj->getBarcodeObj('PDF417', '');
+        $this->setExpectedException('\Com\Tecnick\Barcode\Exception');
+        $this->obj->getBarcodeObj('PDF417', '');
     }
 
     public function testCapacityException()
     {
-        $this->bcExpectException('\Com\Tecnick\Barcode\Exception');
-        $testObj = $this->getTestObject();
+        $this->setExpectedException('\Com\Tecnick\Barcode\Exception');
         $code = str_pad('', 1000, 'X1');
-        $testObj->getBarcodeObj('PDF417', $code);
+        $this->obj->getBarcodeObj('PDF417', $code);
     }
 
     /**
@@ -56,8 +54,7 @@ class PdfFourOneSevenTest extends TestUtil
      */
     public function testGetGrid($options, $code, $expected)
     {
-        $testObj = $this->getTestObject();
-        $bobj = $testObj->getBarcodeObj('PDF417'.$options, $code);
+        $bobj = $this->obj->getBarcodeObj('PDF417'.$options, $code);
         $grid = $bobj->getGrid();
         $this->assertEquals($expected, md5($grid));
     }
@@ -67,7 +64,6 @@ class PdfFourOneSevenTest extends TestUtil
         return array(
             array('', str_pad('', 1850, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'), '38e205c911b94a62c72b7d20fa4361f8'), // max text
             array('', str_pad('', 2710, '123456789'), '32ba9be56f3e66559b4d4a50f6276da7'), // max digits
-            array('', 'abc/abc', '831874fe7d1b3d865c222858eba3507c'),
             array('', '0123456789', '4f9cdac81d62f0020beb93fc3ecdd8ad'),
             array(',2,8,1,0,0,0,1,2', str_pad('', 1750, 'X'), 'f0874a35e15f11f9aa8bc070a4be24bf'),
             array(',15,8,1,0,0,0,1,2', str_pad('', 1750, 'X'), '0288f0a87cc069fc34d6168d7a9f7846'),
@@ -102,7 +98,7 @@ class PdfFourOneSevenTest extends TestUtil
                 .chr(175).chr(48).chr(223).chr(140).chr(249).chr(149).chr(182).chr(248).chr(147).chr(237).chr(10)
                 .chr(23).chr(112).chr(22).chr(241).chr(204).chr(76).chr(23).chr(94).chr(150).chr(232).chr(13).chr(46)
                 .chr(241).chr(149).chr(243).chr(193).chr(73).chr(190).chr(230).chr(239).chr(110).chr(24),
-                '1cae7ca47cde6ca52522ce31771a5c54'
+                'e86b461e41bc095de31ceb1e53788057'
             ),
             array(
                 '',
@@ -194,7 +190,7 @@ class PdfFourOneSevenTest extends TestUtil
                 .chr(236).chr(213).chr(225).chr(210).chr(182).chr(27).chr(4).chr(179).chr(169).chr(70).chr(72)
                 .chr(101).chr(246).chr(10).chr(221).chr(225).chr(24).chr(186).chr(212).chr(113).chr(16).chr(115)
                 .chr(211).chr(165).chr(33).chr(10).chr(189).chr(28).chr(219),
-                '6c1033648fc11250ad22006398cd1bdc'
+                'de62e1eb076ba66cb4fb7fb54943a328'
             ),
         );
     }
@@ -204,8 +200,7 @@ class PdfFourOneSevenTest extends TestUtil
      */
     public function testStrings($code)
     {
-        $testObj = $this->getTestObject();
-        $bobj = $testObj->getBarcodeObj('PDF417', $code);
+        $bobj = $this->obj->getBarcodeObj('PDF417', $code);
         $this->assertNotNull($bobj);
     }
 

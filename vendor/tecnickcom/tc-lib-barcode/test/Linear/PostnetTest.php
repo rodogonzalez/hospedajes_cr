@@ -15,9 +15,6 @@
 
 namespace Test\Linear;
 
-use PHPUnit\Framework\TestCase;
-use \Test\TestUtil;
-
 /**
  * Barcode class test
  *
@@ -29,17 +26,19 @@ use \Test\TestUtil;
  * @license     http://www.gnu.org/copyleft/lesser.html GNU-LGPL v3 (see LICENSE.TXT)
  * @link        https://github.com/tecnickcom/tc-lib-barcode
  */
-class PostnetTest extends TestUtil
+class PostnetTest extends \PHPUnit_Framework_TestCase
 {
-    protected function getTestObject()
+    protected $obj = null;
+
+    public function setUp()
     {
-        return new \Com\Tecnick\Barcode\Barcode;
+        //$this->markTestSkipped(); // skip this test
+        $this->obj = new \Com\Tecnick\Barcode\Barcode;
     }
 
     public function testGetGrid()
     {
-        $testObj = $this->getTestObject();
-        $bobj = $testObj->getBarcodeObj('POSTNET', '0123456789');
+        $bobj = $this->obj->getBarcodeObj('POSTNET', '0123456789');
         $grid = $bobj->getGrid();
         $expected = "101010000000000000101000001000100000101000001000001000"
             ."10001000001010000010000000101000001000100010000000100010001\n"
@@ -50,8 +49,7 @@ class PostnetTest extends TestUtil
 
     public function testInvalidInput()
     {
-        $this->bcExpectException('\Com\Tecnick\Barcode\Exception');
-        $testObj = $this->getTestObject();
-        $testObj->getBarcodeObj('POSTNET', '}{');
+        $this->setExpectedException('\Com\Tecnick\Barcode\Exception');
+        $this->obj->getBarcodeObj('POSTNET', '}{');
     }
 }

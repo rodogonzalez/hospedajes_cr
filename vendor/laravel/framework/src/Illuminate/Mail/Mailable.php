@@ -695,9 +695,7 @@ class Mailable implements MailableContract, Renderable
         }
 
         $this->{$property} = collect($this->{$property})
-            ->reverse()
             ->unique('address')
-            ->reverse()
             ->values()
             ->all();
 
@@ -1267,7 +1265,7 @@ class Mailable implements MailableContract, Renderable
     }
 
     /**
-     * Format the mailable recipient for display in an assertion message.
+     * Format the mailable recipeint for display in an assertion message.
      *
      * @param  object|array|string  $address
      * @param  string|null  $name
@@ -1312,9 +1310,8 @@ class Mailable implements MailableContract, Renderable
     {
         [$html, $text] = $this->renderForAssertions();
 
-        PHPUnit::assertStringContainsString(
-            $string,
-            $html,
+        PHPUnit::assertTrue(
+            str_contains($html, $string),
             "Did not see expected text [{$string}] within email body."
         );
 
@@ -1331,9 +1328,8 @@ class Mailable implements MailableContract, Renderable
     {
         [$html, $text] = $this->renderForAssertions();
 
-        PHPUnit::assertStringNotContainsString(
-            $string,
-            $html,
+        PHPUnit::assertFalse(
+            str_contains($html, $string),
             "Saw unexpected text [{$string}] within email body."
         );
 
@@ -1365,9 +1361,8 @@ class Mailable implements MailableContract, Renderable
     {
         [$html, $text] = $this->renderForAssertions();
 
-        PHPUnit::assertStringContainsString(
-            $string,
-            $text,
+        PHPUnit::assertTrue(
+            str_contains($text, $string),
             "Did not see expected text [{$string}] within text email body."
         );
 
@@ -1384,9 +1379,8 @@ class Mailable implements MailableContract, Renderable
     {
         [$html, $text] = $this->renderForAssertions();
 
-        PHPUnit::assertStringNotContainsString(
-            $string,
-            $text,
+        PHPUnit::assertFalse(
+            str_contains($text, $string),
             "Saw unexpected text [{$string}] within text email body."
         );
 

@@ -182,15 +182,15 @@
             var field = $('[name="' + normalizedProperty + '[]"]').length ?
                         $('[name="' + normalizedProperty + '[]"]') :
                         $('[name="' + normalizedProperty + '"]'),
-                        container = field.closest('.form-group');
+                        container = field.parent('.form-group');
 
             // iterate the inputs to add invalid classes to fields and red text to the field container.
-            container.find('input, textarea, select').each(function() {
+            container.children('input, textarea, select').each(function() {
                 let containerField = $(this);
-                // add the invalid class to the field.
+                // add the invalida class to the field.
                 containerField.addClass('is-invalid');
                 // get field container
-                let container = containerField.closest('.form-group');
+                let container = containerField.parent('.form-group');
 
                 // TODO: `repeatable-group` should be deprecated in future version as a BC in favor of a more generic class `no-error-display`
                 if(!container.hasClass('repeatable-group') && !container.hasClass('no-error-display')){

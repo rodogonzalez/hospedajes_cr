@@ -5,7 +5,6 @@ namespace Doctrine\DBAL\Platforms\SQLite;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\DBAL\Schema\Comparator as BaseComparator;
 use Doctrine\DBAL\Schema\Table;
-use Doctrine\DBAL\Schema\TableDiff;
 
 use function strcasecmp;
 
@@ -22,29 +21,22 @@ class Comparator extends BaseComparator
         parent::__construct($platform);
     }
 
-    public function compareTables(Table $fromTable, Table $toTable): TableDiff
-    {
-        return parent::compareTables(
-            $this->normalizeColumns($fromTable),
-            $this->normalizeColumns($toTable),
-        );
-    }
-
     /**
      * {@inheritDoc}
      */
     public function diffTable(Table $fromTable, Table $toTable)
     {
-        return parent::diffTable(
-            $this->normalizeColumns($fromTable),
-            $this->normalizeColumns($toTable),
-        );
+        $fromTable = clone $fromTable;
+        $toTable   = clone $toTable;
+
+        $this->normalizeColumns($fromTable);
+        $this->normalizeColumns($toTable);
+
+        return parent::diffTable($fromTable, $toTable);
     }
 
-    private function normalizeColumns(Table $table): Table
+    private function normalizeColumns(Table $table): void
     {
-        $table = clone $table;
-
         foreach ($table->getColumns() as $column) {
             $options = $column->getPlatformOptions();
 
@@ -55,7 +47,5 @@ class Comparator extends BaseComparator
             unset($options['collation']);
             $column->setPlatformOptions($options);
         }
-
-        return $table;
     }
 }

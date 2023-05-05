@@ -15,9 +15,6 @@
 
 namespace Test\Square;
 
-use PHPUnit\Framework\TestCase;
-use \Test\TestUtil;
-
 /**
  * Barcode class test
  *
@@ -29,26 +26,27 @@ use \Test\TestUtil;
  * @license     http://www.gnu.org/copyleft/lesser.html GNU-LGPL v3 (see LICENSE.TXT)
  * @link        https://github.com/tecnickcom/tc-lib-barcode
  */
-class QrCodeTest extends TestUtil
+class QrCodeTest extends \PHPUnit_Framework_TestCase
 {
-    protected function getTestObject()
+    protected $obj = null;
+
+    public function setUp()
     {
-        return new \Com\Tecnick\Barcode\Barcode;
+        //$this->markTestSkipped(); // skip this test
+        $this->obj = new \Com\Tecnick\Barcode\Barcode;
     }
 
     public function testInvalidInput()
     {
-        $this->bcExpectException('\Com\Tecnick\Barcode\Exception');
-        $testObj = $this->getTestObject();
-        $testObj->getBarcodeObj('QRCODE', '');
+        $this->setExpectedException('\Com\Tecnick\Barcode\Exception');
+        $this->obj->getBarcodeObj('QRCODE', '');
     }
 
     public function testCapacityException()
     {
-        $this->bcExpectException('\Com\Tecnick\Barcode\Exception');
-        $testObj = $this->getTestObject();
+        $this->setExpectedException('\Com\Tecnick\Barcode\Exception');
         $code = str_pad('', 4000, 'iVoo{[O17n~>(FXC9{*t1P532}l7E{7/R\' ObO`y?`9G(qjBmu7 GM3ZK!qp|)!P1" sRanqC(:Ky');
-        $testObj->getBarcodeObj('QRCODE', $code);
+        $this->obj->getBarcodeObj('QRCODE', $code);
     }
 
     /**
@@ -56,8 +54,7 @@ class QrCodeTest extends TestUtil
      */
     public function testGetGrid($options, $code, $expected)
     {
-        $testObj = $this->getTestObject();
-        $bobj = $testObj->getBarcodeObj('QRCODE'.$options, $code);
+        $bobj = $this->obj->getBarcodeObj('QRCODE'.$options, $code);
         $grid = $bobj->getGrid();
         $this->assertEquals($expected, md5($grid));
     }
@@ -278,8 +275,7 @@ class QrCodeTest extends TestUtil
      */
     public function testStrings($code)
     {
-        $testObj = $this->getTestObject();
-        $bobj = $testObj->getBarcodeObj('QRCODE,H,NL,0,1,3,1', $code);
+        $bobj = $this->obj->getBarcodeObj('QRCODE,H,NL,0,1,3,1', $code);
         $this->assertNotNull($bobj);
     }
 

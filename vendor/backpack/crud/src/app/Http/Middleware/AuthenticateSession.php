@@ -5,9 +5,9 @@ namespace Backpack\CRUD\app\Http\Middleware;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
-use Illuminate\Session\Middleware\AuthenticateSession as LaravelAuthenticateSession;
+use Illuminate\Contracts\Session\Middleware\AuthenticatesSessions;
 
-class AuthenticateSession extends LaravelAuthenticateSession
+class AuthenticateSession implements AuthenticatesSessions
 {
     /**
      * The authentication factory implementation.
@@ -15,7 +15,6 @@ class AuthenticateSession extends LaravelAuthenticateSession
      * @var \Illuminate\Contracts\Auth\Factory
      */
     protected $auth;
-
     protected $user;
 
     /**

@@ -101,13 +101,6 @@ class Builder implements BuilderContract
     public $from;
 
     /**
-     * The index hint for the query.
-     *
-     * @var \Illuminate\Database\Query\IndexHint
-     */
-    public $indexHint;
-
-    /**
      * The table joins for the query.
      *
      * @var array
@@ -418,10 +411,6 @@ class Builder implements BuilderContract
 
                 $this->selectSub($column, $as);
             } else {
-                if (is_array($this->columns) && in_array($column, $this->columns, true)) {
-                    continue;
-                }
-
                 $this->columns[] = $column;
             }
         }
@@ -461,45 +450,6 @@ class Builder implements BuilderContract
         }
 
         $this->from = $as ? "{$table} as {$as}" : $table;
-
-        return $this;
-    }
-
-    /**
-     * Add an index hint to suggest a query index.
-     *
-     * @param  string  $index
-     * @return $this
-     */
-    public function useIndex($index)
-    {
-        $this->indexHint = new IndexHint('hint', $index);
-
-        return $this;
-    }
-
-    /**
-     * Add an index hint to force a query index.
-     *
-     * @param  string  $index
-     * @return $this
-     */
-    public function forceIndex($index)
-    {
-        $this->indexHint = new IndexHint('force', $index);
-
-        return $this;
-    }
-
-    /**
-     * Add an index hint to ignore a query index.
-     *
-     * @param  string  $index
-     * @return $this
-     */
-    public function ignoreIndex($index)
-    {
-        $this->indexHint = new IndexHint('ignore', $index);
 
         return $this;
     }
@@ -1143,8 +1093,6 @@ class Builder implements BuilderContract
         if ($values instanceof Arrayable) {
             $values = $values->toArray();
         }
-
-        $values = Arr::flatten($values);
 
         foreach ($values as &$value) {
             $value = (int) $value;
@@ -2329,7 +2277,7 @@ class Builder implements BuilderContract
     /**
      * Put the query's results in random order.
      *
-     * @param  string|int  $seed
+     * @param  string  $seed
      * @return $this
      */
     public function inRandomOrder($seed = '')
@@ -2548,7 +2496,7 @@ class Builder implements BuilderContract
     /**
      * Lock the selected rows in the table for updating.
      *
-     * @return $this
+     * @return \Illuminate\Database\Query\Builder
      */
     public function lockForUpdate()
     {
@@ -2558,7 +2506,7 @@ class Builder implements BuilderContract
     /**
      * Share lock the selected rows in the table.
      *
-     * @return $this
+     * @return \Illuminate\Database\Query\Builder
      */
     public function sharedLock()
     {
@@ -3460,31 +3408,11 @@ class Builder implements BuilderContract
             throw new InvalidArgumentException('Non-numeric value passed to increment method.');
         }
 
-        return $this->incrementEach([$column => $amount], $extra);
-    }
+        $wrapped = $this->grammar->wrap($column);
 
-    /**
-     * Increment the given column's values by the given amounts.
-     *
-     * @param  array<string, float|int|numeric-string>  $columns
-     * @param  array<string, mixed>  $extra
-     * @return int
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function incrementEach(array $columns, array $extra = [])
-    {
-        foreach ($columns as $column => $amount) {
-            if (! is_numeric($amount)) {
-                throw new InvalidArgumentException("Non-numeric value passed as increment amount for column: '$column'.");
-            } elseif (! is_string($column)) {
-                throw new InvalidArgumentException('Non-associative array passed to incrementEach method.');
-            }
+        $columns = array_merge([$column => $this->raw("$wrapped + $amount")], $extra);
 
-            $columns[$column] = $this->raw("{$this->grammar->wrap($column)} + $amount");
-        }
-
-        return $this->update(array_merge($columns, $extra));
+        return $this->update($columns);
     }
 
     /**
@@ -3503,31 +3431,11 @@ class Builder implements BuilderContract
             throw new InvalidArgumentException('Non-numeric value passed to decrement method.');
         }
 
-        return $this->decrementEach([$column => $amount], $extra);
-    }
+        $wrapped = $this->grammar->wrap($column);
 
-    /**
-     * Decrement the given column's values by the given amounts.
-     *
-     * @param  array<string, float|int|numeric-string>  $columns
-     * @param  array<string, mixed>  $extra
-     * @return int
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function decrementEach(array $columns, array $extra = [])
-    {
-        foreach ($columns as $column => $amount) {
-            if (! is_numeric($amount)) {
-                throw new InvalidArgumentException("Non-numeric value passed as decrement amount for column: '$column'.");
-            } elseif (! is_string($column)) {
-                throw new InvalidArgumentException('Non-associative array passed to decrementEach method.');
-            }
+        $columns = array_merge([$column => $this->raw("$wrapped - $amount")], $extra);
 
-            $columns[$column] = $this->raw("{$this->grammar->wrap($column)} - $amount");
-        }
-
-        return $this->update(array_merge($columns, $extra));
+        return $this->update($columns);
     }
 
     /**

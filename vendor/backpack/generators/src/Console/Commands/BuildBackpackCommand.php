@@ -68,12 +68,13 @@ class BuildBackpackCommand extends Command
             }
 
             // Try to load it by path as namespace
-            $class = (string) Str::of($filepath)
+            $class = Str::of($filepath)
                 ->after(base_path())
                 ->trim('\\/')
                 ->replace('/', '\\')
                 ->before('.php')
-                ->ucfirst();
+                ->ucfirst()
+                ->value();
 
             $result = $this->validateModelClass($class);
             if ($result) {

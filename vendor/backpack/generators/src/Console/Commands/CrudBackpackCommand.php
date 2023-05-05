@@ -2,10 +2,10 @@
 
 namespace Backpack\Generators\Console\Commands;
 
-use Backpack\Generators\Services\BackpackCommand;
+use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
 
-class CrudBackpackCommand extends BackpackCommand
+class CrudBackpackCommand extends GeneratorCommand
 {
     use \Backpack\CRUD\app\Console\Commands\Traits\PrettyCommandOutput;
 
@@ -32,9 +32,9 @@ class CrudBackpackCommand extends BackpackCommand
     public function handle()
     {
         $name = $this->getNameInput();
-        $nameTitle = $this->buildCamelName($name);
-        $nameKebab = $this->buildKebabName($nameTitle);
-        $fullNameWithSpaces = $this->buildNameWithSpaces($nameTitle);
+        $nameTitle = ucfirst(Str::camel($name));
+        $nameKebab = Str::kebab($nameTitle);
+        $namePlural = ucfirst(str_replace('-', ' ', Str::plural($nameKebab)));
 
         // Validate if the name is reserved
         if ($this->isReservedName($nameTitle)) {
@@ -52,24 +52,24 @@ class CrudBackpackCommand extends BackpackCommand
         }
 
         // Create the CRUD Model and show output
-        $this->call('backpack:crud-model', ['name' => $name]);
+        $this->call('backpack:crud-model', ['name' => $nameTitle]);
 
         // Create the CRUD Controller and show output
-        $this->call('backpack:crud-controller', ['name' => $name, '--validation' => $validation]);
+        $this->call('backpack:crud-controller', ['name' => $nameTitle, '--validation' => $validation]);
 
         // Create the CRUD Request and show output
         if ($validation === 'request') {
-            $this->call('backpack:crud-request', ['name' => $name]);
+            $this->call('backpack:crud-request', ['name' => $nameTitle]);
         }
 
         // Create the CRUD route
         $this->call('backpack:add-custom-route', [
-            'code' => "Route::crud('$nameKebab', '{$this->convertSlashesForNamespace($nameTitle)}CrudController');",
+            'code' => "Route::crud('$nameKebab', '{$nameTitle}CrudController');",
         ]);
 
         // Create the sidebar item
         $this->call('backpack:add-sidebar-content', [
-            'code' => "<li class=\"nav-item\"><a class=\"nav-link\" href=\"{{ backpack_url('$nameKebab') }}\"><i class=\"nav-icon la la-question\"></i> $fullNameWithSpaces</a></li>",
+            'code' => "<li class=\"nav-item\"><a class=\"nav-link\" href=\"{{ backpack_url('$nameKebab') }}\"><i class=\"nav-icon la la-th-list\"></i> $namePlural</a></li>",
         ]);
 
         // if the application uses cached routes, we should rebuild the cache so the previous added route will

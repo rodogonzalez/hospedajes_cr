@@ -231,11 +231,9 @@ class MySqlGrammar extends Grammar
      */
     public function compilePrimary(Blueprint $blueprint, Fluent $command)
     {
-        return sprintf('alter table %s add primary key %s(%s)',
-            $this->wrapTable($blueprint),
-            $command->algorithm ? 'using '.$command->algorithm : '',
-            $this->columnize($command->columns)
-        );
+        $command->name(null);
+
+        return $this->compileKey($blueprint, $command, 'primary key');
     }
 
     /**

@@ -632,7 +632,7 @@ class Store implements Session
     /**
      * Set the session ID.
      *
-     * @param  string|null  $id
+     * @param  string  $id
      * @return void
      */
     public function setId($id)
@@ -643,7 +643,7 @@ class Store implements Session
     /**
      * Determine if this is a valid session ID.
      *
-     * @param  string|null  $id
+     * @param  string  $id
      * @return bool
      */
     public function isValidId($id)
@@ -739,7 +739,7 @@ class Store implements Session
      * Set the underlying session handler implementation.
      *
      * @param  \SessionHandlerInterface  $handler
-     * @return \SessionHandlerInterface
+     * @return void
      */
     public function setHandler(SessionHandlerInterface $handler)
     {

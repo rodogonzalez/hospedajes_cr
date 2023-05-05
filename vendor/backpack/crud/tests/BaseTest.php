@@ -3,7 +3,6 @@
 namespace Backpack\CRUD\Tests;
 
 use Backpack\CRUD\BackpackServiceProvider;
-use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase;
 
 abstract class BaseTest extends TestCase
@@ -16,16 +15,6 @@ abstract class BaseTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        Route::group([
-            (array) config('backpack.base.web_middleware', 'web'),
-            (array) config('backpack.base.middleware_key', 'admin'),
-            'prefix'     => config('backpack.base.route_prefix', 'admin'),
-        ],
-            function () {
-                Route::crud('users', 'Backpack\CRUD\Tests\Unit\Http\Controllers\UserCrudController');
-            }
-        );
     }
 
     protected function getPackageProviders($app)

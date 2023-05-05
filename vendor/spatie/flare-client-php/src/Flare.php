@@ -300,8 +300,6 @@ class Flare
             call_user_func($callback, $report);
         }
 
-        $this->recorder->reset();
-
         $this->sendReportToApi($report);
 
         return $report;

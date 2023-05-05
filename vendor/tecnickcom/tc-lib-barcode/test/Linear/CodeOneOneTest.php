@@ -15,9 +15,6 @@
 
 namespace Test\Linear;
 
-use PHPUnit\Framework\TestCase;
-use \Test\TestUtil;
-
 /**
  * Barcode class test
  *
@@ -29,29 +26,31 @@ use \Test\TestUtil;
  * @license     http://www.gnu.org/copyleft/lesser.html GNU-LGPL v3 (see LICENSE.TXT)
  * @link        https://github.com/tecnickcom/tc-lib-barcode
  */
-class CodeOneOneTest extends TestUtil
+class CodeOneOneTest extends \PHPUnit_Framework_TestCase
 {
-    protected function getTestObject()
+    protected $obj = null;
+
+    public function setUp()
     {
-        return new \Com\Tecnick\Barcode\Barcode;
+        //$this->markTestSkipped(); // skip this test
+        $this->obj = new \Com\Tecnick\Barcode\Barcode;
     }
 
     public function testGetGrid()
     {
-        $testObj = $this->getTestObject();
-        $bobj = $testObj->getBarcodeObj('CODE11', '0123456789');
+        $bobj = $this->obj->getBarcodeObj('CODE11', '0123456789');
         $grid = $bobj->getGrid();
         $expected = "10110010101011011010110100101101100101010110110110"
             ."11010100110101010011011010010110101010101101011001\n";
         $this->assertEquals($expected, $grid);
 
-        $bobj = $testObj->getBarcodeObj('CODE11', '123-456-789');
+        $bobj = $this->obj->getBarcodeObj('CODE11', '123-456-789');
         $grid = $bobj->getGrid();
         $expected = "10110010110101101001011011001010101101010110110110110"
             ."10100110101011010101001101101001011010101101101011010101011001\n";
         $this->assertEquals($expected, $grid);
 
-        $bobj = $testObj->getBarcodeObj('CODE11', '-');
+        $bobj = $this->obj->getBarcodeObj('CODE11', '-');
         $grid = $bobj->getGrid();
         $expected = "10110010101101010110101011001\n";
         $this->assertEquals($expected, $grid);
@@ -59,8 +58,7 @@ class CodeOneOneTest extends TestUtil
 
     public function testInvalidInput()
     {
-        $this->bcExpectException('\Com\Tecnick\Barcode\Exception');
-        $testObj = $this->getTestObject();
-        $testObj->getBarcodeObj('CODE11', chr(255));
+        $this->setExpectedException('\Com\Tecnick\Barcode\Exception');
+        $this->obj->getBarcodeObj('CODE11', chr(255));
     }
 }

@@ -3,9 +3,6 @@
 namespace Illuminate\Database\Eloquent\Concerns;
 
 use BackedEnum;
-use Brick\Math\BigDecimal;
-use Brick\Math\Exception\MathException as BrickMathException;
-use Brick\Math\RoundingMode;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use DateTimeImmutable;
@@ -26,7 +23,6 @@ use Illuminate\Database\LazyLoadingViolationException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection as BaseCollection;
-use Illuminate\Support\Exceptions\MathException;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
@@ -181,7 +177,7 @@ trait HasAttributes
     /**
      * The encrypter instance that is used to encrypt attributes.
      *
-     * @var \Illuminate\Contracts\Encryption\Encrypter|null
+     * @var \Illuminate\Contracts\Encryption\Encrypter
      */
     public static $encrypter;
 
@@ -1072,8 +1068,6 @@ trait HasAttributes
         } else {
             unset($this->attributeCastCache[$key]);
         }
-
-        return $this;
     }
 
     /**
@@ -1291,7 +1285,7 @@ trait HasAttributes
     /**
      * Set the encrypter instance that will be used to encrypt attributes.
      *
-     * @param  \Illuminate\Contracts\Encryption\Encrypter|null  $encrypter
+     * @param  \Illuminate\Contracts\Encryption\Encrypter  $encrypter
      * @return void
      */
     public static function encryptUsing($encrypter)
@@ -1318,17 +1312,13 @@ trait HasAttributes
     /**
      * Return a decimal as string.
      *
-     * @param  float|string  $value
+     * @param  float  $value
      * @param  int  $decimals
      * @return string
      */
     protected function asDecimal($value, $decimals)
     {
-        try {
-            return (string) BigDecimal::of($value)->toScale($decimals, RoundingMode::HALF_UP);
-        } catch (BrickMathException $e) {
-            throw new MathException('Unable to cast value to a decimal.', previous: $e);
-        }
+        return number_format($value, $decimals, '.', '');
     }
 
     /**
@@ -1622,13 +1612,9 @@ trait HasAttributes
      */
     protected function isClassDeviable($key)
     {
-        if (! $this->isClassCastable($key)) {
-            return false;
-        }
-
-        $castType = $this->resolveCasterClass($key);
-
-        return method_exists($castType::class, 'increment') && method_exists($castType::class, 'decrement');
+        return $this->isClassCastable($key) &&
+            method_exists($castType = $this->parseCasterClass($this->getCasts()[$key]), 'increment') &&
+            method_exists($castType, 'decrement');
     }
 
     /**

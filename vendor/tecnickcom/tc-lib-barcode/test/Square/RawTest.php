@@ -15,8 +15,6 @@
 
 namespace Test\Square;
 
-use PHPUnit\Framework\TestCase;
-
 /**
  * Barcode class test
  *
@@ -28,17 +26,19 @@ use PHPUnit\Framework\TestCase;
  * @license     http://www.gnu.org/copyleft/lesser.html GNU-LGPL v3 (see LICENSE.TXT)
  * @link        https://github.com/tecnickcom/tc-lib-barcode
  */
-class RawTest extends TestCase
+class RawTest extends \PHPUnit_Framework_TestCase
 {
-    protected function getTestObject()
+    protected $obj = null;
+
+    public function setUp()
     {
-        return new \Com\Tecnick\Barcode\Barcode;
+        //$this->markTestSkipped(); // skip this test
+        $this->obj = new \Com\Tecnick\Barcode\Barcode;
     }
 
     public function testGetGrid()
     {
-        $testObj = $this->getTestObject();
-        $bobj = $testObj->getBarcodeObj('SRAW', '0101,1010,1100,0011');
+        $bobj = $this->obj->getBarcodeObj('SRAW', '0101,1010,1100,0011');
         $grid = $bobj->getGrid();
         $expected = "0101\n1010\n1100\n0011\n";
         $this->assertEquals($expected, $grid);

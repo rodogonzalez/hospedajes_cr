@@ -153,7 +153,7 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
      * Create a pending potentially translated string.
      *
      * @param  string  $attribute
-     * @param  string|null  $message
+     * @param  ?string  $message
      * @return \Illuminate\Translation\PotentiallyTranslatedString
      */
     protected function pendingPotentiallyTranslatedString($attribute, $message)

@@ -15,9 +15,6 @@
 
 namespace Test\Linear;
 
-use PHPUnit\Framework\TestCase;
-use \Test\TestUtil;
-
 /**
  * Barcode class test
  *
@@ -29,17 +26,19 @@ use \Test\TestUtil;
  * @license     http://www.gnu.org/copyleft/lesser.html GNU-LGPL v3 (see LICENSE.TXT)
  * @link        https://github.com/tecnickcom/tc-lib-barcode
  */
-class KlantIndexTest extends TestUtil
+class KlantIndexTest extends \PHPUnit_Framework_TestCase
 {
-    protected function getTestObject()
+    protected $obj = null;
+
+    public function setUp()
     {
-        return new \Com\Tecnick\Barcode\Barcode;
+        //$this->markTestSkipped(); // skip this test
+        $this->obj = new \Com\Tecnick\Barcode\Barcode;
     }
 
     public function testGetGrid()
     {
-        $testObj = $this->getTestObject();
-        $bobj = $testObj->getBarcodeObj('KIX', '0123456789');
+        $bobj = $this->obj->getBarcodeObj('KIX', '0123456789');
         $grid = $bobj->getGrid();
         $expected = "00001010000010100000101000001010000010100000101000100010001000100010001000100010\n"
             ."10101010101010101010101010101010101010101010101010101010101010101010101010101010\n"

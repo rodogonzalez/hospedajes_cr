@@ -237,7 +237,7 @@ abstract class Placement
     }
 
     /**
-     * Sweep downward diagonally, inserting successive characters,
+     * Sweep upward diagonally, inserting successive characters,
      * (Annex F - ECC 200 symbol character placement)
      *
      * @param array $marr  Array of symbols

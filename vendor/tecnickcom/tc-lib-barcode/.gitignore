@@ -11,7 +11,3 @@ phpunit.xml
 **/._*
 **/*.tmp
 **/*.bak
-.phpunit.result.cache
-.phpdoc
-**/temp.php
-example/test.php

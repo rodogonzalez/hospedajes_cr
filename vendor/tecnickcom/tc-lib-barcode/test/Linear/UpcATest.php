@@ -15,9 +15,6 @@
 
 namespace Test\Linear;
 
-use PHPUnit\Framework\TestCase;
-use \Test\TestUtil;
-
 /**
  * Barcode class test
  *
@@ -29,22 +26,24 @@ use \Test\TestUtil;
  * @license     http://www.gnu.org/copyleft/lesser.html GNU-LGPL v3 (see LICENSE.TXT)
  * @link        https://github.com/tecnickcom/tc-lib-barcode
  */
-class UpcATest extends TestUtil
+class UpcATest extends \PHPUnit_Framework_TestCase
 {
-    protected function getTestObject()
+    protected $obj = null;
+
+    public function setUp()
     {
-        return new \Com\Tecnick\Barcode\Barcode;
+        //$this->markTestSkipped(); // skip this test
+        $this->obj = new \Com\Tecnick\Barcode\Barcode;
     }
 
     public function testGetGrid()
     {
-        $testObj = $this->getTestObject();
-        $bobj = $testObj->getBarcodeObj('UPCA', '0123456789');
+        $bobj = $this->obj->getBarcodeObj('UPCA', '0123456789');
         $grid = $bobj->getGrid();
         $expected = "10100011010001101001100100100110111101010001101010100111010100001000100100100011101001001110101\n";
         $this->assertEquals($expected, $grid);
         
-        $bobj = $testObj->getBarcodeObj('UPCA', '012345678912');
+        $bobj = $this->obj->getBarcodeObj('UPCA', '012345678912');
         $grid = $bobj->getGrid();
         $expected = "10100011010011001001001101111010100011011000101010101000010001001001000111010011001101101100101\n";
         $this->assertEquals($expected, $grid);

@@ -2,7 +2,6 @@
 
 namespace Backpack\CRUD\app\Library\CrudPanel\Traits;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
 trait Validation
@@ -99,7 +98,7 @@ trait Validation
                     });
 
                     foreach ($subfieldsWithValidationMessages as $subfield) {
-                        foreach ($subfield['validationMessages'] ?? [] as $rule => $message) {
+                        foreach ($subfield['validationMessages'] as $rule => $message) {
                             $messages[$item['name'].'.*.'.$subfield['name'].'.'.$rule] = $message;
                         }
                     }
@@ -134,7 +133,7 @@ trait Validation
             $this->setValidationFromFields();
         } elseif (is_array($classOrRulesArray)) {
             $this->setValidationFromArray($classOrRulesArray, $messages);
-        } elseif (is_string($classOrRulesArray) && class_exists($classOrRulesArray) && is_a($classOrRulesArray, FormRequest::class, true)) {
+        } elseif (is_string($classOrRulesArray) || is_class($classOrRulesArray)) {
             $this->setValidationFromRequest($classOrRulesArray);
         } else {
             abort(500, 'Please pass setValidation() nothing, a rules array or a FormRequest class.');
@@ -203,71 +202,55 @@ trait Validation
                 return app($formRequest);
             }
 
-            $formRequest = (new $formRequest)->createFrom($this->getRequest());
-            $extendedRules = $this->mergeRules($formRequest, $rules);
-            $extendedMessages = array_merge($messages, $formRequest->messages());
+            // create an alias of the provided FormRequest so we can create a new class that extends it.
+            // we can't use $variables to extend classes.
+            class_alias(get_class(new $formRequest), 'DeveloperProvidedFormRequest');
+
+            // create a new anonymous class that will extend the provided developer FormRequest
+            // in this class we will merge the FormRequest rules() and messages() with the ones provided by developer in fields.
+            $extendedRequest = new class($rules, $messages) extends \DeveloperProvidedFormRequest
+            {
+                private $_rules;
+
+                private $_messages;
+
+                public function __construct($rules, $messages)
+                {
+                    parent::__construct();
+                    $this->_rules = $rules;
+                    $this->_messages = $messages;
+                }
+
+                public function rules()
+                {
+                    return array_merge(parent::rules(), $this->_rules);
+                }
+
+                public function messages()
+                {
+                    return array_merge(parent::messages(), $this->_messages);
+                }
+            };
 
             // validate the complete request with FormRequest + controller validation + field validation (our anonymous class)
-            return $this->checkRequestValidity($extendedRules, $extendedMessages, $formRequest);
+            return app(get_class($extendedRequest), ['rules' => $rules, 'messages' => $messages]);
         }
 
         return ! empty($rules) ? $this->checkRequestValidity($rules, $messages) : $this->getRequest();
     }
 
     /**
-     * Return an array containing the request rules and the field/controller rules merged.
-     * The rules in request will take precedence over the ones in controller/fields.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  array  $rules
-     * @return array
-     */
-    private function mergeRules($request, $rules)
-    {
-        $extendedRules = [];
-        $requestRules = $this->getRequestRulesAsArray($request);
-        $rules = array_map(function ($ruleDefinition) {
-            return is_array($ruleDefinition) ? $ruleDefinition : explode('|', $ruleDefinition);
-        }, $rules);
-
-        foreach ($requestRules as $ruleKey => $rule) {
-            $extendedRules[$ruleKey] = array_key_exists($ruleKey, $rules) ? array_merge($rule, $rules[$ruleKey]) : $rule;
-            unset($rules[$ruleKey]);
-        }
-
-        return array_merge($rules, $extendedRules);
-    }
-
-    /**
-     * Return the request rules as an array of rules if developer provided a rule string configuration.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    private function getRequestRulesAsArray($request)
-    {
-        $requestRules = [];
-        foreach ($request->rules() as $ruleKey => $rule) {
-            $requestRules[$ruleKey] = is_array($rule) ? $rule : explode('|', $rule);
-        }
-
-        return $requestRules;
-    }
-
-    /**
-     * Checks if the request is valid against the rules.
+     * Checks if the current crud request is valid against the provided rules.
      *
      * @param  array  $rules
      * @param  array  $messages
-     * @param  \Illuminate\Http\Request|null  $request
      * @return \Illuminate\Http\Request
      */
-    private function checkRequestValidity($rules, $messages, $request = null)
+    private function checkRequestValidity($rules, $messages)
     {
-        $request = $request ?? $this->getRequest();
-        $request->validate($rules, $messages);
+        $this->getRequest()->validate($rules, $messages);
 
-        return $request;
+        return $this->getRequest();
     }
 
     /**

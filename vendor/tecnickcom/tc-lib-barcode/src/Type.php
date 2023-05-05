@@ -363,8 +363,8 @@ abstract class Type extends \Com\Tecnick\Barcode\Type\Convert
     {
         // flags for htmlspecialchars
         $hflag = ENT_NOQUOTES;
-        if (defined('ENT_XML1') && defined('ENT_DISALLOWED')) {
-            $hflag = ENT_XML1 | ENT_DISALLOWED;
+        if (defined('ENT_XML1')) {
+            $hflag = ENT_XML1;
         }
         $width = sprintf('%F', ($this->width + $this->padding['L'] + $this->padding['R']));
         $height = sprintf('%F', ($this->height + $this->padding['T'] + $this->padding['B']));
@@ -541,7 +541,7 @@ abstract class Type extends \Com\Tecnick\Barcode\Type\Convert
         $bar_color = imagecolorallocate($img, $rgbcolor['R'], $rgbcolor['G'], $rgbcolor['B']);
         $bars = $this->getBarsArray('XYXY');
         foreach ($bars as $rect) {
-            imagefilledrectangle($img, floor($rect[0]), floor($rect[1]), floor($rect[2]), floor($rect[3]), $bar_color);
+            imagefilledrectangle($img, $rect[0], $rect[1], $rect[2], $rect[3], $bar_color);
         }
         return $img;
     }

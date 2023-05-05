@@ -405,8 +405,6 @@ class CrudButton
      * Dump the current object to the screen,
      * so that the developer can see its contents.
      *
-     * @codeCoverageIgnore
-     *
      * @return CrudButton
      */
     public function dump()
@@ -420,8 +418,6 @@ class CrudButton
      * Dump and die. Duumps the current object to the screen,
      * so that the developer can see its contents, then stops
      * the execution.
-     *
-     * @codeCoverageIgnore
      *
      * @return CrudButton
      */

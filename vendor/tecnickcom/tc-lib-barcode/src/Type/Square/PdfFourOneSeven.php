@@ -213,8 +213,8 @@ class PdfFourOneSeven extends \Com\Tecnick\Barcode\Type\Square\PdfFourOneSeven\C
         // get the input sequence array
         $sequence = $this->getInputSequences($this->code);
         foreach ($sequence as $seq) {
-            $cws = $this->getCompaction($seq[0], $seq[1], true);
-            $codewords = array_merge($codewords, $cws);
+            $cw = $this->getCompaction($seq[0], $seq[1], true);
+            $codewords = array_merge($codewords, $cw);
         }
         if ($codewords[0] == 900) {
             // Text Alpha is the default mode, so remove the first code

@@ -721,6 +721,7 @@ class Command
                 'filter',
                 'groups',
                 'excludeGroups',
+                'testsuite',
             ]
         );
 
@@ -748,6 +749,7 @@ class Command
                 'filter',
                 'groups',
                 'excludeGroups',
+                'testsuite',
             ]
         );
 

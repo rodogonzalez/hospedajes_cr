@@ -212,7 +212,7 @@ trait SaveActions
     /**
      * Return the ordered save actions to use in the crud panel.
      *
-     * @return array
+     * @return void
      */
     public function getOrderedSaveActions()
     {
@@ -228,7 +228,7 @@ trait SaveActions
     /**
      * Returns the save actions that passed the visible callback.
      *
-     * @return array
+     * @return void
      */
     public function getVisibleSaveActions()
     {

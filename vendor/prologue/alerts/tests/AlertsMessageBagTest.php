@@ -1,12 +1,11 @@
 <?php
-
 namespace Prologue\Alerts\Tests;
 
 use Illuminate\Support\MessageBag;
 use Mockery as m;
 use Prologue\Alerts\AlertsMessageBag;
 
-class AlertsMessageBagTest extends \PHPUnit\Framework\TestCase
+class AlertsMessageBagTest extends \PHPUnit_Framework_TestCase
 {
     public $session;
 
@@ -21,7 +20,7 @@ class AlertsMessageBagTest extends \PHPUnit\Framework\TestCase
 
     public $sessionKey = 'alert_messages';
 
-    public function tearDown(): void
+    public function tearDown()
     {
         m::close();
     }
@@ -72,8 +71,6 @@ class AlertsMessageBagTest extends \PHPUnit\Framework\TestCase
         $bag = $this->mockAlertsMessageBag();
 
         $this->config->shouldReceive('get')->once()->andReturn($this->levels);
-
-        $this->expectException('BadMethodCallException');
 
         $bag->debug('foo');
     }
