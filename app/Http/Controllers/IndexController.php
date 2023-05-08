@@ -4,7 +4,6 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Country;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Str;
 
 //use App\Models\CountryPart;
@@ -12,6 +11,11 @@ use Illuminate\Support\Str;
 
 
 class IndexController extends Controller{
+
+    public function woocommerce_explore(){
+
+
+    }
 
     // show the index page using the blades views 
     public function show_index_front_end(){

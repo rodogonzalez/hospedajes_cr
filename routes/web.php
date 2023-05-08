@@ -21,6 +21,8 @@ Route::get('/', function () {
 //Route::get('/',  [IndexController::class, 'show_index']);
 Route::get('/',  [IndexController::class, 'show_index_front_end']);
 
+Route::get('/commerce',  [IndexController::class, 'woocommerce_explore']);
+
 Route::get('/new-host',  [IndexController::class, 'show_new_host_front_end'])->name("new-host");
 
 Route::post('/data/relocate',  [IndexController::class, 'relocateitem'])->name("relocate-item");
