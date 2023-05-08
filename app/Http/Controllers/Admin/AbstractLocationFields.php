@@ -125,8 +125,23 @@ function pull_country_parts(country_slug){
         $script_locate_me = '
             console.log("Not Detection found ");
             // default location 
-            let uluru = { lat: parseFloat(' . $pos_lat . '), lng: parseFloat(' . $pos_lng . ') };            
+            uluru = { lat: parseFloat(' . $pos_lat . '), lng: parseFloat(' . $pos_lng . ') };            
             showMap();
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                  (position) => {
+                    const pos = {
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude,
+                    };
+                    uluru.lat = pos.lat;
+                    uluru.lng = pos.lng;                              
+                  }                  
+                );
+              } 
+
+
         ';
 
         $this->crud->addField([  // CustomHTML
