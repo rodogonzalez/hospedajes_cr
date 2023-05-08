@@ -11,19 +11,17 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class  AbstractLocationFields extends CrudController
+class AbstractLocationFields extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-
-
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
     /**this function builds the js code necesary for drop down and other custumization */
-    public function build_js_code(){
-        
+    public function build_js_code()
+    {
         return '
 <script>    
 
@@ -87,73 +85,59 @@ function pull_country_parts(country_slug){
   }
   </script>  
         ';
-
     }
 
+    public function setLocationFields()
+    {
+        $pos_lat = env('DEFAULT_LAT');
+        $pos_lng = env('DEFAULT_LNG');
 
-
-    public function setLocationFields(){
-
-
-
-        $pos_lat = env('DEFAULT_LAT') ;
-        $pos_lng = env('DEFAULT_LNG');   
-
-          
-        
         if ($this->crud->getCurrentEntry() !== false) {
-            $pos_lat = floatval ($this->crud->getCurrentEntry()->position_lat);
-            $pos_lng = floatval ($this->crud->getCurrentEntry()->position_lng);            
+            $pos_lat = floatval($this->crud->getCurrentEntry()->position_lat);
+            $pos_lng = floatval($this->crud->getCurrentEntry()->position_lng);
         }
-        
 
         //CRUD::field('position_lng');
-        $this->crud->addField([   // CustomHTML
-            'name'  => 'position_lng',
-            'type'  => 'text',
-            'value'  => $pos_lng ,
-            //'attributes'  => ' id = "position_lng" '
-            'attributes' => [ 
-                'id' => 'position_lng',
-                'default' => env('DEFAULT_LNG')
-                ]
-            ]);
-        $this->crud->addField([   // CustomHTML
-            'name'  => 'position_lat',
-            'type'  => 'text',
-            'value'  => $pos_lat ,
+        $this->crud->addField([  // CustomHTML
+                                  'name'  => 'position_lng',
+                                  'type'  => 'text',
+                                  'value' => $pos_lng,
+                                  //'attributes'  => ' id = "position_lng" '
+                                  'attributes' => [
+                                      'id'       => 'position_lng',
+                                      'readonly' => 'readonly',
+                                      'default'  => env('DEFAULT_LNG')
+                                  ]
+                              ]);
+        $this->crud->addField([  // CustomHTML
+                                  'name'  => 'position_lat',
+                                  'type'  => 'text',
+                                  'value' => $pos_lat,
 
-            //'attributes'  => ' id = "" '
-            'attributes' => [ 
-                                'id' => 'position_lat',
-                                'default' => env('DEFAULT_LAT')
-                            ]
+                                  //'attributes'  => ' id = "" '
+                                  'attributes' => [
+                                      'id'       => 'position_lat',
+                                      'readonly' => 'readonly',
+                                      'default'  => env('DEFAULT_LAT')
+                                  ]
+                              ]);
 
-
-            ]);
-
-        
-            
         $script_locate_me = '
             console.log("Not Detection found ");
             // default location 
-            let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };            
+            let uluru = { lat: parseFloat(' . $pos_lat . '), lng: parseFloat(' . $pos_lng . ') };            
             showMap();
         ';
 
-
-       
- 
-
-        $this->crud->addField([   // CustomHTML
-            'name'  => 'separator',
-            'type'  => 'custom_html',
-            'label'      => 'Ubicacion',
-            'value' => '<span onclick="detect_location();return false;">Detectar</span>
+        $this->crud->addField([  // CustomHTML
+                                  'name'  => 'separator',
+                                  'type'  => 'custom_html',
+                                  'label' => 'Ubicacion',
+                                  'value' => '<span onclick="detect_location();return false;">Detectar</span>
             <div id="map"></div>
             <hr>         
             <script>                                          
-            let uluru = { lat: parseFloat(' . $pos_lat .'), lng: parseFloat(' . $pos_lng .') };
+            let uluru = { lat: parseFloat(' . $pos_lat . '), lng: parseFloat(' . $pos_lng . ') };
             // The marker, positioned at Uluru
             let map, marker  ;
 
@@ -164,11 +148,7 @@ function pull_country_parts(country_slug){
                             uluru.lat= parseFloat(position.coords.latitude);
                             uluru.lng= parseFloat(position.coords.longitude);
                             document.getElementById("position_lat").value = uluru.lat;
-                            document.getElementById("position_lng").value = uluru.lng;
-                            
-                            
-                            
-                            console.log(marker);
+                            document.getElementById("position_lng").value = uluru.lng;                                                                                                              
                             marker.setMap(null);
                             marker=null;
 
@@ -187,9 +167,6 @@ function pull_country_parts(country_slug){
                                 document.getElementById("position_lng").value = lng;
                                 
                             });
-                            
-
-
                         });
                 }
             }
@@ -236,12 +213,6 @@ function pull_country_parts(country_slug){
             
             <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL2IDlZi53TxjIaLcQJRcWYnPRmmt4bt8" ></script>
                         '
-                    ]);
-
+                              ]);
     }
-
-        
-
-    
-
 }
