@@ -77,7 +77,7 @@ return [
     // CSS files that are loaded in all pages, using Laravel's @vite() helper
     // Please note that support for Vite was added in Laravel 9.19. Earlier versions are not able to use this feature.
     'vite_styles' => [ // resource file_path
-        // 'resources/css/app.css' => '',
+        // 'resources/css/app.css',
     ],
 
     // ------
@@ -235,6 +235,10 @@ return [
     // How many seconds should a visitor wait, after they've requested a
     // password reset, before they can try again for the same email?
     'password_recovery_throttle_notifications' => 600, // time in seconds
+
+    // How much time should the token sent to the user email be considered valid?
+    // After this time expires, user needs to request a new reset token.
+    'password_recovery_token_expiration' => 60, // time in minutes
 
     // Backpack will prevent an IP from trying to reset the password too many times,
     // so that a malicious actor cannot try too many emails, too see if they have

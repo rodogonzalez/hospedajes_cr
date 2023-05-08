@@ -2,6 +2,8 @@
 
 namespace Backpack\CRUD\app\Library\CrudPanel;
 
+use Illuminate\Support\Traits\Conditionable;
+
 /**
  * Adds fluent syntax to Backpack CRUD Fields.
  *
@@ -34,6 +36,8 @@ namespace Backpack\CRUD\app\Library\CrudPanel;
  */
 class CrudField
 {
+    use Conditionable;
+
     protected $attributes;
 
     public function __construct($name)
@@ -386,6 +390,8 @@ class CrudField
      * Dump the current object to the screen,
      * so that the developer can see its contents.
      *
+     * @codeCoverageIgnore
+     *
      * @return CrudField
      */
     public function dump()
@@ -399,6 +405,8 @@ class CrudField
      * Dump and die. Duumps the current object to the screen,
      * so that the developer can see its contents, then stops
      * the execution.
+     *
+     * @codeCoverageIgnore
      *
      * @return CrudField
      */

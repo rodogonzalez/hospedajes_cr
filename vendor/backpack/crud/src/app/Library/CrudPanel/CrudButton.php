@@ -3,6 +3,7 @@
 namespace Backpack\CRUD\app\Library\CrudPanel;
 
 use Backpack\CRUD\ViewNamespaces;
+use Illuminate\Support\Traits\Conditionable;
 
 /**
  * Adds fluent syntax to Backpack CRUD Buttons.
@@ -18,6 +19,8 @@ use Backpack\CRUD\ViewNamespaces;
  */
 class CrudButton
 {
+    use Conditionable;
+
     public $stack;
     public $name;
     public $type;
@@ -405,6 +408,8 @@ class CrudButton
      * Dump the current object to the screen,
      * so that the developer can see its contents.
      *
+     * @codeCoverageIgnore
+     *
      * @return CrudButton
      */
     public function dump()
@@ -418,6 +423,8 @@ class CrudButton
      * Dump and die. Duumps the current object to the screen,
      * so that the developer can see its contents, then stops
      * the execution.
+     *
+     * @codeCoverageIgnore
      *
      * @return CrudButton
      */
